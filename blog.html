@@ -51,7 +51,25 @@
       font-size: 0.9rem;
       color: #001f3f;
       margin-top: 5px;
+      margin-bottom: 15px; /* Tambahan margin bawah agar tidak terlalu dekat dengan search bar */
     }
+
+    /* --- CSS BARU UNTUK SEARCH BAR --- */
+    .search-input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #1a73e8; /* Warna biru saat fokus */
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+    }
+    /* --------------------------------- */
 
     /* Area List yang Bisa di-Scroll */
     .post-list-container {
@@ -144,6 +162,7 @@
     <div class="card-header">
       <h1>Arsip Tulisan</h1>
       <p>Kumpulan pemikiran dan catatan</p>
+      <input type="text" class="search-input" placeholder="Cari judul tulisan..." onkeyup="filterPosts()">
     </div>
 
     <div class="post-list-container">
@@ -193,12 +212,31 @@
     </div>
 
   </div>
+  
+  <script>
+    /* FUNGSI JAVASCRIPT UNTUK FILTERING */
+    function filterPosts() {
+      // Ambil nilai dari input pencarian dan ubah ke huruf kecil
+      let input = document.querySelector('.search-input');
+      let filter = input.value.toLowerCase();
+      // Ambil semua elemen post-item
+      let postItems = document.querySelectorAll('.post-item');
+
+      // Iterasi setiap item
+      postItems.forEach(item => {
+        let title = item.querySelector('.post-title').textContent.toLowerCase();
+        
+        // Tampilkan item jika judul mengandung filter, jika tidak, sembunyikan
+        if (title.includes(filter)) {
+          item.style.display = 'flex'; // Gunakan 'flex' sesuai CSS awal
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      // Catatan: penomoran otomatis (::before) akan tetap berjalan walau ada item yang tersembunyi.
+      // Untuk mereset penomoran yang benar, diperlukan logika JS yang lebih kompleks atau perubahan CSS.
+    }
+  </script>
 
 </body>
-</html>
-
-
-
-
-
-
+        </html>

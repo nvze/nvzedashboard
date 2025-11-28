@@ -4,86 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arsitektur Aliran: Keterkaitan Teknik Industri dan SCM</title>
+    
+    <!-- Memuat MathJax untuk merender rumus Matematika dengan indah -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
+            line-height: 1.8;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #f4f7f6;
             color: #333;
         }
         .container {
             max-width: 900px;
-            margin: auto;
+            margin: 40px auto;
             background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         h1 {
             color: #0056b3;
-            border-bottom: 2px solid #0056b3;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            font-size: 2em;
+            border-bottom: 3px solid #0056b3;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.2em;
             text-align: center;
+            line-height: 1.3;
         }
         h2 {
             color: #007bff;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-            margin-top: 30px;
-            font-size: 1.5em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.6em;
         }
         h3 {
-            color: #333;
-            font-size: 1.2em;
+            color: #444;
+            font-size: 1.3em;
+            margin-top: 30px;
+            font-weight: 600;
+        }
+        h4 {
+            color: #555;
+            font-size: 1.1em;
             margin-top: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         p {
             margin-bottom: 20px;
             text-align: justify;
         }
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
         i {
             font-style: italic;
+            color: #555;
         }
+        
+        /* Gaya khusus untuk kotak rumus */
         .equation-box {
-            font-family: 'Courier New', monospace;
-            background-color: #eee;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            overflow-x: auto;
+            background-color: #f8f9fa;
+            border-left: 5px solid #007bff;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 25px 0;
+            overflow-x: auto; /* Agar bisa discroll di HP */
             text-align: center;
             font-size: 1.1em;
-            line-height: 2;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
         }
-        .equation-line {
+        
+        /* Supaya MathJax menyesuaikan ukuran container */
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+        }
+
+        .equation-note {
             display: block;
-            margin: 5px 0;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+            font-family: 'Segoe UI', sans-serif;
+            font-style: italic;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 30px 0;
+            font-size: 0.95em;
+            overflow: hidden;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
+            border: 1px solid #eee;
+            padding: 12px 15px;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
-            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 1px;
         }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
         a {
             color: #007bff;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s;
         }
         a:hover {
+            color: #0056b3;
             text-decoration: underline;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 50px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 0;
+                border-radius: 0;
+            }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.4em; }
         }
     </style>
 </head>
@@ -97,9 +169,9 @@
 
         <h3>Benih Efisiensi: <i>Scientific Management</i> Taylor</h3>
 
-        <p>Disiplin ini adalah Teknik Industri, dan bapaknya adalah Frederick Winslow Taylor. Pada tahun 1880-an, Taylor memperkenalkan <i>Scientific Management</i>, sebuah teori manajemen yang bertujuan "meningkatkan efisiensi ekonomi, terutama produktivitas tenaga kerja," dengan menganalisis dan mensintesis alur kerja. Ini adalah salah satu upaya pertama untuk menerapkan sains pada rekayasa proses dalam manajemen. Prinsip-prinsip Taylor, yang diterbitkan dalam karyanya tahun 1911, sangat revolusioner :</p>
+        <p>Disiplin ini adalah Teknik Industri, dan bapaknya adalah Frederick Winslow Taylor. Pada tahun 1880-an, Taylor memperkenalkan <i>Scientific Management</i>, sebuah teori manajemen yang bertujuan "meningkatkan efisiensi ekonomi, terutama produktivitas tenaga kerja," dengan menganalisis dan mensintesis alur kerja. Ini adalah salah satu upaya pertama untuk menerapkan sains pada rekayasa proses dalam manajemen. Prinsip-prinsip Taylor, yang diterbitkan dalam karyanya tahun 1911, sangat revolusioner:</p>
         <ul>
-            <li>Mengembangkan "ilmu" untuk setiap elemen pekerjaan, menggantikan "aturan praktis" ( <i>rule-of-thumb</i> ) yang lama.</li>
+            <li>Mengembangkan "ilmu" untuk setiap elemen pekerjaan, menggantikan "aturan praktis" (<i>rule-of-thumb</i>) yang lama.</li>
             <li>Memilih, melatih, dan mengembangkan pekerja secara ilmiah, bukan membiarkan mereka memilih pekerjaan dan melatih diri sendiri.</li>
             <li>Bekerja sama dengan para pekerja untuk memastikan semua pekerjaan dilakukan sesuai dengan prinsip-prinsip ilmiah yang telah dikembangkan.</li>
             <li>Adanya pembagian kerja dan tanggung jawab yang hampir setara antara manajemen dan pekerja, di mana manajemen mengambil alih semua pekerjaan yang lebih cocok untuk mereka.</li>
@@ -135,7 +207,7 @@
             <li><b><i>Sourcing</i> (Pengadaan):</b> Ini adalah tentang "membangun jaringan pemasok yang andal". Ini mencakup proses menemukan, mengevaluasi, dan memilih pemasok, serta mengatur standar kualitas dan keberlanjutan.</li>
             <li><b><i>Manufacturing / Making</i> (Manufaktur):</b> Ini adalah proses "mengubah <i>input</i> menjadi barang jadi". Ini mencakup aktivitas produksi, perakitan, dan pemeriksaan kualitas untuk memastikan efisiensi dan standar terpenuhi.</li>
             <li><b><i>Delivery / Distribution</i> (Pengiriman):</b> Ini adalah pilar logistik, memastikan "distribusi dan pemenuhan yang efisien". Ini melibatkan manajemen gudang, transportasi, dan pengiriman tepat waktu ke pelanggan.</li>
-            <li><b><i>Returns</i> (Pengembalian):</b> Ini adalah manajemen "logistik terbalik ( <i>reverse logistics</i> )". Ini mencakup penanganan produk cacat, pengembalian pelanggan, atau produk akhir masa pakai untuk diperbaiki atau didaur ulang.</li>
+            <li><b><i>Returns</i> (Pengembalian):</b> Ini adalah manajemen "logistik terbalik (<i>reverse logistics</i>)". Ini mencakup penanganan produk cacat, pengembalian pelanggan, atau produk akhir masa pakai untuk diperbaiki atau didaur ulang.</li>
         </ul>
         <p>Kelima pilar ini memberikan kerangka kerja konseptual yang sangat baik. Namun, untuk <i>mengelola, mengukur,</i> dan <i>memperbaiki</i> pilar-pilar ini secara profesional dalam skala global, diperlukan bahasa yang terstandarisasi.</p>
 
@@ -146,7 +218,7 @@
 
         <h3>Evolusi Proses <i>SCOR</i>: Dari 6 Proses ke 7 Proses <i>SCOR DS</i></h3>
 
-        <p>Penting untuk dicatat bahwa model <i>SCOR</i> telah berevolusi. Banyak literatur merujuk pada enam proses <i>SCOR</i> klasik: <i>Plan, Source, Make, Deliver, Return,</i> dan <i>Enable</i>. Model ini sangat cocok dengan lima pilar fundamental yang telah kita bahas. Namun, versi terbarunya, <b><i>SCOR Digital Standard (SCOR DS)</i></b>, mencerminkan pergeseran dalam kompleksitas rantai pasok modern. <i>SCOR DS</i> kini menguraikan <i>tujuh</i> proses :</p>
+        <p>Penting untuk dicatat bahwa model <i>SCOR</i> telah berevolusi. Banyak literatur merujuk pada enam proses <i>SCOR</i> klasik: <i>Plan, Source, Make, Deliver, Return,</i> dan <i>Enable</i>. Model ini sangat cocok dengan lima pilar fundamental yang telah kita bahas. Namun, versi terbarunya, <b><i>SCOR Digital Standard (SCOR DS)</i></b>, mencerminkan pergeseran dalam kompleksitas rantai pasok modern. <i>SCOR DS</i> kini menguraikan <i>tujuh</i> proses:</p>
         <ol>
             <li><i>Orchestrate</i> (Orkestrasi)</li>
             <li><i>Plan</i> (Perencanaan)</li>
@@ -156,7 +228,7 @@
             <li><i>Fulfill</i> (Pemenuhan)</li>
             <li><i>Return</i> (Pengembalian)</li>
         </ol>
-        <p>Pergeseran dari model 6-proses ke 7-proses ini bukan sekadar perubahan nama; ini mencerminkan evolusi SCM itu sendiri :</p>
+        <p>Pergeseran dari model 6-proses ke 7-proses ini bukan sekadar perubahan nama; ini mencerminkan evolusi SCM itu sendiri:</p>
         <ul>
             <li><b>'Make' menjadi '<i>Transform</i>':</b> Istilah 'Make' menyiratkan pabrik. '<i>Transform</i>', di sisi lain, jauh lebih luas, mencakup "produksi, perakitan dan pembongkaran, pemeliharaan, perbaikan, dan <i>overhaul</i> (MRO)". Perubahan ini secara eksplisit mengintegrasikan aktivitas <i>reverse logistics</i> dan <i>circular economy</i> ke dalam proses inti.</li>
             <li><b>'Deliver' dipecah menjadi '<i>Order</i>' dan '<i>Fulfill</i>':</b> Ini adalah pengakuan kritis atas <i>decoupling</i> (pemisahan) antara aliran <i>informasi</i> dan aliran <i>fisik</i>. '<i>Order</i>' adalah tentang manajemen data: "atribut pelanggan, metode pembayaran, penetapan harga, status pemenuhan". '<i>Fulfill</i>' adalah tentang aktivitas fisik: "penjadwalan pengiriman, <i>picking, packing, shipping</i>, instalasi". Perbedaan ini sangat penting di era <i>e-commerce</i>.</li>
@@ -165,7 +237,7 @@
 
         <h3>Tujuan Akhir: Lima Atribut Kinerja <i>SCOR</i></h3>
 
-        <p>Bagian paling kuat dari <i>SCOR</i> bukanlah definisi prosesnya, tetapi bagaimana ia menghubungkan proses-proses tersebut dengan <i>tujuan kinerja</i>. <i>SCOR</i> menetapkan lima atribut kinerja yang harus diseimbangkan oleh setiap rantai pasok :</p>
+        <p>Bagian paling kuat dari <i>SCOR</i> bukanlah definisi prosesnya, tetapi bagaimana ia menghubungkan proses-proses tersebut dengan <i>tujuan kinerja</i>. <i>SCOR</i> menetapkan lima atribut kinerja yang harus diseimbangkan oleh setiap rantai pasok:</p>
         <ol>
             <li><b><i>Reliability</i> (Keandalan):</b> Kemampuan untuk melakukan aktivitas sesuai harapan. Ini tentang prediktabilitas. Metrik utamanya adalah <i>Perfect Order Fulfillment</i> (Pemenuhan Pesanan Sempurna).</li>
             <li><b><i>Responsiveness</i> (Ketanggapan):</b> Kecepatan di mana rantai pasok menyediakan barang atau jasa kepada pelanggan.</li>
@@ -181,24 +253,19 @@
 
         <p>Definisi dari Teknik Industri adalah sebagai "jembatan antara teknologi, manusia, dan proses". Fokus utamanya adalah "meningkatkan efisiensi, produktivitas, dan kualitas" dalam suatu sistem. Sementara itu, SCM adalah tentang "mengelola sumber daya dengan lebih efisien" dan "mengurangi biaya operasional dan meningkatkan produktivitas". Definisi kedua disiplin ini pada dasarnya identik. SCM <i>adalah</i> Teknik Industri yang diterapkan melintasi batas-batas perusahaan, pada skala jaringan yang terdistribusi secara global. Untuk melihat ini dalam praktiknya, kita dapat menggunakan studi kasus SCM bahan baku untuk <i>Electric Vehicle</i> (EV). Lulusan Teknik Industri memiliki kompetensi yang sangat dibutuhkan untuk mengelola seluruh rantai pasok ini, mulai dari perencanaan hingga daur ulang.</p>
 
-        <h3>1. Kontribusi TI pada Proses '<i>Plan</i>' & '<i>Orchestrate</i>'</h3>
-
+        <h4>1. Kontribusi TI pada Proses '<i>Plan</i>' & '<i>Orchestrate</i>'</h4>
         <p>Proses ini adalah tentang perencanaan strategis dan peramalan permintaan. Tugas: Memprediksi kebutuhan bahan baku kritis (litium, nikel, kobalt). Peran TI: Lulusan TI menggunakan "sistem <i>ERP</i> (<i>Enterprise Resource Planning</i>)" dan "model simulasi digital" untuk menganalisis tren permintaan pasar dan memprediksi kebutuhan. Mereka tidak hanya meramal; mereka "mengidentifikasi risiko" dalam rantai pasok (misalnya, gangguan geopolitik) dan "menetapkan skenario mitigasi". Ini adalah inti dari proses '<i>Orchestrate</i>' (manajemen risiko) dan '<i>Plan</i>' (peramalan).</p>
 
-        <h3>2. Kontribusi TI pada Proses '<i>Source</i>'</h3>
-
+        <h4>2. Kontribusi TI pada Proses '<i>Source</i>'</h4>
         <p>Proses ini adalah tentang pengadaan yang bertanggung jawab. Tugas: Memilih pemasok bahan baku. Peran TI: Seorang Insinyur Industri tidak hanya mencari harga termurah. Mereka melakukan "pemilihan pemasok berdasarkan kualitas, keberlanjutan, dan efisiensi biaya". Mereka memastikan pemasok mematuhi "standar <i>ESG</i> (<i>Environmental, Social, and Governance</i>)". Ini adalah penerapan langsung dari analisis keputusan multi-kriteria, sebuah alat klasik Teknik Industri, untuk menyeimbangkan tujuan yang saling bertentangan.</p>
 
-        <h3>3. Kontribusi TI pada Proses '<i>Transform</i>' (<i>Make</i>)</h3>
-
+        <h4>3. Kontribusi TI pada Proses '<i>Transform</i>' (<i>Make</i>)</h4>
         <p>Ini adalah "kandang" tradisional Teknik Industri, yang berfokus pada manufaktur dan produksi yang efisien. Tugas: Mengubah bahan baku menjadi komponen baterai dan EV. Peran TI: Mereka menerapkan konsep "<i>Lean Manufacturing</i> dan <i>Just-In-Time</i> (JIT)" untuk mengurangi pemborosan dan meningkatkan efisiensi. Mereka "mengatur tata letak pabrik, aliran bahan, serta pengendalian mutu". Mereka juga memastikan ketersediaan bahan "tepat waktu tanpa <i>overstocking</i>"—sebuah tugas yang diselesaikan menggunakan model optimasi persediaan yang akan kita bahas di Bagian IV.</p>
 
-        <h3>4. Kontribusi TI pada Proses '<i>Fulfill</i>' (<i>Deliver</i>)</h3>
-
+        <h4>4. Kontribusi TI pada Proses '<i>Fulfill</i>' (<i>Deliver</i>)</h4>
         <p>Proses ini adalah tentang distribusi dan logistik yang terintegrasi. Tugas: Mengirimkan baterai dan kendaraan ke pelanggan. Peran TI: Insinyur Industri menggunakan teknologi seperti "<i>IoT</i> (<i>Internet of Things</i>) dan sistem pelacakan <i>real-time</i>" untuk memantau pergerakan produk secara efisien. Lebih penting lagi, mereka menggunakan "analisis data untuk merancang rute distribusi yang hemat waktu dan biaya"—sebuah masalah optimasi yang diselesaikan dengan <i>Operations Research</i>.</p>
 
-        <h3>5. Kontribusi TI pada Proses '<i>Return</i>'</h3>
-
+        <h4>5. Kontribusi TI pada Proses '<i>Return</i>'</h4>
         <p>Proses ini adalah tentang pengembalian dan daur ulang, yang juga dikenal sebagai <i>Reverse Logistics</i>. Tugas: Mengelola baterai EV yang sudah habis masa pakainya. Peran TI: Insinyur Industri "merancang sistem <i>reverse logistics</i>" yang lengkap untuk mengumpulkan, membongkar, dan mendaur ulang baterai EV. Ini adalah masalah desain sistem yang kompleks yang akan kita jelajahi lebih lanjut di Bagian VI tentang Ekonomi Sirkular. Peran Teknik Industri telah bergeser secara fundamental dari <i>optimalisasi taktis</i> (misalnya, hanya memperbaiki tata letak pabrik) menjadi <i>desain sistem strategis</i>. Seorang Insinyur Industri modern tidak hanya <i>memperbaiki</i> proses 'Make'; mereka <i>merancang</i> seluruh arsitektur rantai pasok dari hulu ke hilir, dengan mempertimbangkan risiko global, keberlanjutan (ESG), dan integrasi digital (<i>ERP, IoT</i>).</p>
 
         <hr>
@@ -212,7 +279,7 @@
         <p>Sebelum masuk ke rumus, kita harus memahami filosofi optimasi yang dominan. <i>Lean Six Sigma</i> adalah metodologi komprehensif yang menggabungkan prinsip-prinsip <i>Lean</i> dengan <i>Six Sigma</i>. Metodologi ini, yang dipelopori oleh Motorola pada 1980-an, sangat kuat untuk perbaikan SCM.</p>
         <ul>
             <li><b><i>Lean</i>:</b> Berfokus pada pengurangan 8 jenis pemborosan (<i>waste</i>), seperti produksi berlebih, waktu tunggu, transportasi yang tidak perlu, inventaris berlebih, dan cacat. Tujuannya adalah untuk merampingkan proses, mengurangi biaya, dan meningkatkan <i>kecepatan</i> dan <i>efisiensi</i>.</li>
-            <li><b><i>Six Sigma</i>:</b> Adalah pendekatan statistik yang ketat (sering menggunakan kerangka kerja <i>DMAIC</i>) untuk meminimalkan <i>variabilitas</i> dan <i>cacat</i> proses. Tujuannya adalah untuk mencapai standar kualitas yang "hampir sempurna" ( <i>near-perfect</i> ).</li>
+            <li><b><i>Six Sigma</i>:</b> Adalah pendekatan statistik yang ketat (sering menggunakan kerangka kerja <i>DMAIC</i>) untuk meminimalkan <i>variabilitas</i> dan <i>cacat</i> proses. Tujuannya adalah untuk mencapai standar kualitas yang "hampir sempurna" (<i>near-perfect</i>).</li>
         </ul>
         <p>Mengapa keduanya penting? Mengapa tidak hanya <i>Lean</i> atau hanya <i>Six Sigma</i>? Sebuah rantai pasok yang <i>Lean tetapi bukan Six Sigma</i> mungkin sangat <i>cepat</i> tetapi menghasilkan banyak kesalahan. Contoh: "Kami mengirimkan 1000 paket per jam, tetapi 10% di antaranya salah alamat." Sebuah rantai pasok yang <i>Six Sigma tetapi bukan Lean</i> mungkin <i>sempurna</i> tetapi sangat <i>lambat</i> dan <i>mahal</i>. Contoh: "Setiap paket 100% akurat, tetapi butuh 3 hari untuk memproses satu pesanan karena ada 5 kali pemeriksaan." <i>Lean Six Sigma</i> menyediakan kerangka kerja untuk mencapai keduanya: <i>kecepatan</i> dan <i>akurasi</i>. Ini adalah mekanisme langsung untuk mencapai Atribut Kinerja <i>SCOR</i>. <i>Lean</i> (mengurangi pemborosan inventaris dan transportasi) secara langsung meningkatkan <i>Biaya (Costs)</i> dan <i>Efisiensi Manajemen Aset (Asset Management)</i>. <i>Six Sigma</i> (mengurangi cacat dan variabilitas) secara langsung meningkatkan <i>Keandalan (Reliability)</i>. Sistem yang <i>Lean dan Six Sigma</i> (cepat dan akurat) secara definisi adalah <i>Responsif (Responsive)</i>.</p>
 
@@ -222,77 +289,78 @@
 
         <h4>Pertanyaan 1: Berapa Banyak? -> <i>Economic Order Quantity</i> (EOQ)</h4>
 
-        <p>EOQ adalah kuantitas pesanan yang <i>meminimalkan total biaya persediaan</i>. Total biaya ini merupakan <i>trade-off</i> antara dua biaya yang berlawanan :</p>
+        <p>EOQ adalah kuantitas pesanan yang <i>meminimalkan total biaya persediaan</i>. Total biaya ini merupakan <i>trade-off</i> antara dua biaya yang berlawanan:</p>
         <ul>
-            <li><b>Biaya Pemesanan ( <i>Ordering Cost</i> - S):</b> Biaya tetap yang dikeluarkan setiap kali memesan (biaya administrasi, biaya pengiriman tetap). Semakin <i>sering</i> memesan (kuantitas kecil), semakin tinggi total biaya pemesanan.</li>
-            <li><b>Biaya Penyimpanan ( <i>Holding Cost</i> - H):</b> Biaya untuk menyimpan satu unit inventaris selama satu tahun (biaya modal, biaya gudang, asuransi). Semakin <i>banyak</i> memesan (kuantitas besar), semakin tinggi total biaya penyimpanan.</li>
+            <li><b>Biaya Pemesanan (<i>Ordering Cost</i> - S):</b> Biaya tetap yang dikeluarkan setiap kali memesan (biaya administrasi, biaya pengiriman tetap). Semakin <i>sering</i> memesan (kuantitas kecil), semakin tinggi total biaya pemesanan.</li>
+            <li><b>Biaya Penyimpanan (<i>Holding Cost</i> - H):</b> Biaya untuk menyimpan satu unit inventaris selama satu tahun (biaya modal, biaya gudang, asuransi). Semakin <i>banyak</i> memesan (kuantitas besar), semakin tinggi total biaya penyimpanan.</li>
         </ul>
-        <p>Rumus EOQ menemukan titik terendah di mana total kedua biaya ini minimal :</p>
+        <p>Rumus EOQ menemukan titik terendah di mana total kedua biaya ini minimal:</p>
         <div class="equation-box">
             $$EOQ = \sqrt{\frac{2DS}{H}}$$
-            <span class="equation-line">atau ditulis sebagai: EOQ = Akar Kuadrat dari ((2 * D * S) / H)</span>
+            <span class="equation-note">atau: EOQ = Akar Kuadrat dari ((2 * D * S) / H)</span>
         </div>
         <p>Di mana:</p>
         <ul>
-            <li><i>D</i> = Permintaan tahunan dalam unit</li>
-            <li><i>S</i> = Biaya pemesanan per pesanan</li>
-            <li><i>H</i> = Biaya penyimpanan per unit per tahun</li>
+            <li>\(D\) = Permintaan tahunan dalam unit</li>
+            <li>\(S\) = Biaya pemesanan per pesanan</li>
+            <li>\(H\) = Biaya penyimpanan per unit per tahun</li>
         </ul>
         <p><b>Contoh Soal 1 (EOQ): Toko T-Shirt James</b></p>
         <p>James menjalankan toko <i>eCommerce</i> yang menjual t-shirt. Data:</p>
         <ul>
-            <li>Permintaan tahunan (D) = 1.000 t-shirt</li>
-            <li>Biaya pemesanan (S) = $1.50 per pesanan</li>
-            <li>Biaya penyimpanan (H) = $3 per t-shirt per tahun</li>
+            <li>Permintaan tahunan (\(D\)) = 1.000 t-shirt</li>
+            <li>Biaya pemesanan (\(S\)) = $1.50 per pesanan</li>
+            <li>Biaya penyimpanan (\(H\)) = $3 per t-shirt per tahun</li>
         </ul>
-        <p><b>Langkah 1:</b> Masukkan variabel ke dalam rumus. </p>
+        <p><b>Langkah 1:</b> Masukkan variabel ke dalam rumus.</p>
         <div class="equation-box">$$EOQ = \sqrt{\frac{(2 \times 1.000 \times 1.50)}{3}}$$</div>
-        <p><b>Langkah 2:</b> Hitung bagian atas (pembilang). </p>
+        <p><b>Langkah 2:</b> Hitung bagian atas (pembilang).</p>
         <div class="equation-box">$$2 \times 1.000 \times 1.50 = 3.000$$</div>
-        <p><b>Langkah 3:</b> Bagi dengan bagian bawah (penyebut). </p>
+        <p><b>Langkah 3:</b> Bagi dengan bagian bawah (penyebut).</p>
         <div class="equation-box">$$3.000 / 3 = 1.000$$</div>
-        <p><b>Langkah 4:</b> Ambil akar kuadrat. </p>
+        <p><b>Langkah 4:</b> Ambil akar kuadrat.</p>
         <div class="equation-box">$$\sqrt{1.000} \approx 31.6$$</div>
         <p><b>Jawaban:</b> Kuantitas pesanan optimal James, untuk meminimalkan total biayanya, adalah <b>32 t-shirt</b> (dibulatkan) setiap kali dia memesan.</p>
 
         <h4>Pertanyaan 2: Kapan? -> <i>Reorder Point</i> (ROP) & <i>Safety Stock</i></h4>
 
         <p>Model EOQ dasar mengasumsikan dunia yang sempurna (permintaan konstan, <i>lead time</i> instan). Di dunia nyata, permintaan berfluktuasi dan pemasok membutuhkan waktu untuk mengirim (<i>lead time</i>). <i>Reorder Point</i> (ROP) adalah tingkat persediaan yang memberi tahu Anda: "Pesan sekarang!" untuk menghindari kehabisan stok (<i>stockout</i>) sebelum pesanan berikutnya tiba. Untuk melindungi dari ketidakpastian ini, perusahaan menyimpan <i>Safety Stock</i> (Stok Pengaman)—stok tambahan untuk melindungi dari "variabilitas permintaan" atau "variabilitas waktu tunggu".</p>
-        <p>Rumus untuk ROP adalah :</p>
+        <p>Rumus untuk ROP adalah:</p>
         <div class="equation-box">$$ROP = (\text{Permintaan rata-rata selama } \textit{lead time}) + \text{Safety Stock}$$</div>
-        <p>Dan rumus untuk <i>Safety Stock</i> (menggunakan pendekatan distribusi normal) adalah :</p>
+        <p>Dan rumus untuk <i>Safety Stock</i> (menggunakan pendekatan distribusi normal) adalah:</p>
         <div class="equation-box">$$Safety Stock (SS) = Z \times \sigma_{LT}$$</div>
         <p>Di mana:</p>
         <ul>
-            <li><i>Z</i> = Z-score, yang mewakili tingkat layanan yang diinginkan (misalnya, Z=1.65 untuk 95% <i>service level</i>, atau Z=2.05 untuk 98%).</li>
-            <li>$\sigma_{LT}$ = Standar deviasi dari permintaan <i>selama</i> periode <i>lead time</i>.</li>
+            <li>\(Z\) = Z-score, yang mewakili tingkat layanan yang diinginkan (misalnya, Z=1.65 untuk 95% <i>service level</i>, atau Z=2.05 untuk 98%).</li>
+            <li>\(\sigma_{LT}\) = Standar deviasi dari permintaan <i>selama</i> periode <i>lead time</i>.</li>
         </ul>
         <p><b>Contoh Soal 2 (ROP & <i>Safety Stock</i>): Kantor Dokter Mata</b></p>
         <p>Sebuah kantor dokter mata ingin menentukan ROP untuk lensa kontak. Data:</p>
         <ul>
             <li>Permintaan rata-rata mingguan = 90 pasang</li>
             <li><i>Lead time</i> (LT) dari pemasok = 3 minggu</li>
-            <li>Standar deviasi permintaan <i>mingguan</i> ($\sigma_{\text{mingguan}}$) = 15 pasang</li>
-            <li>Tingkat layanan yang diinginkan = 98% (ini setara dengan Z-score $\approx 2.05$)</li>
+            <li>Standar deviasi permintaan <i>mingguan</i> (\(\sigma_{\text{mingguan}}\)) = 15 pasang</li>
+            <li>Tingkat layanan yang diinginkan = 98% (ini setara dengan Z-score \(\approx 2.05\))</li>
         </ul>
-        <p><b>Langkah 1:</b> Hitung permintaan rata-rata selama <i>lead time</i> (DDLT). </p>
+        <p><b>Langkah 1:</b> Hitung permintaan rata-rata selama <i>lead time</i> (DDLT).</p>
         <div class="equation-box">$$DDLT = 90 \text{ pasang/minggu} \times 3 \text{ minggu} = 270 \text{ pasang}$$</div>
-        <p><b>Langkah 2:</b> Hitung standar deviasi permintaan selama <i>lead time</i> ($\sigma_{LT}$). Ini adalah langkah yang sering salah. Varians bersifat aditif, sehingga standar deviasi bukanlah $15 \times 3$. Rumus yang benar adalah: </p>
+        <p><b>Langkah 2:</b> Hitung standar deviasi permintaan selama <i>lead time</i> (\(\sigma_{LT}\)). Ini adalah langkah yang sering salah. Varians bersifat aditif, sehingga standar deviasi bukanlah \(15 \times 3\). Rumus yang benar adalah:</p>
         <div class="equation-box">
             $$\sigma_{LT} = \sigma_{\text{mingguan}} \times \sqrt{LT}$$
             $$\sigma_{LT} = 15 \times \sqrt{3} \approx 15 \times 1.732 \approx 25.98 \text{ pasang}$$
         </div>
-        <p><b>Langkah 3:</b> Hitung <i>Safety Stock</i> (SS). </p>
+        <p><b>Langkah 3:</b> Hitung <i>Safety Stock</i> (SS).</p>
         <div class="equation-box">
             $$SS = Z \times \sigma_{LT}$$
             $$SS = 2.05 \times 25.98 \approx 53.26 \text{ pasang}$$
         </div>
-        <p><b>Langkah 4:</b> Hitung <i>Reorder Point</i> (ROP). </p>
+        <p><b>Langkah 4:</b> Hitung <i>Reorder Point</i> (ROP).</p>
         <div class="equation-box">
             $$ROP = DDLT + SS$$
             $$ROP = 270 + 53.26 \approx 323.26 \text{ pasang}$$
         </div>
         <p><b>Jawaban:</b> Kantor dokter mata tersebut harus memesan kembali lensa kontak (dalam jumlah EOQ mereka) segera setelah tingkat persediaan mereka turun menjadi <b>323 pasang</b>. Ini memastikan mereka memiliki 53 pasang sebagai stok pengaman untuk menutupi fluktuasi permintaan selama 3 minggu <i>lead time</i>, memberi mereka 98% kepastian tidak akan kehabisan stok.</p>
+        
         <p>Tabel berikut merangkum model optimasi persediaan inti ini.</p>
         <p><b>Tabel 1: Referensi Rumus Optimasi Persediaan</b></p>
         <table>
@@ -308,20 +376,20 @@
                 <tr>
                     <td><i>EOQ</i> (<i>Economic Order Quantity</i>)</td>
                     <td>Menemukan jumlah pesanan optimal untuk meminimalkan total biaya persediaan.</td>
-                    <td>$EOQ = \sqrt{\frac{2DS}{H}}$</td>
-                    <td>D : Permintaan tahunan (unit)<br>S : Biaya pemesanan (per pesanan)<br>H : Biaya penyimpanan (per unit per tahun)</td>
+                    <td>$$EOQ = \sqrt{\frac{2DS}{H}}$$</td>
+                    <td>\(D\) : Permintaan tahunan (unit)<br>\(S\) : Biaya pemesanan (per pesanan)<br>\(H\) : Biaya penyimpanan (per unit per tahun)</td>
                 </tr>
                 <tr>
                     <td><i>Safety Stock</i> (SS)</td>
                     <td>Menentukan <i>buffer</i> inventaris untuk melindungi dari variabilitas permintaan dan/atau <i>lead time</i>.</td>
-                    <td>$SS = Z \times \sigma_{LT}$</td>
-                    <td>Z : Z-score (berdasarkan tingkat layanan)<br>$\sigma_{LT}$ : Standar deviasi permintaan selama <i>lead time</i></td>
+                    <td>$$SS = Z \times \sigma_{LT}$$</td>
+                    <td>\(Z\) : Z-score (berdasarkan tingkat layanan)<br>\(\sigma_{LT}\) : Standar deviasi permintaan selama <i>lead time</i></td>
                 </tr>
                 <tr>
                     <td><i>ROP</i> (<i>Reorder Point</i>)</td>
                     <td>Menentukan tingkat persediaan kapan pesanan baru harus dilakukan.</td>
-                    <td>$ROP = (DDLT) + SS$</td>
-                    <td>DDLT : Permintaan rata-rata selama <i>lead time</i><br>SS : <i>Safety Stock</i></td>
+                    <td>$$ROP = (DDLT) + SS$$</td>
+                    <td>\(DDLT\) : Permintaan rata-rata selama <i>lead time</i><br>\(SS\) : <i>Safety Stock</i></td>
                 </tr>
             </tbody>
         </table>
@@ -405,7 +473,7 @@
 
         <h3>KPI #1: Fokus Internal/Finansial -> <i>Cash-to-Cash (C2C) Cycle Time</i></h3>
 
-        <p>Ini adalah KPI yang sangat penting bagi CFO dan CEO. <i>Cash-to-Cash Cycle Time</i> melacak durasi antara "saat Anda membayar vendor untuk bahan baku" dan "saat pelanggan membayar Anda untuk produk jadi". Ini mengukur seberapa lama modal kerja Anda terikat dalam siklus operasi. Tujuannya adalah untuk membuat siklus ini "se-rendah mungkin". Perusahaan yang paling efisien memiliki C2C di bawah satu bulan. Rumus untuk C2C mengungkap tiga tuas manajemen :</p>
+        <p>Ini adalah KPI yang sangat penting bagi CFO dan CEO. <i>Cash-to-Cash Cycle Time</i> melacak durasi antara "saat Anda membayar vendor untuk bahan baku" dan "saat pelanggan membayar Anda untuk produk jadi". Ini mengukur seberapa lama modal kerja Anda terikat dalam siklus operasi. Tujuannya adalah untuk membuat siklus ini "se-rendah mungkin". Perusahaan yang paling efisien memiliki C2C di bawah satu bulan. Rumus untuk C2C mengungkap tiga tuas manajemen:</p>
         <div class="equation-box">$$\text{Cash-to-Cash Cycle Time} = \text{DIO} + \text{DSO} - \text{DPO}$$</div>
         <p>Di mana:</p>
         <ul>
@@ -423,9 +491,9 @@
 
         <h3>KPI #2: Fokus Eksternal/Pelanggan -> <i>On-Time In-Full</i> (OTIF)</h3>
 
-        <p>Ini adalah KPI yang paling penting dari sudut pandang pelanggan. Apakah pelanggan mendapatkan <i>apa</i> yang mereka inginkan (<i>In-Full</i>), <i>kapan</i> mereka menginginkannya (<i>On-Time</i>), dan dalam kondisi sempurna? Ini adalah metrik utama untuk mengukur atribut <i>SCOR</i> <i>Reliability</i>. KPI ini sering diukur sebagai <i>Perfect Order Index</i> (Indeks Pesanan Sempurna). Ini adalah metrik gabungan yang menghitung persentase pesanan yang bebas dari kesalahan dari awal hingga akhir. Rumus untuk <i>Perfect Order</i> adalah perkalian dari beberapa tingkat keberhasilan :</p>
+        <p>Ini adalah KPI yang paling penting dari sudut pandang pelanggan. Apakah pelanggan mendapatkan <i>apa</i> yang mereka inginkan (<i>In-Full</i>), <i>kapan</i> mereka menginginkannya (<i>On-Time</i>), dan dalam kondisi sempurna? Ini adalah metrik utama untuk mengukur atribut <i>SCOR</i> <i>Reliability</i>. KPI ini sering diukur sebagai <i>Perfect Order Index</i> (Indeks Pesanan Sempurna). Ini adalah metrik gabungan yang menghitung persentase pesanan yang bebas dari kesalahan dari awal hingga akhir. Rumus untuk <i>Perfect Order</i> adalah perkalian dari beberapa tingkat keberhasilan:</p>
         <div class="equation-box">$$\text{Perfect Order %} = (\%\text{ On-Time}) \times (\%\text{ In-Full}) \times (\%\text{ Damage-Free}) \times (\%\text{ Accurately Documented})$$</div>
-        <p>Contoh :</p>
+        <p>Contoh:</p>
         <p>Misalkan sebuah perusahaan memiliki kinerja yang tampaknya sangat baik di setiap area:</p>
         <ul>
             <li>Tingkat <i>On-Time</i> = 92%</li>
@@ -445,7 +513,7 @@
 
         <h3>Tren 1: Revolusi Digital -> <i>Supply Chain 4.0</i></h3>
 
-        <p>Ini adalah penerapan konsep <i>Industry 4.0</i> ke dalam SCM. SC 4.0 didefinisikan sebagai "penerapan <i>Internet of Things</i> (<i>IoT</i>), penggunaan robotika canggih, dan penerapan analitik canggih dari <i>big data</i> dalam manajemen rantai pasok". Filosofinya dapat diringkas sebagai: "tempatkan sensor di segala sesuatu, ciptakan jaringan di mana-mana, otomatisasi apa pun, dan analisis segala sesuatu". Tujuannya adalah untuk menciptakan rantai pasok yang "lebih cepat, lebih fleksibel, lebih granular, lebih akurat, dan lebih efisien". SC 4.0 bukanlah <i>pengganti</i> kerangka kerja <i>SCOR</i>; ia adalah <i>akselerator</i> untuk atribut-atribut kinerjanya :</p>
+        <p>Ini adalah penerapan konsep <i>Industry 4.0</i> ke dalam SCM. SC 4.0 didefinisikan sebagai "penerapan <i>Internet of Things</i> (<i>IoT</i>), penggunaan robotika canggih, dan penerapan analitik canggih dari <i>big data</i> dalam manajemen rantai pasok". Filosofinya dapat diringkas sebagai: "tempatkan sensor di segala sesuatu, ciptakan jaringan di mana-mana, otomatisasi apa pun, dan analisis segala sesuatu". Tujuannya adalah untuk menciptakan rantai pasok yang "lebih cepat, lebih fleksibel, lebih granular, lebih akurat, dan lebih efisien". SC 4.0 bukanlah <i>pengganti</i> kerangka kerja <i>SCOR</i>; ia adalah <i>akselerator</i> untuk atribut-atribut kinerjanya:</p>
         <ul>
             <li><i>Big Data</i> & <i>AI</i> memungkinkan "analitik prediktif" untuk peramalan permintaan yang jauh lebih akurat, yang secara dramatis meningkatkan <i>Responsiveness</i> dan <i>Agility</i>.</li>
             <li><i>IoT</i> & <i>Sensor</i> memungkinkan "transparansi <i>end-to-end</i> waktu nyata" di seluruh jaringan (misalnya, mengetahui lokasi pasti setiap paket), yang secara dramatis meningkatkan <i>Reliability</i>.</li>
@@ -480,7 +548,7 @@
 
         <hr>
 
-        <p><a href="blog.html">Kembali ke daftar blog</a></p>
+        <p><a href="#">Kembali ke daftar blog</a></p>
     </div>
 </body>
 </html>

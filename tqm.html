@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Kualitas Total (TQM) dan Rekayasa Keandalan</title>
+    <style>
+        /* Reset dan Base Style */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            color: #2a2a2a;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container Utama untuk Fokus Pembaca */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 60px 80px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+
+        /* Tipografi Judul */
+        h1, h2, h3, h4 {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            color: #111;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-top: 0;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #eee;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            border-left: 5px solid #2c3e50;
+            padding-left: 15px;
+            color: #2c3e50;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            color: #444;
+            font-weight: bold;
+        }
+
+        /* Paragraf dan Teks */
+        p {
+            margin-bottom: 1.2em;
+            text-align: justify;
+        }
+
+        strong {
+            color: #000;
+        }
+
+        /* Blockquote untuk penekanan */
+        blockquote {
+            font-style: italic;
+            border-left: 3px solid #2c3e50;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            color: #555;
+        }
+
+        /* Penanganan Persamaan Matematika */
+        .equation {
+            display: block;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            overflow-x: auto;
+        }
+
+        /* Desain Tabel Akademik */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        caption {
+            caption-side: top;
+            text-align: left;
+            padding: 10px 0;
+            font-weight: bold;
+            color: #555;
+            font-family: 'Georgia', serif;
+        }
+
+        /* Daftar (List) */
+        ul, ol {
+            margin-bottom: 1.2em;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Daftar Pustaka */
+        .bibliography {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            font-size: 0.9em;
+            color: #444;
+        }
+
+        .bibliography h2 {
+            border: none;
+            padding: 0;
+            font-size: 1.4em;
+        }
+
+        .source-item {
+            margin-bottom: 10px;
+            padding-left: 1.5em;
+            text-indent: -1.5em;
+        }
+
+        /* Tombol Navigasi Bawah */
+        .nav-button-container {
+            margin-top: 60px;
+            text-align: center;
+            padding: 40px 0;
+            border-top: 2px dashed #ddd;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #34495e;
+            transform: translateY(-2px);
+        }
+
+        /* Responsif untuk Mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 0;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Manajemen Kualitas Total (TQM) dan Rekayasa Keandalan: Sebuah Tinjauan Komprehensif dalam Konteks Teknik Industri</h1>
+
+    <h2>Bagian I: Fondasi dan Filosofi Manajemen Kualitas Total (TQM)</h2>
+
+    <h3>Pendahuluan: Metafisika Kualitas dalam Teknik Industri</h3>
+
+    <p>Dalam diskursus rekayasa dan manajemen, istilah "kualitas" sering kali disalahartikan sebagai "kemewahan" atau "kebaikan" (goodness) yang subjektif. Namun, dalam disiplin Teknik Industri (TI), kualitas memiliki definisi yang jauh lebih presisi, teknis, dan fundamental.</p>
+
+    <p>Manajemen Kualitas Total (Total Quality Management - TQM) mendefinisikan kualitas sebagai pemenuhan kebutuhan pelanggan dan kepuasan pelanggan sepenuhnya. Lebih tajam lagi, kualitas adalah "kesesuaian terhadap persyaratan" (conformance to requirements). Bagi seorang Insinyur Industri, yang tugas utamanya adalah merancang, meningkatkan, dan mengoptimalkan sistem terintegrasi yang terdiri dari manusia, material, peralatan, informasi, dan energi, definisi ini menempatkan kualitas di pusat disiplin ilmu.</p>
+
+    <p>Sistem yang dirancang oleh seorang Insinyur Industri tidak hanya harus <strong>efisien</strong> (biaya rendah, waktu siklus cepat), tetapi juga harus <strong>efektif</strong> (menghasilkan output yang sesuai dengan persyaratan pelanggan).</p>
+
+    <p>Secara historis, efisiensi dan kualitas sering dianggap sebagai dua kutub yang berlawanan—sebuah <em>trade-off</em> di mana peningkatan kualitas (melalui inspeksi, material yang lebih baik) dipandang sebagai peningkatan biaya. Namun, revolusi TQM secara fundamental menghancurkan dikotomi ini. Philip Crosby, salah satu pelopor kualitas, memperkenalkan gagasan radikal dalam bukunya "Quality is Free" (Kualitas itu Gratis). Tesisnya adalah bahwa biaya untuk <strong>mencegah</strong> kegagalan (pencegahan) jauh lebih murah daripada total biaya untuk <strong>menemukan</strong> dan <strong>memperbaiki</strong> kegagalan (inspeksi, skrap, pengerjaan ulang, garansi).</p>
+
+    <p>Biaya kegagalan ini ia sebut sebagai "Harga Ketidaksesuaian" (Price of Nonconformance - PONC). Dengan demikian, TQM bukanlah pusat biaya; TQM adalah strategi pengurangan biaya yang paling kuat. Melakukan sesuatu dengan benar sejak pertama kali (efektivitas) adalah, pada akhirnya, cara yang paling murah dan tercepat (efisiensi). Ini adalah esensi dari optimasi Teknik Industri.</p>
+
+    <h3>Akar Sejarah: Tiga Raksasa Kualitas (Deming, Juran, dan Crosby)</h3>
+
+    <p>Meskipun konsep pengendalian kualitas dapat ditelusuri kembali ke serikat pekerja abad pertengahan, era modern manajemen kualitas dimulai pada tahun 1920-an dengan Walter Shewhart, yang memelopori Pengendalian Kualitas Statistik (Statistical Quality Control - SQC). Namun, TQM sebagai filosofi manajerial yang komprehensif ditempa oleh tiga pemikir utama, yang sering disebut sebagai "Tiga Raksasa Kualitas".</p>
+
+    <p>Pekerjaan mereka menjadi sangat penting setelah Perang Dunia II. W. Edwards Deming dan Joseph Juran diundang ke Jepang untuk membantu membangun kembali industri mereka yang hancur. Filosofi yang mereka ajarkan—yang berfokus pada kualitas proses, bukan hanya inspeksi produk akhir—menjadi landasan kebangkitan industri Jepang dan, akhirnya, revolusi kualitas global.</p>
+
+    <h4>W. Edwards Deming: Sang Filosof Proses dan Variasi</h4>
+    <p>Deming, seorang ahli statistik yang berguru pada Shewhart, berfokus pada bagaimana variasi dalam proses adalah musuh utama kualitas. Filosofinya diringkas dalam <em>System of Profound Knowledge (SoPK)</em>, yang memiliki empat komponen:</p>
+    <ul>
+        <li><strong>Apresiasi terhadap sistem</strong>: Memahami interaksi dan saling ketergantungan antar komponen dalam suatu organisasi.</li>
+        <li><strong>Pengetahuan tentang variasi</strong>: Memahami perbedaan antara variasi penyebab umum (common cause) yang inheren dalam sistem dan variasi penyebab khusus (special cause) yang merupakan anomali.</li>
+        <li><strong>Teori pengetahuan</strong>: Memahami bagaimana kita belajar dan membuat keputusan berdasarkan data.</li>
+        <li><strong>Psikologi</strong>: Memahami motivasi dan perilaku manusia di tempat kerja.</li>
+    </ul>
+
+    <p>Untuk menerapkan SoPK, Deming mengusulkan <strong>14 Poin untuk Manajemen</strong>. Ini bukan sekadar daftar, melainkan sebuah resep holistik untuk transformasi organisasi. Poin-poin kuncinya meliputi:</p>
+    <ul>
+        <li><strong>Ciptakan tujuan yang konstan (Poin 1)</strong>: Fokus jangka panjang pada perbaikan.</li>
+        <li><strong>Hentikan ketergantungan pada inspeksi (Poin 3)</strong>: Kualitas tidak dapat "diinspeksi" ke dalam produk; ia harus dibangun ke dalam proses.</li>
+        <li><strong>Hentikan praktik menghargai bisnis berdasarkan harga (Poin 4)</strong>: Bekerja dengan pemasok tunggal untuk meminimalkan biaya total, bukan harga pembelian.</li>
+        <li><strong>Perbaiki sistem secara konstan dan selamanya (Poin 5)</strong>: Mendorong perbaikan berkelanjutan.</li>
+        <li><strong>Lembagakan kepemimpinan (Poin 7)</strong>: Tugas manajemen adalah memimpin, bukan sekadar mengawasi atau menghukum.</li>
+        <li><strong>Hilangkan rasa takut (Poin 8)</strong>: Ciptakan lingkungan di mana karyawan dapat menyuarakan masalah tanpa takut akan sanksi.</li>
+        <li><strong>Hancurkan penghalang antar departemen (Poin 9)</strong>: Mendorong pemikiran sistemik lintas fungsional.</li>
+        <li><strong>Hilangkan kuota numerik dan Manajemen berdasarkan Objektif (MBO) (Poin 11)</strong>: Poin Deming yang paling radikal, berargumen bahwa target sewenang-wenang sering kali mengorbankan kualitas demi kuantitas dan merusak moral.</li>
+    </ul>
+
+    <h4>Joseph M. Juran: Sang Insinyur Manajemen dan Perencanaan</h4>
+    <p>Jika Deming adalah sang filosof, Juran adalah sang insinyur manajerial. Lahir di Rumania, Juran berimigrasi ke AS dan menekankan bahwa kualitas harus dikelola secara aktif sebagai fungsi bisnis, sama seperti keuangan atau pemasaran. Kontribusi terbesarnya adalah <strong>Trilogi Juran</strong>, sebuah kerangka kerja siklis untuk mengelola kualitas:</p>
+    <ul>
+        <li><strong>Perencanaan Kualitas (Quality Planning)</strong>: Ini adalah fase desain proaktif, yang juga dikenal sebagai "Quality by Design". Proses ini dimulai dengan mengidentifikasi pelanggan, memahami kebutuhan mereka (Voice of the Customer), dan kemudian merancang produk serta proses yang mampu memenuhi kebutuhan tersebut.</li>
+        <li><strong>Pengendalian Kualitas (Quality Control)</strong>: Ini adalah fase pemantauan. Proses ini mengukur kinerja operasional aktual, membandingkannya dengan target yang telah ditetapkan dalam fase perencanaan, dan mengambil tindakan korektif atas perbedaan tersebut. Tujuannya adalah untuk mengatasi lonjakan sporadis (sporadic spikes) dari kegagalan dan menjaga stabilitas proses.</li>
+        <li><strong>Peningkatan Kualitas (Quality Improvement)</strong>: Ini adalah fase perbaikan terobosan (breakthrough improvement). Fase ini berfokus pada pengurangan pemborosan kronis (chronic waste)—tingkat kegagalan yang dianggap "normal" atau "inheren"—ke tingkat kinerja yang baru dan jauh lebih baik. Juran sangat menganjurkan penggunaan Prinsip Pareto (yang ia populerkan) untuk mengidentifikasi "beberapa yang vital" (vital few) masalah yang menyebabkan sebagian besar kerugian.</li>
+    </ul>
+
+    <h4>Philip B. Crosby: Sang Motivator dan Ahli Keuangan</h4>
+    <p>Crosby membawa kualitas dari lantai pabrik ke ruang rapat dewan direksi dengan menerjemahkannya ke dalam bahasa uang. Seperti yang telah dibahas, konsep intinya adalah "Quality is Free" (Kualitas itu Gratis). Ia berargumen bahwa investasi dalam pencegahan (P) selalu menghasilkan pengembalian yang jauh lebih besar daripada biaya kegagalan (F), yang terdiri dari biaya kegagalan internal (skrap, pengerjaan ulang) dan eksternal (garansi, kehilangan pelanggan).</p>
+
+    <p>Filosofinya didasarkan pada standar kinerja absolut: <strong>Nol Cacat (Zero Defects)</strong>. Crosby merangkum pendekatannya dalam <strong>Empat Absolut Manajemen Kualitas</strong>:</p>
+    <ol>
+        <li><strong>Definisi Kualitas</strong>: Adalah kesesuaian terhadap persyaratan, bukan "kebaikan". Ini membuat kualitas menjadi terukur dan tidak ambigu.</li>
+        <li><strong>Sistem Kualitas</strong>: Adalah pencegahan (prevention), bukan penilaian atau inspeksi (detection).</li>
+        <li><strong>Standar Kinerja</strong>: Adalah Nol Cacat (Zero Defects), bukan "Level Kualitas yang Dapat Diterima" (Acceptable Quality Levels - AQLs). Crosby menolak gagasan bahwa sejumlah cacat itu boleh-boleh saja.</li>
+        <li><strong>Ukuran Kualitas</strong>: Adalah Harga Ketidaksesuaian (Price of Nonconformance - PONC), bukan indeks kualitas yang abstrak.</li>
+    </ol>
+
+    <p>Meskipun ketiga pelopor ini memiliki penekanan yang berbeda—Deming pada proses/variasi, Juran pada manajemen/perencanaan, dan Crosby pada keuangan/motivasi—mereka tidak saling bertentangan. Sebaliknya, mereka secara kolektif menyediakan tiga lensa esensial yang harus dimiliki oleh setiap Insinyur Industri:</p>
+    <ul>
+        <li>Kemampuan untuk memahami dan mengendalikan <strong>variasi proses</strong> secara statistik (Lensa Deming).</li>
+        <li>Kemampuan untuk <strong>merencanakan dan mengelola</strong> sistem kualitas secara manajerial dan berbasis proyek (Lensa Juran).</li>
+        <li>Kemampuan untuk <strong>membenarkan</strong> inisiatif kualitas secara finansial kepada manajemen puncak dengan menunjukkan ROI melalui pengurangan PONC (Lensa Crosby).</li>
+    </ul>
+
+    <table>
+        <caption>Tabel 1: Perbandingan Filosofi Tiga Raksasa Kualitas</caption>
+        <thead>
+            <tr>
+                <th>Fitur</th>
+                <th>W. Edwards Deming</th>
+                <th>Joseph M. Juran</th>
+                <th>Philip B. Crosby</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Fokus Utama</td>
+                <td>Pengurangan variasi proses melalui metode statistik; Psikologi manajemen.</td>
+                <td>Manajemen kualitas sebagai fungsi bisnis terstruktur; Perbaikan berbasis proyek.</td>
+                <td>Aspek finansial dan motivasional dari kualitas; Komitmen manajemen puncak.</td>
+            </tr>
+            <tr>
+                <td>Definisi Kualitas</td>
+                <td>Berorientasi pada proses dan pelanggan; kepuasan pelanggan yang berkelanjutan.</td>
+                <td>"Kesesuaian untuk digunakan" (Fitness for use) oleh pelanggan.</td>
+                <td>"Kesesuaian terhadap persyaratan" (Conformance to requirements).</td>
+            </tr>
+            <tr>
+                <td>Kontribusi Inti</td>
+                <td>14 Poin untuk Manajemen; Sistem Pengetahuan Mendalam (SoPK).</td>
+                <td>Trilogi Juran (Perencanaan, Pengendalian, Peningkatan Kualitas).</td>
+                <td>Empat Absolut Manajemen Kualitas; Konsep "Quality is Free" dan "Nol Cacat".</td>
+            </tr>
+            <tr>
+                <td>Pendekatan</td>
+                <td>Filosofis dan statistik; transformasi budaya bottom-up dan top-down.</td>
+                <td>Manajerial dan terstruktur; fokus pada perencanaan dan perbaikan terobosan.</td>
+                <td>Keuangan dan motivasional; fokus top-down pada pencegahan dan ROI.</td>
+            </tr>
+            <tr>
+                <td>Musuh Utama</td>
+                <td>Variasi; Manajemen berdasarkan angka/tujuan (MBO); Rasa takut.</td>
+                <td>Pemborosan kronis (Chronic waste); Perencanaan kualitas yang buruk.</td>
+                <td>Harga Ketidaksesuaian (PONC); Level Kualitas yang Dapat Diterima (AQLs).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Pilar-Pilar TQM: Arsitektur Keunggulan Organisasi</h3>
+    <p>Filosofi-filosofi ini membentuk fondasi TQM sebagai sebuah sistem manajemen komprehensif. TQM dibangun di atas beberapa pilar atau prinsip inti yang saling terkait yang harus diadopsi oleh seluruh organisasi:</p>
+    <ul>
+        <li><strong>Fokus pada Pelanggan (Customer Focus)</strong>: Tujuan utama TQM adalah memenuhi dan melampaui harapan pelanggan. Pelanggan (baik internal maupun eksternal) adalah penentu akhir dari kualitas.</li>
+        <li><strong>Keterlibatan Karyawan Total (Total Employee Involvement)</strong>: Kualitas adalah tanggung jawab semua orang, dari manajemen puncak hingga karyawan lini depan. Ini sejalan dengan Poin 14 Deming tentang melibatkan semua orang dalam transformasi.</li>
+        <li><strong>Berpusat pada Proses (Process-Centered)</strong>: TQM berfokus pada perbaikan proses, bukan menyalahkan individu. Jika terjadi kesalahan, asumsi pertamanya adalah sistem atau proses yang gagal, bukan orangnya.</li>
+        <li><strong>Sistem Terintegrasi (Integrated System)</strong>: Semua departemen dan fungsi (desain, produksi, pemasaran, pemasok) harus bekerja secara harmonis sebagai satu sistem terpadu untuk mencapai tujuan kualitas. Ini adalah gema dari Poin 9 Deming.</li>
+        <li><strong>Perbaikan Berkelanjutan (Continuous Improvement / Kaizen)</strong>: TQM bukanlah program satu kali, melainkan filosofi perbaikan inkremental yang konstan dan tanpa akhir. Konsep Jepang <em>Kaizen</em> adalah inti dari pilar ini. Menurut Masaaki Imai, Kaizen sendiri bertumpu pada tiga pilar: Housekeeping, Penghapusan Pemborosan, dan Standardisasi. Housekeeping secara langsung terkait dengan alat fundamental Teknik Industri: <strong>Kerangka Kerja 5S</strong> (Seiri/Sort, Seiton/Straighten, Seiso/Shine, Seiketsu/Standardize, Shitsuke/Sustain). 5S adalah fondasi visual dan fisik untuk tempat kerja yang terorganisir di mana perbaikan berkelanjutan dapat terjadi.</li>
+        <li><strong>Pendekatan Strategis dan Sistematis</strong>: Implementasi TQM membutuhkan perencanaan strategis jangka panjang yang didukung penuh oleh manajemen puncak.</li>
+        <li><strong>Pengambilan Keputusan Berbasis Data (Data-Driven Decision Making)</strong>: Keputusan perbaikan harus didasarkan pada data dan fakta, bukan pada firasat atau opini. Pilar inilah yang menjadi jembatan logis ke perangkat teknis Teknik Kualitas.</li>
+    </ul>
+
+    <h2>Bagian II: Perangkat dan Metodologi Inti Teknik Kualitas</h2>
+    <p>Jika TQM adalah filosofi, maka Teknik Kualitas menyediakan perangkat (tools) dan metodologi (methods) untuk mewujudkannya. Pilar "Pengambilan Keputusan Berbasis Data" dihidupkan melalui serangkaian alat praktis.</p>
+
+    <h3>Tujuh Alat Kualitas Dasar (7 QC Tools): Perangkat Analisis Insinyur Industri</h3>
+    <p>Dipopulerkan oleh Kaoru Ishikawa, Tujuh Alat Kualitas Dasar (7 QC Tools) adalah seperangkat teknik grafis sederhana namun kuat yang dirancang untuk memberdayakan semua karyawan (bukan hanya ahli statistik) untuk menganalisis dan memecahkan masalah kualitas.</p>
+
+    <ul>
+        <li><strong>Check Sheet (Lembar Periksa)</strong>: Formulir terstruktur untuk mengumpulkan dan mencatat data secara sistematis. Ini adalah langkah pertama untuk mengubah opini ("Saya rasa mesin itu sering rusak") menjadi fakta ("Mesin A rusak 15 kali minggu lalu, disebabkan oleh 3 penyebab berbeda").</li>
+        <li><strong>Diagram Pareto (Pareto Diagram)</strong>: Grafik batang yang mengurutkan masalah atau penyebab berdasarkan frekuensi atau dampaknya (dari tertinggi ke terendah). Ini secara visual mewakili Prinsip Pareto (80/20) yang dipopulerkan Juran, membantu tim memfokuskan upaya mereka pada "beberapa yang vital" (vital few) penyebab yang menyumbang sebagian besar masalah.</li>
+        <li><strong>Cause and Effect Diagram (Diagram Tulang Ikan / Ishikawa)</strong>: Alat curah pendapat terstruktur yang digunakan untuk mengidentifikasi dan mengkategorikan potensi akar penyebab masalah. Penyebab biasanya dikelompokkan ke dalam kategori (misalnya, 6M: Man, Machine, Method, Material, Measurement, Mother Nature/Environment).</li>
+        <li><strong>Histogram</strong>: Representasi grafis dari distribusi frekuensi data. Histogram dengan cepat mengungkapkan bentuk, pusat, dan sebaran data, membantu memahami variasi dalam suatu proses.</li>
+        <li><strong>Control Chart (Peta Kendali)</strong>: Alat terpenting dari SQC. Ini adalah grafik yang memplot data proses dari waktu ke waktu, dengan Batas Kontrol Atas (UCL) dan Batas Kontrol Bawah (LCL) yang dihitung secara statistik. Tujuannya adalah untuk membedakan antara variasi penyebab umum (common cause) (noise yang inheren dan stabil dalam proses) dan variasi penyebab khusus (special cause) (sinyal bahwa sesuatu yang tidak terduga telah terjadi). Ini adalah alat operasional untuk Poin 3 Deming ("Hentikan inspeksi").</li>
+        <li><strong>Scatter Diagram (Diagram Tebar)</strong>: Memplot pasangan data (variabel X dan Y) pada grafik untuk mengidentifikasi apakah ada hubungan atau korelasi antara keduanya. (Misalnya, "Apakah suhu ruangan (X) mempengaruhi jumlah cacat produk (Y)?").</li>
+        <li><strong>Stratification (Stratifikasi)</strong>: Teknik memisahkan data yang dikumpulkan dari berbagai sumber (misalnya, shift yang berbeda, mesin yang berbeda, pemasok yang berbeda) sehingga pola atau akar penyebab yang tersembunyi dapat terlihat. (Beberapa daftar mengganti ini dengan Flowchart atau diagram alir proses).</li>
+    </ul>
+
+    <table>
+        <caption>Tabel 2: Tujuh Alat Kualitas (7 QC Tools) dan Aplikasinya</caption>
+        <thead>
+            <tr>
+                <th>Alat</th>
+                <th>Pertanyaan yang Dijawab</th>
+                <th>Contoh Aplikasi Teknik Industri</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Check Sheet</td>
+                <td>"Seberapa sering dan di mana masalah terjadi?"</td>
+                <td>Mencatat frekuensi dan jenis cacat per shift pada lini perakitan.</td>
+            </tr>
+            <tr>
+                <td>Diagram Pareto</td>
+                <td>"Masalah atau penyebab mana yang paling penting untuk ditangani terlebih dahulu?"</td>
+                <td>Menganalisis data downtime untuk menemukan 20% penyebab yang mengakibatkan 80% waktu henti mesin.</td>
+            </tr>
+            <tr>
+                <td>Fishbone Diagram</td>
+                <td>"Apa saja kemungkinan akar penyebab dari masalah ini?"</td>
+                <td>Melakukan brainstorming mengapa tingkat skrap pada mesin cetak injeksi meningkat.</td>
+            </tr>
+            <tr>
+                <td>Histogram</td>
+                <td>"Bagaimana variasi dalam proses saya? Apakah data terdistribusi normal?"</td>
+                <td>Menganalisis distribusi berat isi bersih dari produk yang dikemas untuk melihat kesesuaiannya dengan spesifikasi.</td>
+            </tr>
+            <tr>
+                <td>Control Chart</td>
+                <td>"Apakah proses saya stabil dan dapat diprediksi? Kapan saya harus bertindak?"</td>
+                <td>Memantau diameter rata-rata (X-bar) dan rentang (R) dari poros yang diproduksi secara real-time.</td>
+            </tr>
+            <tr>
+                <td>Scatter Diagram</td>
+                <td>"Apakah ada hubungan antara dua variabel ini?"</td>
+                <td>Menyelidiki apakah peningkatan kecepatan lini (X) berhubungan dengan peningkatan cacat (Y).</td>
+            </tr>
+            <tr>
+                <td>Stratification</td>
+                <td>"Apakah data dari sumber yang berbeda menunjukkan pola yang berbeda?"</td>
+                <td>Memisahkan data keluhan pelanggan berdasarkan wilayah geografis untuk melihat apakah masalahnya terlokalisasi.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Quality Function Deployment (QFD): Membangun "Rumah Kualitas" (House of Quality)</h3>
+    <p>Jika 7 QC Tools bersifat reaktif dan diagnostik, Quality Function Deployment (QFD) adalah metodologi proaktif dan berorientasi pada desain. Dikembangkan di Jepang oleh Yoji Akao pada tahun 1960-an, QFD adalah metode terstruktur untuk menerjemahkan "Suara Pelanggan" (Voice of the Customer - VoC) yang kualitatif dan sering kabur ("Saya ingin mobil yang 'kokoh'") menjadi parameter teknis kuantitatif yang dapat diukur dan dikendalikan oleh insinyur ("gaya penutupan pintu = X Newton").</p>
+    <p>Alat utama QFD adalah matriks perencanaan yang disebut House of Quality (HoQ). Disebut "rumah" karena bentuknya yang khas, HoQ memiliki beberapa bagian kunci:</p>
+    <ul>
+        <li><strong>Dinding Kiri ("WHAT")</strong>: Daftar kebutuhan dan persyaratan pelanggan (VoC), lengkap dengan peringkat kepentingan dari pelanggan.</li>
+        <li><strong>Langit-langit ("HOW")</strong>: Karakteristik teknis atau parameter desain yang dapat dikontrol oleh tim rekayasa.</li>
+        <li><strong>Ruang Tengah (Relationship Matrix)</strong>: Inti dari HoQ, di mana tim menilai seberapa kuat hubungan antara setiap "WHAT" pelanggan dan setiap "HOW" teknis.</li>
+        <li><strong>Atap (Correlation Matrix)</strong>: Matriks segitiga yang mengidentifikasi trade-off teknis (korelasi negatif) atau sinergi (korelasi positif) antara parameter "HOW".</li>
+        <li><strong>Dinding Kanan (Customer Benchmarking)</strong>: Penilaian kompetitif tentang seberapa baik produk perusahaan (dan pesaing) memenuhi "WHAT" pelanggan.</li>
+        <li><strong>Lantai (Technical Benchmarking)</strong>: Penilaian teknis tentang kinerja "HOW" perusahaan dibandingkan dengan pesaing.</li>
+        <li><strong>Pondasi (Target Values)</strong>: Target teknis kuantitatif akhir untuk parameter "HOW" yang paling penting, yang diturunkan dari analisis matriks.</li>
+    </ul>
+    <p>HoQ adalah artefak operasional yang brilian karena menjembatani dua konsep TQM yang fundamental. Pertama, HoQ adalah implementasi praktis dari "Perencanaan Kualitas" (Quality Planning) Juran, karena berfokus pada perancangan kualitas ke dalam produk sejak awal. Kedua, HoQ adalah alat fisik yang memaksa realisasi Poin 9 Deming ("Hancurkan penghalang antar departemen"). Proses pengisian HoQ mengharuskan departemen yang secara tradisional terisolasi—seperti Pemasaran (yang memiliki "WHAT") dan Teknik/R&D (yang memiliki "HOW")—untuk duduk di ruangan yang sama, "berpikir bersama", dan menegosiasikan trade-off menggunakan bahasa yang sama.</p>
+
+    <h3>Evolusi Kualitas: Dari TQM ke Six Sigma (Metodologi DMAIC)</h3>
+    <p>Pada akhir 1980-an dan 1990-an, banyak perusahaan merasa TQM terlalu filosofis dan sulit diukur. Sebagai tanggapan, Six Sigma muncul sebagai evolusi TQM. TQM adalah filosofi budaya yang luas, sementara Six Sigma adalah metodologi yang sangat terstruktur, berbasis proyek, dan didorong oleh data statistik untuk mencapai perbaikan terobosan. Six Sigma secara khusus berfokus pada pengurangan variasi dan cacat ke tingkat yang sangat rendah (secara teoritis, 3.4 cacat per satu juta peluang, atau DPMO).</p>
+    <p>Metodologi inti Six Sigma untuk memperbaiki proses yang ada dikenal dengan akronim <strong>DMAIC</strong>:</p>
+    <ul>
+        <li><strong>D (Define)</strong>: Mendefinisikan masalah, menetapkan tujuan proyek, mengidentifikasi pelanggan, dan memetakan proses.</li>
+        <li><strong>M (Measure)</strong>: Mengukur kinerja proses saat ini untuk menetapkan baseline dan mengumpulkan data yang relevan tentang masalah tersebut.</li>
+        <li><strong>A (Analyze)</strong>: Menganalisis data (sering menggunakan 7 QC Tools dan alat statistik yang lebih canggih) untuk mengidentifikasi, memverifikasi, dan memvalidasi akar penyebab (root causes) dari masalah.</li>
+        <li><strong>I (Improve)</strong>: Mengembangkan, menguji, dan mengimplementasikan solusi untuk menghilangkan akar penyebab dan meningkatkan proses.</li>
+        <li><strong>C (Control)</strong>: Menetapkan kontrol dan standar untuk memastikan perbaikan tersebut berkelanjutan (sustain) dan proses tidak kembali ke keadaan semula.</li>
+    </ul>
+    <p>Untuk merancang proses atau produk baru agar memenuhi standar Six Sigma, metodologi yang digunakan adalah <strong>DMADV</strong> (Define, Measure, Analyze, Design, Validate), yang juga dikenal sebagai Design for Six Sigma (DFSS).</p>
+
+    <table>
+        <caption>Tabel 3: Perbandingan Metodologi TQM vs. Six Sigma</caption>
+        <thead>
+            <tr>
+                <th>Aspek</th>
+                <th>Total Quality Management (TQM)</th>
+                <th>Six Sigma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Fokus</td>
+                <td>Luas: Seluruh organisasi, budaya, kepemimpinan, dan perbaikan berkelanjutan di semua aspek.</td>
+                <td>Sempit: Berbasis proyek, berfokus pada pengurangan variasi dan eliminasi cacat dalam proses tertentu.</td>
+            </tr>
+            <tr>
+                <td>Metodologi</td>
+                <td>Kualitatif dan filosofis. Menggunakan alat seperti lingkaran kualitas, pemberdayaan, dan fokus pelanggan.</td>
+                <td>Kuantitatif dan sangat terstruktur. Menggunakan metodologi DMAIC atau DMADV yang ketat.</td>
+            </tr>
+            <tr>
+                <td>Metrik Utama</td>
+                <td>Subjektif dan luas (misalnya, skor kepuasan pelanggan, keterlibatan karyawan).</td>
+                <td>Sangat kuantitatif (misalnya, Cacat Per Juta Peluang/DPMO, kapabilitas proses/Cpk).</td>
+            </tr>
+            <tr>
+                <td>Peran</td>
+                <td>Kualitas adalah tanggung jawab semua orang dalam organisasi.</td>
+                <td>Perbaikan dipimpin oleh para ahli terlatih (misalnya, Green Belts, Black Belts) yang menjalankan proyek.</td>
+            </tr>
+            <tr>
+                <td>Tujuan</td>
+                <td>Mencapai kepuasan pelanggan total melalui perbaikan berkelanjutan secara inkremental.</td>
+                <td>Mencapai perbaikan terobosan (breakthrough) yang signifikan secara finansial melalui pemecahan masalah statistik.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Bagian III: Pengantar Rekayasa Keandalan (Reliability Engineering)</h2>
+    <p>Ketika TQM dan Six Sigma sebagian besar berfokus pada kualitas produk saat keluar dari pabrik, disiplin ilmu terkait muncul untuk menjawab pertanyaan yang berbeda: "Seberapa baik produk tersebut tetap berfungsi seiring waktu?"</p>
+
+    <h3>Definisi dan Signifikansi Keandalan dalam Siklus Hidup Produk</h3>
+    <p>Rekayasa Keandalan (Reliability Engineering) adalah sub-disiplin dari Rekayasa Sistem yang berfokus pada kemampuan peralatan atau sistem untuk berfungsi tanpa kegagalan. Definisi teknis dari Keandalan (Reliability) adalah:</p>
+    <blockquote>Probabilitas bahwa suatu produk, sistem, atau layanan akan menjalankan fungsi yang dimaksudkan secara memadai, selama periode waktu tertentu, dalam kondisi operasi yang ditentukan.</blockquote>
+    <p>Tiga frasa yang digarisbawahi sangat penting. Keandalan adalah ukuran probabilitas ($R(t)$), bukan kepastian. Ia terikat pada fungsi yang spesifik, waktu operasi, dan lingkungan yang ditentukan. Bagi seorang Insinyur Industri, hubungan antara kualitas dan keandalan sangat penting.</p>
+    <p>Kualitas dapat dianggap sebagai "kesesuaian terhadap persyaratan pada t=0" (waktu produksi). Sebuah produk dapat lulus semua inspeksi kualitas akhir dengan sempurna. Namun, keandalan adalah "kualitas yang dipertahankan sepanjang t>0". Sebuah produk yang memiliki kualitas tinggi tetapi keandalan rendah (misalnya, mobil yang sempurna saat keluar dari diler tetapi rusak setelah 100 km) adalah kegagalan sistem. Dengan demikian, Rekayasa Keandalan adalah perpanjangan logis dari TQM ke dalam dimensi waktu.</p>
+
+    <h3>Kurva Bak Mandi (The Bathtub Curve): Narasi Tiga Fase Kegagalan</h3>
+    <p>Model konseptual paling terkenal dalam keandalan adalah Kurva Bak Mandi (The Bathtub Curve). Ini adalah representasi grafis dari tingkat kegagalan (failure rate) suatu populasi produk terhadap waktu. Bentuknya yang seperti bak mandi menunjukkan tiga fase kehidupan yang berbeda:</p>
+    <ul>
+        <li><strong>Fase 1: Infant Mortality (Kematian Dini)</strong>: Ditandai dengan tingkat kegagalan yang menurun. Produk gagal di awal masa pakainya karena cacat produksi, perakitan yang buruk, atau komponen di bawah standar. Strategi mitigasi IE di sini adalah kontrol kualitas manufaktur yang ketat dan pengujian burn-in (menjalankan produk di pabrik untuk "membunuh" unit yang lemah sebelum dikirim).</li>
+        <li><strong>Fase 2: Useful Life (Masa Pakai Normal)</strong>: Ditandai dengan tingkat kegagalan yang konstan dan acak. Kegagalan pada fase ini dianggap terjadi secara acak, sering kali disebabkan oleh stres eksternal yang tidak terduga atau kejadian acak. Ini adalah periode operasi yang stabil dan dapat diprediksi, di mana metrik seperti MTBF (Mean Time Between Failures) paling relevan.</li>
+        <li><strong>Fase 3: Wear-Out (Penuaan)</strong>: Ditandai dengan tingkat kegagalan yang meningkat tajam. Komponen mulai gagal karena penuaan, kelelahan material, korosi, dan degradasi (aus). Strategi mitigasi IE di sini adalah perawatan preventif terjadwal atau penggantian komponen sebelum akhir masa pakainya yang diharapkan.</li>
+    </ul>
+
+    <h3>Distribusi Weibull: Bahasa Statistik Keandalan</h3>
+    <p>Kurva Bak Mandi adalah model konseptual yang hebat, tetapi Insinyur Industri membutuhkan alat kuantitatif untuk memodelkannya secara matematis. Alat tersebut adalah Distribusi Weibull. Dikembangkan oleh insinyur Swedia Waloddi Weibull, ini adalah distribusi probabilitas yang sangat fleksibel dan telah menjadi bahasa standar rekayasa keandalan untuk memodelkan "data kehidupan" atau waktu kegagalan.</p>
+    <p>Fleksibilitasnya berasal dari parameter-parameternya. Dalam model 2-parameter (yang paling umum), parameternya adalah:</p>
+    <ul>
+        <li><strong>Parameter Skala (Scale Parameter, $\eta$ - eta atau $\lambda$ - lambda)</strong>: Juga dikenal sebagai "kehidupan karakteristik". Ini adalah waktu di mana 63.2% populasi diperkirakan akan gagal. Ini "meregangkan" atau "menyempitkan" kurva distribusi pada sumbu waktu.</li>
+        <li><strong>Parameter Bentuk (Shape Parameter, $\beta$ - beta atau $k$ - $k$)</strong>: Ini adalah parameter yang paling penting secara diagnostik. $\beta$ menentukan bentuk kurva distribusi dan, yang paling penting, menggambarkan karakteristik tingkat kegagalan dari komponen tersebut.</li>
+    </ul>
+    <p>Parameter $\beta$ inilah yang menyediakan jembatan kuantitatif langsung ke Kurva Bak Mandi. Dengan menganalisis data kegagalan aktual dan menghitung nilai $\beta$, seorang insinyur dapat secara objektif mendiagnosis jenis kegagalan apa yang sedang terjadi dan, oleh karena itu, di mana komponen tersebut berada dalam siklus hidupnya.</p>
+
+    <table>
+        <caption>Tabel 4: Interpretasi Parameter Bentuk ($\beta$) Distribusi Weibull dan Kaitannya dengan Kurva Bak Mandi</caption>
+        <thead>
+            <tr>
+                <th>Nilai Parameter Bentuk (β)</th>
+                <th>Fase Kurva Bak Mandi</th>
+                <th>Karakteristik Tingkat Kegagalan (Failure Rate)</th>
+                <th>Kemungkinan Penyebab & Implikasi Strategis</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$\beta < 1$</td>
+                <td>Infant Mortality</td>
+                <td>Menurun (Decreasing)</td>
+                <td>Kegagalan dini. Disebabkan oleh cacat manufaktur, perakitan yang buruk, material di bawah standar. Strategi: Perketat QC manufaktur, lakukan burn-in testing.</td>
+            </tr>
+            <tr>
+                <td>$\beta = 1$</td>
+                <td>Useful Life</td>
+                <td>Konstan (Constant)</td>
+                <td>Kegagalan acak. Disebabkan oleh stres eksternal yang tidak terduga. (Distribusi Weibull menyederhanakan menjadi Distribusi Eksponensial). Strategi: Redundansi sistem, siapkan suku cadang.</td>
+            </tr>
+            <tr>
+                <td>$\beta > 1$</td>
+                <td>Wear-Out</td>
+                <td>Meningkat (Increasing)</td>
+                <td>Kegagalan karena penuaan. Disebabkan oleh kelelahan material, korosi, aus. Strategi: Terapkan perawatan preventif, jadwalkan penggantian komponen.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Bagian IV: Analisis Kuantitatif dan Kualitatif Kegagalan</h2>
+    <p>Dengan landasan teori keandalan, Insinyur Industri dapat beralih ke analisis kuantitatif dan kualitatif kegagalan.</p>
+
+    <h3>Metrik Keandalan Kritis: MTBF, MTTF, dan MTTR</h3>
+    <p>Ini adalah metrik dasar yang digunakan untuk mengukur kinerja keandalan dan kemamputrawatan (maintainability), terutama selama fase "Useful Life" ($\beta = 1$).</p>
+    
+    <p><strong>MTTF (Mean Time To Failure / Waktu Rata-rata Menuju Kegagalan)</strong>: Digunakan untuk item yang tidak dapat diperbaiki (non-repairable), seperti bola lampu, sekering, atau komponen elektronik sekali pakai. Ini adalah rata-rata umur dari populasi item tersebut.</p>
+    <div class="equation">
+        $MTTF = \frac{\text{Total Waktu Operasi}}{\text{Jumlah Total Aset}}$
+    </div>
+
+    <p><strong>MTBF (Mean Time Between Failures / Waktu Rata-rata Antar Kegagalan)</strong>: Digunakan untuk item yang dapat diperbaiki (repairable), seperti mesin CNC, server, atau pompa. Ini mengukur waktu uptime rata-rata di antara dua kegagalan.</p>
+    <div class="equation">
+        $MTBF = \frac{\text{Total Waktu Uptime Operasional}}{\text{Jumlah Kegagalan}}$
+    </div>
+
+    <p><strong>MTTR (Mean Time To Repair / Waktu Rata-rata Untuk Perbaikan)</strong>: Ini bukan ukuran keandalan, melainkan ukuran Maintainability (Kemamputrawatan). Ini mengukur waktu rata-rata yang dibutuhkan untuk membuat sistem kembali beroperasi setelah gagal.</p>
+    <div class="equation">
+        $MTTR = \frac{\text{Total Waktu Perbaikan}}{\text{Jumlah Perbaikan}}$
+    </div>
+
+    <p>Metrik puncak yang paling dipedulikan oleh seorang Insinyur Industri adalah <strong>Ketersediaan (Availability, $A$)</strong>. Ketersediaan adalah sintesis dari keandalan dan kemamputrawatan. Sebuah sistem dapat sangat tersedia karena sangat andal (MTBF tinggi) atau karena sangat cepat diperbaiki (MTTR rendah).</p>
+    <div class="equation">
+        $A = \frac{MTBF}{MTBF + MTTR}$
+    </div>
+    <p>Rumus ini memberi Insinyur Industri dua tuas strategis untuk meningkatkan kinerja sistem: (1) Meningkatkan MTBF (Rekayasa Keandalan) atau (2) Mengurangi MTTR (Rekayasa Kemamputrawatan).</p>
+
+    <h4>Contoh Soal 1: Perhitungan MTBF dan MTTF</h4>
+    <p><strong>Soal A (MTTF)</strong>: Sebuah fasilitas Teknik Industri menguji 125 unit roller conveyor (aset non-repairable) hingga semuanya gagal. Total jam kumulatif dari semua roller yang beroperasi adalah 60.000 jam. Hitung MTTF untuk roller ini.</p>
+    <p><em>Jawaban:</em><br>
+    $MTTF = \frac{60.000 \text{ jam}}{125 \text{ roller}}$<br>
+    $MTTF = 480 \text{ jam/roller}$<br>
+    Artinya, umur rata-rata satu roller adalah 480 jam.</p>
+
+    <p><strong>Soal B (MTBF & MTTR)</strong>: Sebuah mesin produksi (aset repairable) dijadwalkan beroperasi 24/7, atau 168 jam per minggu. Minggu lalu, mesin tersebut mengalami 5 kegagalan. Total waktu henti (downtime) yang dihabiskan untuk perbaikan adalah 15 jam. Hitung MTBF dan MTTR untuk mesin ini.</p>
+    <p><em>Jawaban:</em><br>
+    Hitung Total Uptime:<br>
+    $\text{Total Uptime} = \text{Total Waktu Terjadwal} - \text{Total Downtime}$<br>
+    $\text{Total Uptime} = 168 \text{ jam} - 15 \text{ jam} = 153 \text{ jam}$</p>
+    <p>Hitung MTBF:<br>
+    $MTBF = \frac{153 \text{ jam}}{5 \text{ kegagalan}}$<br>
+    $MTBF = 30,6 \text{ jam}$<br>
+    Artinya, rata-rata, mesin ini beroperasi selama 30,6 jam di antara setiap kegagalan.</p>
+    <p>Hitung MTTR:<br>
+    $MTTR = \frac{15 \text{ jam}}{5 \text{ perbaikan}}$<br>
+    $MTTR = 3 \text{ jam}$<br>
+    Artinya, rata-rata, dibutuhkan 3 jam untuk memperbaiki mesin ini setiap kali gagal.</p>
+
+    <h3>Pemodelan Keandalan Sistem: Diagram Blok Keandalan (RBD)</h3>
+    <p>Jarang sekali sebuah sistem terdiri dari satu komponen saja. Diagram Blok Keandalan (Reliability Block Diagram - RBD) adalah metode visual untuk memodelkan bagaimana keandalan komponen-komponen individual ($R_i$) berkontribusi pada keandalan sistem total ($R_s$).</p>
+
+    <h4>Konfigurasi Sistem Seri</h4>
+    <p>Dalam konfigurasi seri, sistem berfungsi <strong>hanya jika semua</strong> komponen berfungsi. Kegagalan <strong>satu</strong> komponen saja akan menyebabkan seluruh sistem gagal. Alur fungsionalnya seperti rantai.</p>
+    <div class="equation">
+        $R_s = R_1 \times R_2 \times \dots \times R_n$
+    </div>
+    <p>Implikasi: Keandalan sistem seri <strong>selalu lebih rendah</strong> daripada keandalan komponen terlemahnya. (Misalnya, jika $R_1=0.9$ dan $R_2=0.9$, maka $R_s=0.81$).</p>
+
+    <h4>Konfigurasi Sistem Paralel (Redundansi)</h4>
+    <p>Dalam konfigurasi paralel, sistem gagal <strong>hanya jika semua</strong> komponen gagal. Sistem akan tetap berfungsi selama <strong>setidaknya satu</strong> komponen berfungsi. Ini adalah prinsip di balik redundansi. Rumus lebih mudah dihitung menggunakan probabilitas kegagalan (Unreliability, $F$), di mana $F = 1 - R$.</p>
+    <div class="equation">
+        $F_s = F_1 \times F_2 \times \dots \times F_n$<br>
+        $R_s = 1 - F_s$
+    </div>
+    <p>Implikasi: Keandalan sistem paralel <strong>selalu lebih tinggi</strong> daripada keandalan komponen terkuatnya. (Misalnya, jika $R_1=0.9$ dan $R_2=0.9$, maka $R_s = 1 - (0.1 \times 0.1) = 1 - 0.01 = 0.99$).</p>
+
+    <h4>Konfigurasi Sistem k-out-of-n</h4>
+    <p>Ini adalah generalisasi yang lebih kompleks di mana sistem memiliki $n$ komponen identik dan membutuhkan <strong>setidaknya $k$</strong> komponen untuk berfungsi. Hubungan:</p>
+    <ul>
+        <li>Sistem Seri adalah sistem $n$-out-of-$n$ (semua $n$ harus berfungsi).</li>
+        <li>Sistem Paralel adalah sistem $1$-out-of-$n$ (setidaknya $1$ harus berfungsi).</li>
+    </ul>
+    <p>Contoh: Sebuah pesawat dapat terbang jika setidaknya 3 dari 4 mesinnya berfungsi (sistem 3-out-of-4). Sebuah mesin V8 mungkin dapat berjalan jika setidaknya 4 silindernya berfungsi (sistem 4-out-of-8).</p>
+    <div class="equation">
+        $R_s = \sum_{i=k}^{n} \binom{n}{i} R^i (1-R)^{n-i}$
+    </div>
+    <p>(Di mana $\binom{n}{i}$ adalah koefisien binomial, "$n$ pilih $i$").</p>
+
+    <h4>Contoh Soal 2: Analisis Keandalan Sistem Gabungan Seri-Paralel</h4>
+    <p><strong>Soal</strong>: Sebuah sistem pendingin terdiri dari sebuah pompa (Komponen A) yang terhubung seri dengan unit filter redundant. Unit filter ini terdiri dari dua filter (Komponen B dan C) yang terhubung secara paralel satu sama lain. Data keandalan komponen adalah sebagai berikut:<br>
+    Keandalan Pompa A, $R(A) = 0.95$<br>
+    Keandalan Filter B, $R(B) = 0.80$<br>
+    Keandalan Filter C, $R(C) = 0.80$<br>
+    Hitung keandalan sistem pendingin total ($R_s$).</p>
+    
+    <p><em>Jawaban:</em><br>
+    Kita harus menyelesaikan ini dalam dua langkah, bekerja dari dalam ke luar.</p>
+    <p>Langkah 1: Hitung keandalan subsistem paralel (Unit Filter B dan C). Kita sebut ini $R_{filter}$.<br>
+    $R_{filter} = 1 - [(1 - 0.80) \times (1 - 0.80)]$<br>
+    $R_{filter} = 1 - [0.20 \times 0.20]$<br>
+    $R_{filter} = 1 - 0.04$<br>
+    $R_{filter} = 0.96$<br>
+    (Perhatikan: Redundansi meningkatkan keandalan unit filter dari 0.80 menjadi 0.96).</p>
+    <p>Langkah 2: Hitung keandalan sistem seri total. Sistem sekarang dapat disederhanakan sebagai Pompa A ($R(A)$) dalam seri dengan $R_{filter}$.<br>
+    $R_s = R(A) \times R_{filter}$<br>
+    $R_s = 0.95 \times 0.96$<br>
+    $R_s = 0.912$<br>
+    Keandalan total sistem pendingin adalah 91.2%.</p>
+
+    <h3>Failure Mode and Effects Analysis (FMEA): Analisis Bottom-Up</h3>
+    <p>FMEA adalah metodologi terstruktur, proaktif, dan bottom-up yang digunakan oleh Insinyur Industri untuk mengidentifikasi dan mengevaluasi potensi kegagalan sebelum kegagalan tersebut terjadi. Tujuannya adalah untuk mengidentifikasi, memprioritaskan, dan mengurangi risiko.</p>
+    <p>Ada dua jenis utama:</p>
+    <ul>
+        <li><strong>DFMEA (Design FMEA)</strong>: Fokus pada kegagalan selama fase desain produk.</li>
+        <li><strong>PFMEA (Process FMEA)</strong>: Fokus pada kegagalan dalam proses manufaktur atau jasa.</li>
+    </ul>
+    <p>Proses FMEA melibatkan tim lintas fungsional yang secara sistematis menganalisis setiap komponen atau langkah proses:</p>
+    <ul>
+        <li><strong>Identifikasi Mode Kegagalan (Failure Mode)</strong>: Bagaimana suatu bagian/proses bisa gagal? (misalnya, "Sekrup patah", "Operator salah memasukkan data").</li>
+        <li><strong>Identifikasi Efek Kegagalan (Failure Effect)</strong>: Apa konsekuensi dari kegagalan tersebut bagi pelanggan? (misalnya, "Roda terlepas", "Tagihan pelanggan salah").</li>
+        <li><strong>Tetapkan Peringkat Severity (S)</strong>: Tingkat keparahan efek pada pelanggan (biasanya skala 1-10, di mana 10 adalah bahaya keamanan atau ketidakpatuhan regulasi).</li>
+        <li><strong>Identifikasi Penyebab Kegagalan (Failure Cause)</strong>: Apa mekanisme yang menyebabkan mode kegagalan? (misalnya, "Torsi pengencangan tidak memadai", "Antarmuka perangkat lunak membingungkan").</li>
+        <li><strong>Tetapkan Peringkat Occurrence (O)</strong>: Seberapa sering penyebab ini diperkirakan akan terjadi? (skala 1-10).</li>
+        <li><strong>Identifikasi Kontrol Saat Ini (Current Controls)</strong>: Bagaimana kita saat ini mendeteksi/mencegah kegagalan ini? (misalnya, "Inspeksi visual", "Kunci torsi terkalibrasi").</li>
+        <li><strong>Tetapkan Peringkat Detection (D)</strong>: Seberapa baik kontrol kita dalam mendeteksi masalah sebelum sampai ke pelanggan? (skala 1-10, di mana 10 berarti tidak mungkin dideteksi).</li>
+    </ul>
+    <p>Dari tiga peringkat ini, dihitunglah <strong>Risk Priority Number (RPN)</strong>:</p>
+    <div class="equation">
+        $RPN = \text{Severity} \times \text{Occurrence} \times \text{Detection}$
+    </div>
+    <p>Tujuan: RPN digunakan sebagai alat untuk memprioritaskan risiko mana yang harus ditangani terlebih dahulu (RPN tertinggi mendapat perhatian pertama). Namun, ketergantungan buta pada ambang batas RPN (misalnya, "perbaiki semua RPN > 100") adalah praktik yang berbahaya dan sudah usang. Praktik ini dapat mengarah pada perilaku tim yang buruk, di mana tim hanya berfokus pada RPN alih-alih risiko aktual. Sebagai contoh, risiko dengan S=10 (keamanan), O=2, dan D=3 memiliki RPN=60. Risiko lain dengan S=4 (ketidaknyamanan kecil), O=6, dan D=5 memiliki RPN=120. Metode ambang batas RPN akan memprioritaskan perbaikan risiko S=4 dan mengabaikan risiko keamanan S=10. Ini adalah kegagalan manajemen risiko yang fatal. Praktik modern (seperti standar AIAG-VDA FMEA) menekankan bahwa prioritas tindakan harus selalu pertama pada Peringkat Keparahan (Severity) yang tinggi (S=9 atau 10), terlepas dari RPN-nya.</p>
+
+    <h3>Fault Tree Analysis (FTA): Analisis Top-Down</h3>
+    <p>Jika FMEA adalah bottom-up (dari penyebab ke efek), Fault Tree Analysis (FTA) adalah metodologi grafis top-down dan deduktif. FTA dimulai dengan satu kejadian puncak (Top Event) yang tidak diinginkan (misalnya, "Ledakan Boiler", "Kegagalan Sistem Perbankan") dan bekerja secara sistematis ke bawah (mundur) untuk menemukan semua kemungkinan kombinasi kegagalan perangkat keras, perangkat lunak, dan manusia yang dapat menyebabkan kejadian tersebut.</p>
+    <p>FTA menggunakan <strong>Gerbang Logika (Logic Gates)</strong> untuk menghubungkan peristiwa:</p>
+    <ul>
+        <li><strong>Gerbang AND</strong>: Kejadian output (di atas) terjadi <strong>hanya jika semua</strong> kejadian input (di bawah) terjadi secara bersamaan. (Dalam analisis kuantitatif, probabilitas dikalikan, membuat kejadian output kurang mungkin terjadi).</li>
+        <li><strong>Gerbang OR</strong>: Kejadian output (di atas) terjadi <strong>jika salah satu</strong> (atau lebih) kejadian input (di bawah) terjadi. (Probabilitas dijumlahkan, membuat kejadian output lebih mungkin terjadi).</li>
+        <li><strong>Peristiwa Dasar (Basic Events)</strong>: Ini adalah akar penyebab di bagian bawah pohon (digambarkan sebagai lingkaran), di mana data probabilitas kegagalan dapat dimasukkan.</li>
+    </ul>
+    <p>Tujuan akhir FTA adalah untuk (1) secara kualitatif memahami logika kegagalan sistem dan (2) secara kuantitatif menghitung probabilitas Top Event terjadi. Ini juga mengidentifikasi <strong>Minimal Cut Sets</strong>, yaitu kombinasi terkecil dari kegagalan peristiwa dasar yang akan menyebabkan kegagalan sistem.</p>
+
+    <table>
+        <caption>Tabel 5: Perbandingan FMEA (Bottom-Up) vs. FTA (Top-Down)</caption>
+        <thead>
+            <tr>
+                <th>Kriteria</th>
+                <th>FMEA (Failure Mode and Effects Analysis)</th>
+                <th>FTA (Fault Tree Analysis)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Metode</td>
+                <td>Bottom-Up (Induktif). Dimulai dari kegagalan komponen, bertanya "Apa yang terjadi?"</td>
+                <td>Top-Down (Deduktif). Dimulai dari kegagalan sistem, bertanya "Mengapa ini terjadi?"</td>
+            </tr>
+            <tr>
+                <td>Fokus</td>
+                <td>Luas. Menjelajahi semua mode kegagalan yang mungkin dari suatu sistem atau proses.</td>
+                <td>Sempit. Berfokus pada satu kejadian puncak (Top Event) yang tidak diinginkan.</td>
+            </tr>
+            <tr>
+                <td>Tujuan</td>
+                <td>Identifikasi dan prioritas risiko (RPN) untuk pencegahan proaktif.</td>
+                <td>Investigasi akar penyebab; Analisis kuantitatif probabilitas kegagalan sistem.</td>
+            </tr>
+            <tr>
+                <td>Kapan Digunakan</td>
+                <td>Terbaik digunakan selama desain (DFMEA/PFMEA) untuk mengeksplorasi "bagaimana jika".</td>
+                <td>Terbaik digunakan untuk analisis sistem yang kompleks dan berisiko tinggi (nuklir, dirgantara) atau investigasi pasca-insiden.</td>
+            </tr>
+            <tr>
+                <td>Output Utama</td>
+                <td>Daftar risiko yang diprioritaskan (RPN), rencana aksi perbaikan.</td>
+                <td>Diagram pohon logika, Minimal Cut Sets, Probabilitas kegagalan Top Event.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Bagian V: Integrasi Sistem dan Perkembangan Mutakhir</h2>
+    <p>Kualitas dan Keandalan tidak ada dalam ruang hampa. Keduanya harus diintegrasikan ke dalam sistem manajemen yang lebih luas, dan keduanya kini sedang mengalami transformasi digital.</p>
+
+    <h3>Total Productive Maintenance (TPM): Sinergi Kualitas dan Keandalan Mesin</h3>
+    <p>Total Productive Maintenance (TPM) adalah filosofi manajemen perawatan holistik yang bertujuan untuk memaksimalkan efektivitas peralatan (Overall Equipment Effectiveness - OEE). Tujuan TPM sering diringkas sebagai "Tiga Nol": Nol Cacat, Nol Kerusakan (Breakdowns), dan Nol Kecelakaan.</p>
+    <p>TPM adalah jembatan yang hilang antara TQM dan Rekayasa Keandalan. TQM berfokus pada kualitas produk, sementara Rekayasa Keandalan berfokus pada keandalan aset. TPM adalah realisasi bahwa Anda tidak dapat memiliki yang pertama tanpa yang kedua. Mesin yang sering rusak (keandalan rendah) tidak dapat menghasilkan produk yang konsisten (kualitas tinggi). TPM, pada dasarnya, adalah TQM yang diterapkan secara khusus pada peralatan dan proses perawatan.</p>
+    <p>TPM dibangun di atas fondasi 5S dan dioperasionalkan melalui Delapan Pilar TPM:</p>
+
+    <table>
+        <caption>Tabel 6: Delapan Pilar Total Productive Maintenance (TPM)</caption>
+        <thead>
+            <tr>
+                <th>Pilar</th>
+                <th>Fokus Utama dan Tujuan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1. Perawatan Otonom (Autonomous Maintenance)</td>
+                <td>Memberdayakan operator untuk melakukan perawatan rutin (pembersihan, pelumasan, inspeksi) pada mesin mereka sendiri. Ini menumbuhkan "kepemilikan" dan membebaskan teknisi ahli.</td>
+            </tr>
+            <tr>
+                <td>2. Peningkatan Terfokus (Focused Improvement / Kaizen)</td>
+                <td>Tim lintas fungsional secara proaktif mengidentifikasi dan menghilangkan kerugian kronis (misalnya, downtime, kecepatan rendah) pada peralatan.</td>
+            </tr>
+            <tr>
+                <td>3. Perawatan Terencana (Planned Maintenance)</td>
+                <td>Menjadwalkan aktivitas perawatan berdasarkan data keandalan (misalnya, MTBF) untuk mencegah kerusakan sebelum terjadi.</td>
+            </tr>
+            <tr>
+                <td>4. Manajemen Kualitas (Quality Maintenance)</td>
+                <td>(Tautan langsung ke TQM). Menggunakan perawatan untuk memastikan kualitas produk. Fokus pada pencegahan cacat kualitas dengan memastikan kondisi peralatan sempurna (misalnya, tidak ada getaran, debu).</td>
+            </tr>
+            <tr>
+                <td>5. Manajemen Awal Peralatan (Early Equipment Management)</td>
+                <td>Menerapkan pengetahuan perawatan ke dalam desain peralatan baru, membuatnya lebih mudah dioperasikan, dirawat, dan lebih andal sejak hari pertama.</td>
+            </tr>
+            <tr>
+                <td>6. Pelatihan dan Pendidikan</td>
+                <td>Melatih operator dalam keterampilan perawatan otonom dan teknisi dalam metode diagnostik canggih.</td>
+            </tr>
+            <tr>
+                <td>7. Keselamatan, Kesehatan, dan Lingkungan (SHE)</td>
+                <td>Menciptakan tempat kerja yang bebas kecelakaan dan bahaya lingkungan.</td>
+            </tr>
+            <tr>
+                <td>8. TPM di Administrasi (Office TPM)</td>
+                <td>Menerapkan prinsip TPM (menghilangkan pemborosan, perbaikan proses) pada fungsi pendukung dan administrasi.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Metrik utama untuk mengukur keberhasilan TPM adalah <strong>Overall Equipment Effectiveness (OEE)</strong>. OEE adalah metrik komposit yang mengukur persentase waktu produksi yang benar-benar produktif.</p>
+    <div class="equation">
+        $OEE = \text{Availability} \times \text{Performance} \times \text{Quality}$
+    </div>
+    <ul>
+        <li><strong>Availability (Ketersediaan)</strong>: (Waktu operasi aktual / Waktu operasi terjadwal). Kerugian akibat kerusakan (terkait MTBF) dan waktu setup (terkait MTTR).</li>
+        <li><strong>Performance (Kinerja)</strong>: (Output aktual / Output ideal selama waktu operasi). Kerugian akibat small stops dan kecepatan berkurang.</li>
+        <li><strong>Quality (Kualitas)</strong>: (Unit baik / Total unit diproduksi). Kerugian akibat cacat dan pengerjaan ulang (terkait TQM).</li>
+    </ul>
+
+    <h3>Revolusi Industri 4.0 dan Lahirnya Kualitas 4.0</h3>
+    <p>Saat ini, TQM dan Keandalan sedang mengalami transformasi mendalam yang didorong oleh Revolusi Industri Keempat (Industri 4.0)—konvergensi teknologi digital, fisik, dan biologis. Ini melahirkan konsep <strong>Kualitas 4.0</strong>.</p>
+    <p>Kualitas 4.0 bukanlah metodologi baru yang menggantikan TQM; ini adalah evolusi dari TQM. Kualitas 4.0 adalah tentang menerapkan prinsip-prinsip kualitas yang telah teruji waktu (Deming, Juran, Crosby) ke dalam konteks digital baru. Teknologi utama Kualitas 4.0 meliputi:</p>
+    <ul>
+        <li><strong>Big Data dan Analitik</strong>: Kemampuan untuk menganalisis volume, kecepatan, dan variasi data proses yang sangat besar.</li>
+        <li><strong>Internet of Things (IoT)</strong>: Sensor terhubung yang mengumpulkan data proses dan kondisi peralatan secara real-time.</li>
+        <li><strong>Artificial Intelligence (AI) dan Machine Learning (ML)</strong>: Algoritma yang dapat mendeteksi pola, mengidentifikasi anomali, dan membuat prediksi dari data.</li>
+    </ul>
+    <p>Kualitas 4.0 adalah realisasi dari mimpi para pelopor TQM. Deming dan Juran menganjurkan "pengambilan keputusan berbasis data", tetapi pada masa mereka, "data" berarti pengambilan sampel statistik (misalnya, menggunakan 7 QC Tools). Mengumpulkan 100% data (sensus) proses adalah mustahil. Saat ini, sensor IoT yang murah dapat mengumpulkan 100% data proses secara real-time. Big Data dapat menyimpannya, dan AI/ML dapat menganalisisnya lebih cepat daripada yang bisa dilakukan manusia dengan Peta Kendali. Kita beralih dari Statistical Process Control ke Total Process Control.</p>
+
+    <h3>Masa Depan Keandalan: Dari Perawatan Preventif ke Prediktif (PdM)</h3>
+    <p>Aplikasi paling kuat dari Kualitas 4.0 dalam domain keandalan adalah pergeseran dari perawatan preventif ke perawatan prediktif (PdM).</p>
+    <ul>
+        <li><strong>Perawatan Preventif (Preventive Maintenance - PM)</strong>: Adalah strategi proaktif, tetapi didasarkan pada jadwal (waktu atau siklus penggunaan). (Misalnya, "Ganti oli setiap 10.000 km"). Ini didasarkan pada data historis seperti MTTF atau analisis Weibull ($\beta > 1$). Masalahnya: ini sering kali boros (mengganti komponen yang masih bagus) atau terlambat (komponen gagal sebelum jadwal).</li>
+        <li><strong>Perawatan Prediktif (Predictive Maintenance - PdM)</strong>: Adalah strategi proaktif yang didasarkan pada kondisi aktual. PdM menggunakan sensor IoT (misalnya, getaran, suhu) untuk memantau kesehatan aset secara real-time. Data ini diumpankan ke algoritma AI/ML yang telah dilatih menggunakan model keandalan (seperti Weibull) untuk memprediksi kapan tepatnya komponen tersebut akan gagal. (Misalnya, "Data getaran pada bearing ini menunjukkan pola degradasi. Perkiraan sisa umur (RUL) adalah 72 jam").</li>
+    </ul>
+    <p>PdM adalah sintesis tertinggi dari semua yang telah kita bahas. Ia menggunakan filosofi TQM/TPM (Nol Kerusakan), ilmu Rekayasa Keandalan (model kegagalan), dan alat Kualitas 4.0 (IoT/AI). Ini adalah optimasi Teknik Industri yang sempurna: mencapai keandalan maksimum dengan biaya perawatan minimum, hanya memperbaiki apa yang perlu, tepat sebelum gagal.</p>
+
+    <table>
+        <caption>Tabel 7: Perbandingan Perawatan Preventif vs. Prediktif (PdM)</caption>
+        <thead>
+            <tr>
+                <th>Fitur</th>
+                <th>Perawatan Preventif (Preventive Maintenance - PM)</th>
+                <th>Perawatan Prediktif (Predictive Maintenance - PdM)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Dasar Intervensi</td>
+                <td>Waktu (kalender) atau Penggunaan (siklus, jam).</td>
+                <td>Kondisi aktual aset.</td>
+            </tr>
+            <tr>
+                <td>Data yang Digunakan</td>
+                <td>Historis dan statis (misalnya, MTBF, rekomendasi pabrikan).</td>
+                <td>Real-time dan dinamis (misalnya, data sensor getaran, suhu, akustik).</td>
+            </tr>
+            <tr>
+                <td>Tujuan</td>
+                <td>Mengurangi probabilitas kegagalan dengan mengganti komponen secara terjadwal.</td>
+                <td>Memprediksi titik kegagalan yang tepat untuk mengoptimalkan jadwal perawatan.</td>
+            </tr>
+            <tr>
+                <td>Teknologi Kunci</td>
+                <td>Kalender, penghitung jam operasi, CMMS (Sistem Manajemen Perawatan Terkomputerisasi).</td>
+                <td>Sensor IoT, AI/Machine Learning, Digital Twins, CMMS yang terhubung.</td>
+            </tr>
+            <tr>
+                <td>Hasil</td>
+                <td>Dapat menyebabkan over-maintenance (pemborosan) atau under-maintenance (kegagalan tak terduga).</td>
+                <td>Mengoptimalkan interval perawatan; memaksimalkan umur komponen; hampir menghilangkan kegagalan tak terduga.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Penutup: Peran Insinyur Industri sebagai Arsitek Sistem Kualitas-Keandalan Terpadu</h3>
+    <p>Perjalanan dari filosofi TQM Deming hingga algoritma prediktif Kualitas 4.0 adalah narasi tentang evolusi pengendalian proses. Apa yang dimulai sebagai seruan filosofis untuk "konstansi tujuan" dan "penghapusan rasa takut" telah berevolusi menjadi sistem siber-fisik yang mampu memprediksi kegagalan hingga hitungan jam.</p>
+    <p>Namun, teknologi tidak menggantikan filosofi; teknologi memenuhinya. Peran Insinyur Industri di era ini menjadi lebih penting dari sebelumnya. Insinyur Industri modern bukanlah sekadar "penjaga kualitas" yang memegang Peta Kendali, atau "penghitung angka keandalan" yang menghitung MTBF. Sebaliknya, Insinyur Industri adalah arsitek sistem dan integrator utama.</p>
+    <p>Tugas Insinyur Industri adalah menyatukan ketiga elemen—filosofi (budaya TQM, pemberdayaan TPM), proses (desain kerja, HoQ, FMEA, FTA), dan teknologi (IoT, AI, PdM)—menjadi satu sistem sosio-teknis yang terpadu, efisien, efektif, dan andal. Kualitas dan Keandalan bukan lagi fungsi yang terpisah; keduanya adalah hasil yang dirancang secara strategis dari sistem terintegrasi yang dikelola oleh Insinyur Industri.</p>
+
+    <div class="bibliography">
+        <h2>Karya yang dikutip</h2>
+        <div class="source-item">SEJARAH DAN TOKOH PEMIKIR MUTU, diakses November 12, 2025, https://jurnal.dharmawangsa.ac.id/index.php/sabilarrasyad/article/download/725/pdf</div>
+        <div class="source-item">Quality Is Still Free – The Key Point, diakses November 12, 2025, https://thekeypoint.org/2016/10/25/quality-is-still-free/</div>
+        <div class="source-item">Apa yang dimaksud dengan Insinyur Industri? - diklatkerja.com, diakses November 12, 2025, https://www.diklatkerja.com/blog/apa-yang-dimaksud-dengan-insinyur-industri</div>
+        <div class="source-item">Mengenal Teknik Industri – BINUS INDUSTRIAL ENGINEERING, diakses November 12, 2025, https://binus.ac.id/semarang/industrialengineering/2024/05/27/mengenal-teknik-industri/</div>
+        <div class="source-item">Quality is Free: The Art of Making Quality Certain - Philip B. Crosby - Google Books, diakses November 12, 2025, https://books.google.com/books/about/Quality_is_Free.html?id=0RxtAAAAMAAJ</div>
+        <div class="source-item">The Art of Making Quality Certain - Crosby, Philip B.: 9780451625854 - AbeBooks, diakses November 12, 2025, https://www.abebooks.com/9780451625854/Quality-Free-Art-Making-Crosby-0451625854/plp</div>
+        <div class="source-item">The History of Quality Management System - Juran Institute, diakses November 12, 2025, https://www.juran.com/blog/quality-management-system/</div>
+        <div class="source-item">Deming vs Juran vs Crosby philosophy: Pioneers of Project Management - Simplilearn.com, diakses November 12, 2025, https://www.simplilearn.com/deming-vs-juran-vs-crosby-comparison-article</div>
+        <div class="source-item">Deming's 14 Points: Transforming Business Through Quality Management - SixSigma.us, diakses November 12, 2025, https://www.6sigma.us/six-sigma-in-focus/demings-14-points/</div>
+        <div class="source-item">The W. Edwards Deming Institute, diakses November 12, 2025, https://deming.org/</div>
+        <div class="source-item">Deming's 14 Points | Lean UTHSC | Business Productivity Solutions | Information Technology Services (ITS), diakses November 12, 2025, https://www.uthsc.edu/its/business-productivity-solutions/lean-uthsc/deming.php</div>
+        <div class="source-item">Dr. Deming's 14 Points for Management - The W. Edwards Deming ..., diakses November 12, 2025, https://deming.org/explore/fourteen-points/</div>
+        <div class="source-item">Deming's 14 Points: Total Quality Management Principles - ASQ, diakses November 12, 2025, https://asq.org/quality-resources/tqm/deming-points</div>
+        <div class="source-item">Deming, Juran, and Crosby: Pioneers in Quality Management – A Comparative Analysis, diakses November 12, 2025, https://www.qualitygurus.com/deming-juran-and-crosby-pioneers-in-quality-management-a-comparative-analysis/</div>
+        <div class="source-item">More About the Juran Trilogy | Juran Institute, An Attain Partners ..., diakses November 12, 2025, https://www.juran.com/blog/the-juran-trilogy-2/</div>
+        <div class="source-item">Juran's Quality Trilogy - 6SigmaStudy, diakses November 12, 2025, https://www.6sigmastudy.com/article?title=Jurans-Quality-Trilogy</div>
+        <div class="source-item">Joseph Juran: overcoming resistance to organisational change - PMC - NIH, diakses November 12, 2025, https://pmc.ncbi.nlm.nih.gov/articles/PMC2565827/</div>
+        <div class="source-item">Juran's steps for Quality Improvement - Aerospace Quality Management System, diakses November 12, 2025, https://www.nvtquality.com/white-papers/jurans-steps-for-quality-improvement/</div>
+        <div class="source-item">The Benefits Of TQM: Why Your Business Needs It - Britts Imperial 2025, diakses November 12, 2025, https://brittsimperial.com/the-benefits-of-tqm-why-your-business-needs-it/</div>
+        <div class="source-item">Total Quality Management: The Key to Continuous Improvement - Qmarkets, diakses November 12, 2025, https://www.qmarkets.net/resources/article/total-quality-management/</div>
+        <div class="source-item">The 8 TPM Pillars Explained - 4Industry, diakses November 12, 2025, https://4industry.com/manufacturing-glossary/8-pillars-of-tpm/</div>
+        <div class="source-item">The Three Pillars in Kaizen - Universal Class, diakses November 12, 2025, https://www.universalclass.com/articles/business/the-three-pillars-in-kaizen.htm</div>
+        <div class="source-item">8 Pillars of Total Productive Maintenance (TPM), Explained, diakses November 12, 2025, https://coastapp.com/blog/total-productive-maintenance-tpm/</div>
+        <div class="source-item">QC Seven Tools (Tujuh Alat Pengendalian Kualitas) - IPQI, diakses November 12, 2025, https://ipqi.org/qc-seven-tools-tujuh-alat-pengendalian-kualitas/</div>
+        <div class="source-item">7 Basic Quality Tools: Quality Management Tools | ASQ, diakses November 12, 2025, https://asq.org/quality-resources/seven-basic-quality-tools</div>
+        <div class="source-item">Tujuh Alat Pengendalian Kualitas | PDF - Scribd, diakses November 12, 2025, https://id.scribd.com/document/427695419/Tujuh-Alat-Pengendalian-Kualitas</div>
+        <div class="source-item">(PDF) TQM - Manajemen Kualitas Total dalam Perspektif Teknik Industri 12.01.2023, diakses November 12, 2025, https://www.researchgate.net/publication/370375953_TQM_-_Manajemen_Kualitas_Total_dalam_Perspektif_Teknik_Industri_12012023</div>
+        <div class="source-item">Seven basic tools of quality - Wikipedia, diakses November 12, 2025, https://en.wikipedia.org/wiki/Seven_basic_tools_of_quality</div>
+        <div class="source-item">Quality Function Deployment (QFD) and House of Quality (HOQ) - Six Sigma Study Guide, diakses November 12, 2025, https://sixsigmastudyguide.com/house-of-quality-hoq/</div>
+        <div class="source-item">Quality function deployment - Wikipedia, diakses November 12, 2025, https://en.wikipedia.org/wiki/Quality_function_deployment</div>
+        <div class="source-item">What is Quality Function Deployment (QFD)? | ASQ, diakses November 12, 2025, https://asq.org/quality-resources/qfd-quality-function-deployment</div>
+        <div class="source-item">diakses November 12, 2025, https://sixsigmastudyguide.com/house-of-quality-hoq/#:~:text=of%20design%20relationships.-,Quality%20Function%20Deployment%20(QFD)%20and%20House%20of%20Quality%20(HOQ,also%20include%20a%20competitive%20analysis.</div>
+        <div class="source-item">How to Build a House of Quality with Technical and Competitive Benchmarking - ASQ, diakses November 12, 2025, https://asq.org/quality-resources/house-of-quality</div>
+        <div class="source-item">Quality Function Deployment - Institute for Manufacturing (IfM), diakses November 12, 2025, https://www.ifm.eng.cam.ac.uk/research/dstools/quality-function-deployment/</div>
+        <div class="source-item">Quality Function Deployment & the House of Quality - Simplest Explanation Ever - YouTube, diakses November 12, 2025, https://www.youtube.com/watch?v=iRMsd-X_e-0</div>
+        <div class="source-item">Total Quality Management (TQM) vs Six Sigma. All to Know [2025 ..., diakses November 12, 2025, https://www.6sigma.us/six-sigma-in-focus/tqm-vs-six-sigma/</div>
+        <div class="source-item">Understanding TQM vs Six Sigma: Key Differences - Invensis Learning, diakses November 12, 2025, https://www.invensislearning.com/blog/six-sigma-vs-total-quality-management-comparison/</div>
+        <div class="source-item">Mengenal Perbedaan TQM dan Six Sigma - ICICERT, diakses November 12, 2025, https://icicert.com/mengenal-perbedaan-tqm-dan-six-sigma/</div>
+        <div class="source-item">DMAIC - The 5 Phases of Lean Six Sigma - GoLeanSixSigma.com (GLSS), diakses November 12, 2025, https://goleansixsigma.com/dmaic-five-basic-phases-of-lean-six-sigma/</div>
+        <div class="source-item">DMAIC Process: Define, Measure, Analyze, Improve, Control | ASQ, diakses November 12, 2025, https://asq.org/quality-resources/dmaic</div>
+        <div class="source-item">Perbedaan TQM Dan Six Sigma | PDF - Scribd, diakses November 12, 2025, https://id.scribd.com/document/446093385/Perbedaan-TQM-dan-Six-Sigma</div>
+        <div class="source-item">Reliability engineering - Wikipedia, diakses November 12, 2025, https://en.wikipedia.org/wiki/Reliability_engineering</div>
+        <div class="source-item">Quality and Reliability Engineering | PDF - Scribd, diakses November 12, 2025, https://www.scribd.com/document/137226639/Quality-and-Reliability-Engineering</div>
+        <div class="source-item">Bathtub curve - Wikipedia, diakses November 12, 2025, https://en.wikipedia.org/wiki/Bathtub_curve</div>
+        <div class="source-item">Reliability terminology - Texas Instruments, diakses November 12, 2025, https://www.ti.com/support-quality/reliability/reliability-terminology.html</div>
+        <div class="source-item">Bathtub Curve & Asset Reliability Measurement Guide - Cryotos, diakses November 12, 2025, https://www.cryotos.com/blog/what-is-a-bathtub-curve-and-how-to-measure-asset-reliability</div>
+        <div class="source-item">Analisis Weibull Pengertian, Metode dan Perbedaannya - Akses ..., diakses November 12, 2025, https://aksesindonesia.com/analisis-weibull-pengertian-metode-dan-perbedaannya/</div>
+        <div class="source-item">Distribusi Probabilitas Weibull Dan Aplikasinya - CORE, diakses November 12, 2025, https://core.ac.uk/download/pdf/289987097.pdf</div>
+        <div class="source-item">Weibull distribution - Wikipedia, diakses November 12, 2025, https://en.wikipedia.org/wiki/Weibull_distribution</div>
+        <div class="source-item">Understanding Weibull Analysis - PTC Support Portal, diakses November 12, 2025, https://support.ptc.com/help/wrr/r12.0.2.0/en/wrr/PractitionersGuide/UnderstandingWeibullAnalysis.html</div>
+        <div class="source-item">The “Bath Tub” Curve Explained - Accendo Reliability, diakses November 12, 2025, https://accendoreliability.com/the-bath-tub-curve-explained/</div>
+        <div class="source-item">What's the difference between MTTR, MTBF, MTTD, and MTTF ..., diakses November 12, 2025, https://www.logicmonitor.com/blog/whats-the-difference-between-mttr-mttd-mttf-and-mtbf</div>
+        <div class="source-item">Simple Guide to Failure Metrics (MTBF vs. MTTR vs. MTTF) - Resco.net, diakses November 12, 2025, https://www.resco.net/learning/failure-metrics/</div>
+        <div class="source-item">Common Incident Management Metrics | Atlassian, diakses November 12, 2025, https://www.atlassian.com/incident-management/kpis/common-metrics</div>
+        <div class="source-item">MTBF vs. MTTF vs. MTTR: Defining IT Failure – BMC Software | Blogs, diakses November 12, 2025, https://www.bmc.com/blogs/mtbf-vs-mtff-vs-mttr-whats-difference/</div>
+        <div class="source-item">Mean time between failures - Wikipedia, diakses November 12, 2025, https://en.wikipedia.org/wiki/Mean_time_between_failures</div>
+        <div class="source-item">Reliability Block Diagrams (RBD) - YouTube, diakses November 12, 2025, https://www.youtube.com/watch?v=D4bgQln-idQ</div>
+        <div class="source-item">How to use Reliability Block Diagrams (RBD) - YouTube, diakses November 12, 2025, https://www.youtube.com/watch?v=bMlyFThZsNM</div>
+        <div class="source-item">THE k-OUT-OF-n SYSTEM MODEL, diakses November 12, 2025, https://catalogimages.wiley.com/images/db/pdf/047139761X.07.pdf</div>
+        <div class="source-item">K Out of N - Accendo Reliability, diakses November 12, 2025, https://accendoreliability.com/k-out-of-n-2/</div>
+        <div class="source-item">Series-Parallel System Reliability - YouTube, diakses November 12, 2025, https://www.youtube.com/watch?v=k74WXpGqPhg</div>
+        <div class="source-item">Combination of FTA and FMEA methods to improve efficiency in the manufacturing company - Acta Logistica, diakses November 12, 2025, https://actalogistica.eu/issues/2023/III_2023_15_Renosori_Oemar_Fauziah.pdf</div>
+        <div class="source-item">METODE FAILURE MODE and EFFECT ANALYSIS (FMEA) dan FAULT TREE ANALYSIS (FTA)*, diakses November 12, 2025, https://ejurnal.itenas.ac.id/index.php/rekaintegra/article/download/879/1113</div>
+        <div class="source-item">FMEA | Failure Mode and Effects Analysis | Quality-One, diakses November 12, 2025, https://quality-one.com/fmea/</div>
+        <div class="source-item">What Are The Steps to Take in Failure Modes and Effects Analysis (FMEA)?, diakses November 12, 2025, https://www.sixsigmadaily.com/steps-in-failure-modes-and-effects-analysis/</div>
+        <div class="source-item">What is Fault Tree Analysis? | Limble CMMS, diakses November 12, 2025, https://limblecmms.com/learn/definitions/fault-tree-analysis/</div>
+        <div class="source-item">Fault tree analysis - Wikipedia, diakses November 12, 2025, https://en.wikipedia.org/wiki/Fault_tree_analysis</div>
+        <div class="source-item">Fault Tree Analysis (FTA) Guide: Process, Symbols & Examples - Reliability Center Inc., diakses November 12, 2025, https://reliability.com/resources/articles/fault-tree-analysis-fta-guide/</div>
+        <div class="source-item">TPM (Total Productive Maintenance) - Lean Manufacturing, diakses November 12, 2025, https://www.leanproduction.com/tpm/</div>
+        <div class="source-item">The 8 Pillars of TPM: The Key to Unstoppable Operations - SixSigma.us, diakses November 12, 2025, https://www.6sigma.us/manufacturing/pillars-of-tpm/</div>
+        <div class="source-item">the effect of total productive maintenance and reliability, diakses November 12, 2025, https://e-journal.uac.ac.id/index.php/iijse/article/download/5876/2337/</div>
+        <div class="source-item">Pillars of TPM vs TQM - Benchmark Six Sigma, diakses November 12, 2025, https://www.benchmarksixsigma.com/forum/topic/39512-pillars-of-tpm-vs-tqm/</div>
+        <div class="source-item">The Relationships between the Pillars of TPM and TQM and Manufacturing Performance Using Structural Equation Modeling - MDPI, diakses November 12, 2025, https://www.mdpi.com/2071-1050/14/3/1497</div>
+        <div class="source-item">Quality 4.0—the challenging future of quality engineering | Request PDF - ResearchGate, diakses November 12, 2025, https://www.researchgate.net/publication/339549925_Quality_40-the_challenging_future_of_quality_engineering</div>
+        <div class="source-item">Quality 4-0 | ASQ, diakses November 12, 2025, https://asq.org/quality-resources/quality-4-0</div>
+        <div class="source-item">Quality Control 4.0: Inovasi untuk Standar Mutu Masa Depan - FTMM - Universitas Airlangga, diakses November 12, 2025, https://ftmm.unair.ac.id/quality-control-4-0-inovasi-untuk-standar-mutu-masa-depan/</div>
+        <div class="source-item">What is Quality 4.0? - LNS Research, diakses November 12, 2025, https://blog.lnsresearch.com/quality40</div>
+        <div class="source-item">Preventive Maintenance vs. Predictive Maintenance | IBM, diakses November 12, 2025, https://www.ibm.com/think/topics/predictive-vs-preventive-maintenance</div>
+        <div class="source-item">What is the Difference between Maintenance and Reliability? - Sensemore, diakses November 12, 2025, https://sensemore.io/what-is-the-difference-between-maintenance-and-reliability/</div>
+        <div class="source-item">Maintenance Engineer vs Reliability Engineer: What's the Difference? - YouTube, diakses November 12, 2025, https://www.youtube.com/watch?v=gZREYFKNJ1M</div>
+        <div class="source-item">Reliability Engineering in the Era of Predictive Analytics - ABS Group, diakses November 12, 2025, https://www.abs-group.com/Knowledge-Center/Insights/Reliability-Engineering-in-the-Era-of-Predictive-Analytics/</div>
+        <div class="source-item">Peran dan Tanggung Jawab Seorang Insinyur Industri - diklatkerja.com, diakses November 12, 2025, https://www.diklatkerja.com/blog/peran-dan-tanggung-jawab-seorang-insinyur-industri</div>
+    </div>
+
+    <div class="nav-button-container">
+        <a href="https://nvze.github.io/dashboard/blog.html" class="btn-back">Kembali ke daftar blog</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,18 +1,223 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tips Membuat Dashboard Pribadi Keren</title>
-  <style>
-    body {font-family:Arial,sans-serif;background:#1e1e2e;color:#cdd6f4;padding:40px;max-width:800px;margin:auto;line-height:1.7;}
-    a {color:#89b4fa;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVZE Blog Manager</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 700px; margin: 20px auto; padding: 20px; background: #f4f4f4; color: #333; }
+        
+        /* Container Style */
+        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; color: #111; }
+
+        /* Input Styles */
+        label { display: block; margin-top: 15px; font-weight: 600; font-size: 0.9rem; color: #444; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        
+        /* Button Styles */
+        button { width: 100%; background: #1c1c1c; color: white; border: none; padding: 15px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 25px; transition: 0.2s; }
+        button:hover { background: #444; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+
+        /* Config Section */
+        .config-box { background: #eef; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #ccd; }
+        details { margin-bottom: 20px; }
+        summary { cursor: pointer; color: #0056b3; font-weight: 500; font-size: 0.9rem; }
+
+        /* Notifications */
+        #status { margin-top: 20px; padding: 15px; border-radius: 6px; display: none; text-align: center; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
 </head>
 <body>
-  <h1>Tips Membuat Dashboard Pribadi Keren</h1>
-  <p>Tanggal: 26 November 2025</p>
-  <p> okeeyyy Gunakan emoji, warna gelap, dan link cepat ke tools favorit kamu. Simpel tapi elegan!</p>
-  <p><a href="blog.html">Kembali ke daftar blog</a></p>
+
+    <div class="container">
+        <h2>✒️ Tulis Artikel Baru</h2>
+
+        <details>
+            <summary>⚙️ Pengaturan GitHub (Klik untuk isi)</summary>
+            <div class="config-box">
+                <label>GitHub Token (PAT):</label>
+                <input type="password" id="token" placeholder="ghp_xxxxxxxx...">
+                
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex:1">
+                        <label>Username:</label>
+                        <input type="text" id="username" placeholder="nvze">
+                    </div>
+                    <div style="flex:1">
+                        <label>Nama Repo:</label>
+                        <input type="text" id="repo" placeholder="nama-repo">
+                    </div>
+                </div>
+                <label>Nama File Target:</label>
+                <input type="text" id="targetFile" value="blog.html" readonly style="background:#ddd;">
+            </div>
+        </details>
+
+        <div style="display: flex; gap: 15px;">
+            <div style="flex: 2;">
+                <label>Judul Artikel:</label>
+                <input type="text" id="title" placeholder="Contoh: Analisis Pasar Global">
+            </div>
+            <div style="flex: 1;">
+                <label>Kategori:</label>
+                <select id="category">
+                    <option value="ekonomi">Ekonomi</option>
+                    <option value="teknologi">Teknologi</option>
+                    <option value="humaniora">Humaniora</option>
+                    <option value="bebas">Bebas</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <div style="flex: 1;">
+                <label>Tanggal:</label>
+                <input type="date" id="dateInput">
+            </div>
+            <div style="flex: 1;">
+                <label>Link File HTML:</label>
+                <input type="text" id="link" placeholder="posts/judul-baru.html">
+            </div>
+        </div>
+
+        <label>Deskripsi Singkat (Excerpt):</label>
+        <textarea id="desc" rows="3" placeholder="Ringkasan artikel yang akan muncul di halaman depan..."></textarea>
+
+        <button onclick="publishPost()" id="btnSubmit">🚀 Posting ke Blog</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        // Set tanggal hari ini otomatis
+        document.getElementById('dateInput').valueAsDate = new Date();
+
+        // Helper: Format Tanggal (2025-11-29 -> 29 Nov 2025)
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+            return `${day} ${month} ${year}`;
+        }
+
+        async function publishPost() {
+            const btn = document.getElementById('btnSubmit');
+            const status = document.getElementById('status');
+
+            // Ambil Data Config
+            const token = document.getElementById('token').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const repo = document.getElementById('repo').value.trim();
+            const targetFile = document.getElementById('targetFile').value.trim();
+
+            // Ambil Data Artikel
+            const title = document.getElementById('title').value;
+            const cat = document.getElementById('category').value;
+            const rawDate = document.getElementById('dateInput').value;
+            const link = document.getElementById('link').value;
+            const desc = document.getElementById('desc').value;
+
+            // Validasi
+            if (!token || !username || !repo || !title || !link || !desc) {
+                showStatus("Mohon lengkapi Token, Username, Repo, dan semua kolom artikel!", "error");
+                return;
+            }
+
+            const formattedDate = formatDate(rawDate);
+            
+            btn.disabled = true;
+            btn.textContent = "⏳ Sedang membaca database blog...";
+            status.style.display = 'none';
+
+            try {
+                // 1. GET File blog.html
+                const url = `https://api.github.com/repos/${username}/${repo}/contents/${targetFile}`;
+                const response = await fetch(url, {
+                    headers: { 
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!response.ok) throw new Error("Gagal akses file. Cek Token/Repo!");
+                
+                const data = await response.json();
+                const currentSha = data.sha;
+                
+                // Decode konten (support Emoji/UTF8)
+                const oldContent = decodeURIComponent(escape(window.atob(data.content.replace(/\n/g, ""))));
+
+                // 2. Manipulasi String (Inject Object Baru ke Array JS)
+                // Kita mencari string: const allPosts = [
+                const searchString = "const allPosts = [";
+                
+                if (!oldContent.includes(searchString)) {
+                    throw new Error("Struktur 'const allPosts = [' tidak ditemukan di blog.html!");
+                }
+
+                // Format Object Baru sesuai style user
+                const newObjectString = `
+            { 
+                title: "${title}", 
+                cat: "${cat}", 
+                date: "${formattedDate}", 
+                desc: "${desc.replace(/"/g, '\\"')}", 
+                link: "${link}" 
+            },`;
+
+                // Sisipkan object baru SETELAH pembuka array
+                const newContent = oldContent.replace(searchString, searchString + newObjectString);
+
+                // 3. PUT (Update) ke GitHub
+                btn.textContent = "💾 Sedang menyimpan perubahan...";
+
+                const payload = {
+                    message: `New Post: ${title}`,
+                    content: btoa(unescape(encodeURIComponent(newContent))),
+                    sha: currentSha,
+                    branch: "main" 
+                };
+
+                const updateRes = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (updateRes.ok) {
+                    showStatus("✅ Berhasil! Artikel baru sudah ditambahkan ke Index.", "success");
+                    // Bersihkan form
+                    document.getElementById('title').value = '';
+                    document.getElementById('desc').value = '';
+                    document.getElementById('link').value = '';
+                } else {
+                    const err = await updateRes.json();
+                    throw new Error(err.message);
+                }
+
+            } catch (error) {
+                showStatus("❌ Error: " + error.message, "error");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "🚀 Posting ke Blog";
+            }
+        }
+
+        function showStatus(msg, type) {
+            const el = document.getElementById('status');
+            el.style.display = 'block';
+            el.textContent = msg;
+            el.className = type;
+        }
+    </script>
 </body>
 </html>

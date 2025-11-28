@@ -418,9 +418,25 @@
                 }
             });
         }
+
+        // 3. LOGIKA ACCORDION (HANYA SATU YANG TERBUKA)
+        // Ini adalah bagian baru yang ditambahkan
+        const allDetails = document.querySelectorAll('details');
+
+        allDetails.forEach((targetDetail) => {
+            targetDetail.addEventListener('toggle', (e) => {
+                // Hanya jalankan jika folder ini BARU SAJA dibuka
+                if (targetDetail.open) {
+                    // Loop semua folder lain untuk menutupnya
+                    allDetails.forEach((detail) => {
+                        if (detail !== targetDetail && detail.open) {
+                            detail.open = false; // Tutup paksa folder lain
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </body>
 
 </html>
-
-

@@ -3,43 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Blog Writer (Fixed)</title>
+    <title>GitHub Blog Writer (Dark Style)</title>
     <style>
-        /* CSS Sederhana & Kuat */
-        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; background-color: #fff; }
-        
-        /* Kotak Konfigurasi */
-        .config-box { background: #f0f0f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ccc; }
-        
-        /* Elemen Input */
-        label { display: block; margin-top: 10px; font-weight: bold; font-size: 14px; }
-        input, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box; }
-        textarea { height: 350px; font-family: monospace; }
+        /* --- TEMA NVZE DARK INSPIRED --- */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            /* Latar belakang gradient biru gelap seperti screenshot */
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0a192f 100%);
+            color: #e6edf3; /* Teks putih terang */
+            min-height: 100vh;
+        }
 
-        /* Tombol & Status - Layout Block (Vertikal) agar pasti muncul */
-        .control-area { margin: 20px 0; padding: 15px; border: 2px dashed #ddd; border-radius: 8px; }
-        
-        button { cursor: pointer; padding: 12px 20px; border-radius: 5px; font-size: 16px; font-weight: bold; border: none; margin-top: 10px; }
-        
-        /* Tombol Biru untuk Cek */
-        .btn-check { background-color: #0056b3; color: white; display: block; width: 100%; } 
-        .btn-check:hover { background-color: #004494; }
+        h2, h3 {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
 
-        /* Tombol Hijau untuk Simpan */
-        .btn-save { background-color: #28a745; color: white; width: 100%; margin-top: 10px; }
-        .btn-save:hover { background-color: #218838; }
-
-        /* Status Text */
-        #file-status { margin-top: 10px; font-weight: bold; padding: 10px; text-align: center; background: #eee; display: none; }
+        /* Gaya Kartu/Box (Glassmorphism) */
+        .config-box, .control-area, #editor-wrapper { 
+            background: rgba(22, 27, 34, 0.8); /* Gelap transparan */
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Border tipis halus */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px); /* Efek blur di belakang */
+        }
         
-        /* Notifikasi */
-        #notif { margin-top: 15px; padding: 10px; border-radius: 5px; display: none; text-align: center; }
-        .success { background: #d4edda; color: #155724; }
-        .error { background: #f8d7da; color: #721c24; }
+        .control-area {
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            background: rgba(13, 17, 23, 0.6);
+        }
 
-        /* Editor Area (Dimmed saat belum dicek) */
-        #editor-wrapper { opacity: 0.5; pointer-events: none; transition: 0.3s; }
-        .active { opacity: 1 !important; pointer-events: auto !important; }
+        /* Label & Input */
+        label { 
+            display: block; 
+            margin-top: 15px; 
+            font-weight: 500; 
+            font-size: 14px; 
+            color: #8b949e; /* Abu-abu agar tidak terlalu mencolok */
+        }
+        
+        input, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            margin-top: 8px; 
+            background-color: #0d1117; /* Input sangat gelap */
+            border: 1px solid #30363d; 
+            border-radius: 6px; 
+            color: #c9d1d9; 
+            font-family: monospace;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #58a6ff; /* Aksen biru saat mengetik */
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        textarea { height: 400px; line-height: 1.5; font-size: 14px; }
+
+        /* Tombol */
+        button { 
+            cursor: pointer; 
+            padding: 12px 20px; 
+            border-radius: 6px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            border: none; 
+            margin-top: 15px; 
+            transition: background 0.2s, transform 0.1s;
+        }
+        
+        button:active { transform: scale(0.98); }
+
+        .btn-check { 
+            background-color: #1f6feb; /* Biru GitHub */
+            color: white; 
+            display: block; 
+            width: 100%; 
+        } 
+        .btn-check:hover { background-color: #388bfd; }
+
+        .btn-save { 
+            background-color: #238636; /* Hijau GitHub */
+            color: white; 
+            width: 100%; 
+        }
+        .btn-save:hover { background-color: #2ea043; }
+        
+        /* Tombol Kembali (Footer) */
+        .btn-back {
+            display: inline-block;
+            margin-top: 30px;
+            color: #8b949e;
+            text-decoration: none;
+            border: 1px solid #30363d;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .btn-back:hover {
+            background: #21262d;
+            color: #58a6ff;
+            border-color: #8b949e;
+        }
+        .footer-nav { text-align: center; }
+
+        /* Status & Notifikasi */
+        #file-status { 
+            margin-top: 15px; 
+            font-weight: bold; 
+            padding: 12px; 
+            text-align: center; 
+            border-radius: 6px;
+            display: none; 
+            border: 1px solid transparent;
+        }
+        
+        #notif { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 6px; 
+            display: none; 
+            text-align: center; 
+            font-weight: bold;
+        }
+
+        /* Warna Status Khusus Dark Mode */
+        .status-loading { background: #3c2e08; color: #e3b341; border-color: #6d581a; }
+        .status-success { background: #0f2d18; color: #7ee787; border-color: #1a572a; }
+        .status-new     { background: #0c2042; color: #79c0ff; border-color: #163c70; }
+        .status-error   { background: #381216; color: #ff7b72; border-color: #731c22; }
+
+        .success { background: #0f2d18; color: #7ee787; border: 1px solid #1a572a; }
+        .error   { background: #381216; color: #ff7b72; border: 1px solid #731c22; }
+
+        /* Editor Wrapper Animation */
+        #editor-wrapper { 
+            opacity: 0.3; 
+            pointer-events: none; 
+            transition: opacity 0.3s ease-in-out; 
+            filter: grayscale(80%);
+        }
+        .active { 
+            opacity: 1 !important; 
+            pointer-events: auto !important; 
+            filter: grayscale(0%) !important;
+        }
+
     </style>
 </head>
 <body>
@@ -66,14 +186,14 @@
         <label>Nama File (wajib akhiran .html):</label>
         <input type="text" id="filename" placeholder="contoh: artikel-baru.html" oninput="resetView()">
         
-        <button onclick="checkFile()" class="btn-check">🔍 CEK / MUAT FILE (Klik Disini)</button>
+        <button onclick="checkFile()" class="btn-check">🔍 CEK / MUAT FILE</button>
         
         <div id="file-status"></div>
     </div>
 
     <div id="editor-wrapper">
         <h3>3. Tulis Konten</h3>
-        <textarea id="content" placeholder="Isi konten HTML disini..."></textarea>
+        <textarea id="content" placeholder="<html> Isi konten HTML blog disini... </html>"></textarea>
         
         <label>Pesan Commit:</label>
         <input type="text" id="msg" value="Update via Web Manager">
@@ -82,6 +202,10 @@
     </div>
 
     <div id="notif"></div>
+
+    <nav class="footer-nav">
+        <a href="https://nvze.github.io/dashboard/blog.html" class="btn-back">← Kembali ke Dashboard</a>
+    </nav>
 
     <script>
         let currentSha = null;
@@ -108,7 +232,7 @@
 
             statusEl.style.display = 'block';
             statusEl.textContent = "⏳ Menghubungi GitHub...";
-            statusEl.style.background = "#fff3cd";
+            statusEl.className = "status-loading"; // Class baru untuk dark mode
 
             try {
                 const res = await fetch(`https://api.github.com/repos/${d.user}/${d.repo}/contents/${d.path}`, {
@@ -120,29 +244,27 @@
                 if (res.status === 200) { // File Ada
                     const data = await res.json();
                     currentSha = data.sha;
-                    // Decode Base64 content
                     document.getElementById('content').value = decodeURIComponent(escape(window.atob(data.content.replace(/\n/g, ""))));
                     
                     statusEl.textContent = "✅ File Ditemukan (Mode Edit)";
-                    statusEl.style.background = "#d1e7dd"; // Hijau
+                    statusEl.className = "status-success";
                     document.getElementById('msg').value = "Update " + d.path;
                 } else if (res.status === 404) { // File Baru
                     currentSha = null;
                     document.getElementById('content').value = "";
                     
                     statusEl.textContent = "✨ File Belum Ada (Mode Baru)";
-                    statusEl.style.background = "#cfe2ff"; // Biru
+                    statusEl.className = "status-new";
                     document.getElementById('msg').value = "Create " + d.path;
                 } else {
                     throw new Error("Gagal akses (Cek Token/Repo)");
                 }
 
-                // Aktifkan Editor
                 editor.classList.add('active');
 
             } catch (err) {
                 statusEl.textContent = "❌ Error: " + err.message;
-                statusEl.style.background = "#f8d7da";
+                statusEl.className = "status-error";
             }
         }
 
@@ -155,7 +277,7 @@
 
             notif.style.display = 'block';
             notif.textContent = "Sedang menyimpan...";
-            notif.className = "";
+            notif.className = "status-loading"; // Gunakan style loading
 
             const payload = {
                 message: document.getElementById('msg').value,
@@ -179,7 +301,7 @@
                 if (res.ok) {
                     notif.textContent = "✅ Berhasil Disimpan!";
                     notif.className = "success";
-                    currentSha = json.content.sha; // Update SHA
+                    currentSha = json.content.sha;
                 } else {
                     notif.textContent = "❌ Gagal: " + json.message;
                     notif.className = "error";
@@ -196,10 +318,5 @@
             currentSha = null;
         }
     </script>
-
-<nav class="footer-nav">
-            <a href="https://nvze.github.io/dashboard/blog.html" class="btn-back">Kembali ke Daftar Blog</a>
-        </nav>
-
 </body>
 </html>

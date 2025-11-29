@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berpikir Komputasional: Konsep, Alat, Dampak</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         /* Reset dan Base Style */
         * {
@@ -125,6 +129,14 @@
             padding: 2px 5px;
             border-radius: 3px;
             font-size: 0.9em;
+        }
+
+        /* Math Display Style */
+        .math-block {
+            overflow-x: auto;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 1.1em;
         }
 
         /* Footer / Bibliography Section */
@@ -433,15 +445,28 @@
     <ol>
         <li><strong>Logika & Matematika Diskrit</strong><br>
         <em>Apa itu:</em> Studi tentang struktur matematika yang pada dasarnya "diskrit" (dapat dihitung) daripada "kontinu". Ini mencakup logika proposisional, teori himpunan, teori graf, dan kombinatorika.<br>
-        <em>Mengapa Wajib:</em> Ini adalah "tata bahasa" dari desain algoritme. Pernyataan if-else dalam kode Anda adalah logika proposisional dalam praktik. Anda tidak dapat menganalisis efisiensi algoritme (notasi Big-O), merancang skema <em>database</em> (teori relasi), memahami jaringan (teori graf), atau memahami kriptografi (teori bilangan) tanpanya.</li>
+        <em>Mengapa Wajib:</em> Ini adalah "tata bahasa" dari desain algoritme. Pernyataan if-else dalam kode Anda adalah logika proposisional dalam praktik. 
+        <br><br>
+        <em>Contoh Notasi Logika (Implikasi):</em><br>
+        $$ P \land Q \rightarrow R \Leftrightarrow \neg (P \land Q) \lor R $$
+        <br>
+        Anda tidak dapat menganalisis efisiensi algoritme (notasi Big-O: \( \mathcal{O}(n \log n) \)), merancang skema <em>database</em> (teori relasi), atau memahami kriptografi tanpa matematika ini.</li>
 
         <li><strong>Aljabar Linear</strong><br>
         <em>Apa itu:</em> Studi tentang vektor, matriks, dan ruang linier.<br>
-        <em>Mengapa Wajib:</em> Ini adalah "bahasa" dari data modern. Ini adalah persyaratan <em>mutlak</em> untuk AI, <em>machine learning</em>, dan grafika komputer. Sebuah <em>deep neural network</em> (seperti CNN) pada dasarnya hanyalah serangkaian operasi matriks yang sangat besar. <em>Rendering</em> gambar 3D dalam <em>video game</em> adalah tentang menerapkan transformasi matriks ke vektor (koordinat) untuk memutar dan memindahkan objek dalam ruang 3D.</li>
+        <em>Mengapa Wajib:</em> Ini adalah "bahasa" dari data modern. Ini adalah persyaratan <em>mutlak</em> untuk AI, <em>machine learning</em>, dan grafika komputer. Sebuah <em>deep neural network</em> pada dasarnya hanyalah operasi matriks:<br>
+        
+        $$ \mathbf{h} = \sigma(\mathbf{W}\mathbf{x} + \mathbf{b}) $$
+        
+        Dimana \( \mathbf{x} \) adalah vektor input, \( \mathbf{W} \) adalah matriks bobot, dan \( \mathbf{b} \) adalah bias. <em>Rendering</em> gambar 3D dalam <em>video game</em> adalah tentang menerapkan transformasi matriks ke vektor (koordinat).</li>
 
         <li><strong>Statistika & Probabilitas</strong><br>
         <em>Apa itu:</em> Ilmu tentang pengumpulan, analisis, dan interpretasi data untuk memahami ketidakpastian.<br>
-        <em>Mengapa Wajib:</em> Ini adalah bahan bakar untuk Paradigma Keempat. <em>Machine learning</em> sebagian besar adalah statistika terapan. Konsep-konsep seperti regresi, klasifikasi, dan <em>p-value</em> adalah inti dari <em>data science</em> dan kemampuan untuk melakukan <em>pengenalan pola</em> di tengah data yang bising (<em>noisy</em>).</li>
+        <em>Mengapa Wajib:</em> Ini adalah bahan bakar untuk Paradigma Keempat. <em>Machine learning</em> sebagian besar adalah statistika terapan. Misalnya, Teorema Bayes adalah inti dari <em>Pattern Recognition</em>:<br>
+
+        $$ P(A|B) = \frac{P(B|A)P(A)}{P(B)} $$
+
+        Konsep-konsep seperti regresi, klasifikasi, dan <em>p-value</em> adalah inti dari <em>data science</em>.</li>
     </ol>
 
     <h3>B. Alat Pengembangan Perangkat Lunak Inti (Core Software Stack)</h3>

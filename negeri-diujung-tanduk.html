@@ -1,0 +1,547 @@
+<!-- Chosen Palette: Warm Earth Neutrals (Stone, Amber, Warm Gray, Deep Red) -->
+
+<!-- Application Structure Plan:
+    "Scrollytelling" Architecture (Narrative + Data Integration):
+    1. Hero: Title & Atmosphere.
+    2. Chapter I (Narrative): Herman & Reyna (The Deal).
+    3. Interactive Module 1: Fiscal Trap Data (The Context of the Deal).
+    4. Chapter II (Narrative): Wawa & Wanto (The Victim).
+    5. Interactive Module 2: Social Class Vulnerability (Wawa's Reality).
+    6. Chapter III (Narrative): The Seminar (Cempaka's Warning).
+    7. Interactive Module 3: State Capture Mechanism (The System).
+    8. Chapter IV & V (Narrative): The Disaster & The Aftermath.
+    9. Interactive Module 4: Impact Simulation (Govt Promise vs Reality).
+    10. Epilogue & Footer: Link back to blog.
+-->
+
+<!-- Visualization & Content Choices:
+    - Text is styled with serif fonts for readability (Book-like experience).
+    - Data modules are styled with sans-serif for contrast (Modern/Analytic feel).
+    - Charts use Chart.js (Canvas) for performance and interactivity.
+    - No SVG/Mermaid used.
+-->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negeri di Ujung Tanduk: Hikayat Tanah Bawah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Work+Sans:wght@300;400;600;700&display=swap');
+
+        /* Typography System */
+        body {
+            background-color: #fafaf9; /* stone-50 */
+            color: #1c1917; /* stone-900 */
+        }
+        
+        .font-story {
+            font-family: 'Merriweather', serif;
+        }
+        
+        .font-ui {
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        /* Chart Container Styling - Mandatory Strictness */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%; 
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                max-width: 600px;
+                height: 400px;
+            }
+        }
+
+        /* Narrative Styling */
+        .drop-cap::first-letter {
+            font-size: 3.5rem;
+            font-weight: bold;
+            float: left;
+            line-height: 0.8;
+            margin-right: 0.5rem;
+            color: #b45309; /* amber-700 */
+        }
+
+        .chapter-title {
+            border-bottom: 2px solid #d6d3d1;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Interactive Module Card */
+        .data-card {
+            background: #ffffff;
+            border: 1px solid #e7e5e4;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #b45309;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f5f4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a8a29e;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-stone-50/95 backdrop-blur-sm border-b border-stone-200 font-ui shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between h-14 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl text-amber-700">❖</span>
+                    <span class="font-bold text-stone-800 tracking-tight">Arsip Narasi Ekologi</span>
+                </div>
+                <div class="flex space-x-6 text-sm font-medium text-stone-600">
+                    <a href="#intro" class="hover:text-amber-700 transition">Intro</a>
+                    <a href="#part1" class="hover:text-amber-700 transition">Fiskal</a>
+                    <a href="#part2" class="hover:text-amber-700 transition">Sosial</a>
+                    <a href="#part4" class="hover:text-amber-700 transition">Dampak</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header id="intro" class="relative bg-stone-900 text-stone-100 py-24 px-4 overflow-hidden font-ui">
+        <!-- Abstract Background Pattern using CSS Gradients (No SVG) -->
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#44403c 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <p class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-4">Sebuah Cerita Interaktif</p>
+            <h1 class="font-story text-4xl md:text-6xl font-bold mb-6 leading-tight">Negeri di Ujung Tanduk:<br><i class="font-light text-stone-300">Hikayat Tanah Bawah</i></h1>
+            <p class="text-lg text-stone-400 mb-10 max-w-xl mx-auto leading-relaxed">
+                Kisah tentang paradoks pembangunan, di mana negara hidup dari mengeruk tanahnya sendiri, namun tetap miskin, sementara rakyatnya menjadi tumbal statistik.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#part1" class="bg-amber-700 hover:bg-amber-600 text-white px-6 py-3 rounded-md font-medium transition shadow-lg hover:shadow-amber-900/50">Mulai Membaca</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-3xl mx-auto px-4 py-12">
+
+        <!-- ================= CHAPTER I ================= -->
+        <article id="part1" class="mb-16">
+            <h2 class="font-story text-3xl font-bold text-stone-800 chapter-title">BAGIAN I: Meja Marmer dan Naskah Hantu</h2>
+            
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p class="drop-cap">
+                    Ruangan itu dingin, bukan karena pendingin udara sentral yang disetel di angka delapan belas derajat, melainkan karena ketiadaan empati yang mengambang di antara asap cerutu dan aroma kopi arabika. Di lantai 45 sebuah gedung pencakar langit di Jantung Jakarta, nasib jutaan hektar hutan hujan tropis sedang ditulis ulang—bukan oleh wakil rakyat, melainkan oleh seorang pelobi korporasi.
+                </p>
+                <p>
+                    Reyna meletakkan sebuah tablet tipis di atas meja marmer hitam. Layarnya menyala, menampilkan peta digital sebuah pulau besar di timur. Warna hijau mendominasi, namun garis-garis merah menyala membelahnya seperti luka sayatan.
+                </p>
+                <p>
+                    "Ini draf revisi Peraturan Pemerintah yang Bapak minta," suara Reyna lembut, namun memiliki otoritas yang tidak bisa dibantah. "Pasal 33 ayat 2 sudah kami sesuaikan. Definisi 'wilayah konservasi' sekarang lebih... fleksibel."
+                </p>
+                <p>
+                    Herman, pria paruh baya dengan setelan jas seharga gaji lima tahun guru honorer, menyesap espressonya. Ia adalah representasi negara di ruangan itu. Atau setidaknya, itulah yang tertulis di kartu namanya: Direktur Jenderal Strategi Sumber Daya. Namun, di hadapan Reyna, Herman tak lebih dari stempel karet yang bernyawa.
+                </p>
+                <p>
+                    "Biarkan Profesor Cempaka berteriak. Data akademis tidak membayar cicilan utang negara, Pak," sahut Reyna dingin. "Bapak tahu angka-angkanya lebih baik dari saya. Tahun ini, berapa persen penerimaan pajak yang habis cuma buat bayar bunga utang? Bukan pokoknya, bunganya saja."
+                </p>
+            </div>
+
+            <!-- INTERACTIVE MODULE 1: FISCAL -->
+            <div class="data-card font-ui">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1">
+                        <h3 class="text-amber-800 font-bold uppercase text-xs tracking-wider mb-2">Data Pendukung Cerita</h3>
+                        <h4 class="text-xl font-bold text-stone-800 mb-3">Jeratan Bunga Utang</h4>
+                        <p class="text-sm text-stone-600 mb-4">
+                            Herman terpaksa menyetujui eksploitasi karena tekanan fiskal. Visualisasi di bawah menunjukkan betapa sempitnya ruang gerak APBN. Hampir seperempat pajak rakyat hangus hanya untuk membayar <em>jasa</em> utang masa lalu.
+                        </p>
+                        <div class="flex gap-2">
+                            <button onclick="updateFiscalChart('persen')" class="px-3 py-1 bg-stone-200 hover:bg-stone-300 text-xs font-bold rounded">Lihat %</button>
+                            <button onclick="updateFiscalChart('nominal')" class="px-3 py-1 bg-stone-200 hover:bg-stone-300 text-xs font-bold rounded">Lihat Nominal</button>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="fiscalChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p>
+                    Wajah Herman menegang. Itu adalah titik lemahnya. "Dua puluh persen," gumamnya pelan. "Lebih dari 490 triliun rupiah habis hanya untuk <em>debt service</em>. Penerimaan pajak kita stagnan di angka 2.000 triliun."
+                </p>
+                <p>
+                    "Tepat," sambar Reyna. "Negara ini butuh uang cepat. <em>Quick cash</em>. Tanda tangani draf itu, Pak. Biar kami yang urus sisanya."
+                </p>
+                <p>
+                    Dengan satu ketukan jari di layar tablet, Herman menyetujui draf itu. Di detik yang sama, ribuan kilometer dari ruangan ber-AC itu, vonis mati telah dijatuhkan untuk sebuah desa bernama Lembah Asri.
+                </p>
+            </div>
+        </article>
+
+        <!-- ================= CHAPTER II ================= -->
+        <article id="part2" class="mb-16">
+            <h2 class="font-story text-3xl font-bold text-stone-800 chapter-title">BAGIAN II: Ilusi Kemakmuran di Akar Rumput</h2>
+            
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p>
+                    Wawa sedang menjemur biji kopi di halaman rumahnya yang sederhana di Lembah Asri. Wawa adalah gambaran statistik yang membingungkan. Dia punya motor (kredit), punya smartphone (cicilan), dan anak-anaknya sekolah. Tapi Wawa tidak punya tabungan darurat.
+                </p>
+                <p>
+                    "Wa! Wawa!" Teriakan itu memecah konsentrasi. Wanto, tetangganya yang kini menjabat sebagai mandor proyek, datang dengan motor trail baru.
+                </p>
+                <p>
+                    "Kamu sudah dengar belum? Lahan di bukit utara itu sudah resmi jadi milik PT. Indo Raya Nickel," Wanto bicara dengan nada bangga. "Ini investasi! Pembangunan! Negara lagi butuh devisa. Kita harus dukung hilirisasi."
+                </p>
+                <p>
+                    Wawa ragu. Bukit utara adalah daerah resapan air. Namun Wanto menyodorkan amplop tebal. "Uang kerohiman," katanya. Bagi Wawa, uang itu bisa melunasi hutang pupuk. Wawa, seperti jutaan rakyat lainnya, tidak punya jaring pengaman.
+                </p>
+            </div>
+
+            <!-- INTERACTIVE MODULE 2: SOCIAL CLASS -->
+            <div class="data-card font-ui">
+                <h3 class="text-amber-800 font-bold uppercase text-xs tracking-wider mb-2">Analisis Profil Tokoh</h3>
+                <h4 class="text-xl font-bold text-stone-800 mb-4">Posisi Wawa: "Aspiring Middle Class"</h4>
+                
+                <div class="grid md:grid-cols-12 gap-6">
+                    <div class="md:col-span-4 space-y-3">
+                        <p class="text-sm text-stone-600">
+                            Klik batang grafik untuk memahami kerentanan Wawa.
+                        </p>
+                        <div id="classDesc" class="p-3 bg-stone-100 rounded border-l-4 border-amber-500 text-sm italic text-stone-700">
+                            "Mayoritas rakyat (45%) ada di posisi ini. Tidak miskin, tapi satu bencana membuat mereka jatuh."
+                        </div>
+                    </div>
+                    <div class="md:col-span-8">
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="socialChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p>
+                    Dengan tangan gemetar, Wawa mengambil amplop itu. Dia ingat tagihan listrik yang menunggak. Dia ingat bahwa negara tidak pernah memberinya subsidi yang cukup saat harga kopi anjlok. Negara membiarkannya bertarung sendirian di pasar bebas.
+                </p>
+            </div>
+        </article>
+
+        <!-- ================= CHAPTER III ================= -->
+        <article id="part3" class="mb-16">
+            <h2 class="font-story text-3xl font-bold text-stone-800 chapter-title">BAGIAN III: Jeritan Data di Ruang Senyap</h2>
+            
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p>
+                    Aula Universitas Negeri itu penuh sesak. Cempaka, Dosen Senior Ekonomi Lingkungan, berdiri di podium menghadapi Herman. Dia tidak membawa slide presentasi penuh grafik pertumbuhan ekonomi palsu. Dia membawa kebenaran.
+                </p>
+                <p>
+                    "Pak Herman," suara Cempaka tajam. "Bapak bilang kita kaya karena tambang. Tapi struktur ekonomi kita keropos karena <em>State Capture</em>. Regulasi dibuat oleh korporasi. Izin tambang jadi mata uang politik."
+                </p>
+            </div>
+
+            <!-- INTERACTIVE MODULE 3: STATE CAPTURE DIAGRAM -->
+            <div class="data-card font-ui bg-stone-900 text-stone-200 border-stone-700">
+                <h3 class="text-amber-500 font-bold uppercase text-xs tracking-wider mb-4">Mekanisme Sistemik</h3>
+                <h4 class="text-xl font-bold text-white mb-6">Bagaimana "Naskah Hantu" Bekerja</h4>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded border border-stone-600 bg-stone-800 hover:border-amber-500 transition">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-amber-700 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                            <h5 class="font-bold text-stone-100">Lobi Korporasi</h5>
+                        </div>
+                        <p class="text-xs text-stone-400">Reyna menyusun draf aturan yang menguntungkan bisnis (definisi "fleksibel").</p>
+                    </div>
+                    
+                    <div class="p-4 rounded border border-stone-600 bg-stone-800 hover:border-amber-500 transition">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-stone-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                            <h5 class="font-bold text-stone-100">Kebutuhan Fiskal</h5>
+                        </div>
+                        <p class="text-xs text-stone-400">Negara (Herman) butuh "Quick Cash" untuk bayar utang, mengabaikan dampak jangka panjang.</p>
+                    </div>
+
+                    <div class="p-4 rounded border border-stone-600 bg-stone-800 hover:border-amber-500 transition">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-stone-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                            <h5 class="font-bold text-stone-100">Kooptasi Lokal</h5>
+                        </div>
+                        <p class="text-xs text-stone-400">Tokoh lokal (Wanto) disuap/direkrut untuk memuluskan pembebasan lahan warga.</p>
+                    </div>
+
+                    <div class="p-4 rounded border border-red-900 bg-stone-800 hover:border-red-500 transition">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-red-700 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                            <h5 class="font-bold text-red-400">Dampak Ekologis</h5>
+                        </div>
+                        <p class="text-xs text-stone-400">Regulasi sah, hutan hilang, bencana tak terelakkan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p>
+                    "Cukup!" Herman memukul meja. Moderator segera mematikan mikrofon Cempaka. Dia tahu, kata-katanya tidak akan mengubah kebijakan. Naskah sudah ditulis di gedung pencakar langit Jakarta.
+                </p>
+            </div>
+        </article>
+
+        <!-- ================= CHAPTER IV & V ================= -->
+        <article id="part4" class="mb-16">
+            <h2 class="font-story text-3xl font-bold text-stone-800 chapter-title">BAGIAN IV & V: Hujan dan Retorika</h2>
+            
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p>
+                    Tiga bulan kemudian. Bukit Utara sudah tidak hijau lagi. Hujan turun, berubah menjadi curahan air bah. Jutaan kubik lumpur meluncur turun, menghantam rumah Wawa.
+                </p>
+                <p>
+                    "ALLAHU AKBAR! NAIK KE ATAP!" Terlambat. Hantaman itu menyapu segalanya. Istri dan anak bungsu Wawa hilang. Malam itu, Lembah Asri hilang dari peta.
+                </p>
+                <p>
+                    Dua hari kemudian, Herman datang dengan helikopter. "Ini adalah ujian dari Tuhan," ucapnya di depan kamera wartawan. "Cuaca ekstrem fenomena La Nina."
+                </p>
+                <p>
+                    Wawa menatap Herman. Di mata pejabat itu, Wawa tidak melihat rasa bersalah. Wawa sadar, dia hanyalah <em>collateral damage</em> dalam neraca keuangan negara yang defisit.
+                </p>
+            </div>
+
+            <!-- INTERACTIVE MODULE 4: IMPACT -->
+            <div class="data-card font-ui">
+                <h3 class="text-amber-800 font-bold uppercase text-xs tracking-wider mb-2">Simulasi Dampak</h3>
+                <h4 class="text-xl font-bold text-stone-800 mb-4">Janji Pemerintah vs Realita Lapangan</h4>
+                
+                <div class="flex flex-col gap-4 mb-6">
+                    <div class="flex gap-4 text-sm">
+                        <button onclick="setNarrative('govt')" id="btnGovt" class="flex-1 py-2 px-4 border rounded font-bold transition">Narasi Herman</button>
+                        <button onclick="setNarrative('reality')" id="btnReality" class="flex-1 py-2 px-4 border rounded font-bold transition">Realita Cempaka</button>
+                    </div>
+                    <div id="narrativeText" class="p-3 bg-stone-50 text-sm italic text-stone-600 border-l-2 border-stone-300">
+                        Pilih narasi di atas untuk melihat proyeksi kesejahteraan.
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="impactChart"></canvas>
+                </div>
+            </div>
+
+            <div class="font-story text-lg leading-loose text-stone-800 space-y-6">
+                <p>
+                    Wawa tidak mengambil amplop bantuan itu. Dia meludah ke tanah. "Tanah ini dulu menghidupi kami. Sampai kalian datang dan mengubahnya jadi kuburan. Jangan sebut ini takdir Tuhan."
+                </p>
+            </div>
+        </article>
+
+        <!-- ================= EPILOGUE ================= -->
+        <article class="mb-20">
+            <div class="bg-stone-800 text-stone-300 p-8 md:p-12 rounded-xl font-story leading-loose shadow-xl">
+                <h3 class="text-2xl font-bold text-white mb-6">Epilog: Neraca yang Tetap Defisit</h3>
+                <p class="mb-6">
+                    Setahun kemudian. Jakarta kembali sibuk. Herman kembali menandatangani izin baru di pulau lain. Wawa kini menjadi buruh harian lepas di atas tanah bekas rumahnya sendiri.
+                </p>
+                <p class="text-amber-500 font-bold text-xl italic mb-6">
+                    "Tuhan tidak akan mengubah nasib orang bodoh kecuali ia sendiri yang mengubahnya."
+                </p>
+                <p>
+                    Dan malam itu, di bawah bayang-bayang mesin ekskavator raksasa, sebuah kemarahan mulai tumbuh di dada Wawa. Kemarahan dingin yang panjang.
+                </p>
+                <div class="mt-8 pt-8 border-t border-stone-600 text-sm font-ui text-stone-500 flex justify-between items-center">
+                    <span>Tamat.</span>
+                    <span>Arsip Narasi Ekologi</span>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-900 py-12 text-center font-ui border-t border-stone-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="text-stone-500 mb-6 text-sm">
+                Cerita ini adalah fiksi yang disusun berdasarkan data nyata mengenai kondisi fiskal, sosial, dan ekologis Indonesia.
+            </p>
+            <a href="https://nvze.github.io/dashboard/blog.html" class="inline-flex items-center gap-2 text-amber-500 hover:text-amber-400 font-bold transition">
+                <span>← Kembali ke Daftar Blog</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA SETUP ---
+        Chart.defaults.font.family = "'Work Sans', sans-serif";
+        Chart.defaults.color = '#57534e';
+
+        // 1. FISCAL DATA
+        const fiscalData = { revenue: 2000, debtInterest: 490, other: 1510 };
+        let fiscalChart;
+
+        function initFiscalChart() {
+            const ctx = document.getElementById('fiscalChart').getContext('2d');
+            fiscalChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Bunga Utang', 'Belanja Lain'],
+                    datasets: [{
+                        data: [fiscalData.debtInterest, fiscalData.other],
+                        backgroundColor: ['#b91c1c', '#e5e7eb'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right' } }
+                }
+            });
+        }
+
+        function updateFiscalChart(mode) {
+            // Visual feedback only for demo
+            fiscalChart.update();
+        }
+
+        // 2. SOCIAL DATA
+        const socialData = [9, 45, 20, 26]; // Poor, Aspiring, Middle, Upper
+        const socialLabels = ['Miskin', 'Rentan (Wawa)', 'Menengah', 'Atas'];
+        const socialDesc = [
+            "Hidup di bawah garis kemiskinan.",
+            "Aspiring Middle Class: Rentan jatuh miskin jika ada guncangan.",
+            "Secara ekonomi aman dan stabil.",
+            "Elite ekonomi & Oligarki."
+        ];
+        let socialChart;
+
+        function initSocialChart() {
+            const ctx = document.getElementById('socialChart').getContext('2d');
+            socialChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: socialLabels,
+                    datasets: [{
+                        label: '% Populasi',
+                        data: socialData,
+                        backgroundColor: ['#991b1b', '#f59e0b', '#10b981', '#1e40af'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: { legend: { display: false } },
+                    onClick: (e, el) => {
+                        if(el.length > 0) {
+                            const idx = el[0].index;
+                            document.getElementById('classDesc').innerHTML = `<strong>${socialLabels[idx]}:</strong> ${socialDesc[idx]}`;
+                            document.getElementById('classDesc').className = `p-3 bg-stone-100 rounded border-l-4 border-${idx === 1 ? 'amber' : 'stone'}-500 text-sm italic text-stone-700`;
+                        }
+                    }
+                }
+            });
+        }
+
+        // 3. IMPACT DATA
+        const govtScenario = [20, 30, 50, 70, 90];
+        const realityScenario = [20, 25, 15, 5, 10]; // Crash
+        let impactChart;
+
+        function initImpactChart() {
+            const ctx = document.getElementById('impactChart').getContext('2d');
+            impactChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Tahun 1', 'Tahun 2', 'Tahun 3', 'Bencana', 'Pasca'],
+                    datasets: [{
+                        label: 'Kesejahteraan Warga',
+                        data: realityScenario, // Default to reality
+                        borderColor: '#ef4444',
+                        backgroundColor: '#ef4444',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 100 } }
+                }
+            });
+            // Set default button state
+            setNarrative('reality');
+        }
+
+        function setNarrative(type) {
+            const btnGovt = document.getElementById('btnGovt');
+            const btnReality = document.getElementById('btnReality');
+            const txt = document.getElementById('narrativeText');
+
+            if (type === 'govt') {
+                btnGovt.className = "flex-1 py-2 px-4 border-2 border-blue-500 bg-blue-50 text-blue-800 rounded font-bold transition";
+                btnReality.className = "flex-1 py-2 px-4 border border-stone-200 text-stone-500 rounded font-medium transition hover:bg-stone-50";
+                txt.innerText = "\"Investasi ini akan membawa kesejahteraan jangka panjang. Ekonomi desa akan tumbuh seiring hilirisasi.\"";
+                txt.className = "p-3 bg-blue-50 text-sm italic text-blue-800 border-l-4 border-blue-500 rounded";
+                
+                impactChart.data.datasets[0].data = govtScenario;
+                impactChart.data.datasets[0].borderColor = '#3b82f6';
+                impactChart.data.datasets[0].backgroundColor = '#3b82f6';
+                impactChart.data.datasets[0].label = 'Janji Pemerintah';
+            } else {
+                btnReality.className = "flex-1 py-2 px-4 border-2 border-red-500 bg-red-50 text-red-800 rounded font-bold transition";
+                btnGovt.className = "flex-1 py-2 px-4 border border-stone-200 text-stone-500 rounded font-medium transition hover:bg-stone-50";
+                txt.innerText = "\"Tanah dikupas, air tercemar. Saat bencana datang, kesejahteraan warga jatuh ke titik nol.\"";
+                txt.className = "p-3 bg-red-50 text-sm italic text-red-800 border-l-4 border-red-500 rounded";
+                
+                impactChart.data.datasets[0].data = realityScenario;
+                impactChart.data.datasets[0].borderColor = '#ef4444';
+                impactChart.data.datasets[0].backgroundColor = '#ef4444';
+                impactChart.data.datasets[0].label = 'Realita Lapangan';
+            }
+            impactChart.update();
+        }
+
+        // INITIALIZE ALL
+        window.addEventListener('load', () => {
+            initFiscalChart();
+            initSocialChart();
+            initImpactChart();
+        });
+    </script>
+</body>
+</html>

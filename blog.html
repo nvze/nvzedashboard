@@ -5,219 +5,302 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jurnal Pemikiran | NVZE</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    
     <style>
-        /* --- CONFIGURATION --- */
+        /* --- FLUENT DESIGN SYSTEM VARIABLES (WIN 11) --- */
         :root {
-            --bg-color: #FDFBF7;
-            --text-main: #1C1C1C;
-            --text-muted: #6E6E6E;
-            --accent: #BFA15F;
-            --border: #E8E6E1;
+            /* Colors */
+            --mica-bg: #F3F3F3; /* Background Windows Light */
+            --card-bg: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5D5D5D;
+            --accent-default: #0067C0; /* Windows Blue */
+            --accent-hover: #005DAD;
+            --accent-text: #FFFFFF;
+            --border-subtle: #E0E0E0;
+            --control-fill: #FFFFFF;
+            --control-fill-hover: #F6F6F6;
             
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            /* Elevation & Effects */
+            --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0,0,0,0.06);
+            --acrylic-blur: blur(20px) saturate(125%);
+            
+            /* Typography */
+            --font-stack: 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-sans);
-            font-weight: 300;
-            line-height: 1.6;
+            background-color: var(--mica-bg);
+            color: var(--text-primary);
+            font-family: var(--font-stack);
+            font-size: 15px;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* --- BACK BUTTON --- */
+        /* --- TOP BAR (Breadcrumb style) --- */
         .top-bar {
-            padding: 30px 40px;
+            padding: 24px 32px 0;
+            display: flex;
+            align-items: center;
         }
 
         .btn-back {
             text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 400;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn-back:hover {
-            color: var(--accent);
-            transform: translateX(-5px);
+            background-color: rgba(0,0,0,0.05);
+            color: var(--text-primary);
         }
 
         /* --- HEADER --- */
         header {
-            padding: 60px 20px 40px;
+            padding: 40px 20px 30px;
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            animation: fadeInDown 0.6s ease-out;
         }
 
         h1 {
-            font-family: var(--font-serif);
-            font-size: 4.5rem;
-            font-weight: 400;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            margin-bottom: 20px;
-            color: var(--text-main);
+            font-family: var(--font-stack);
+            font-size: 2.5rem; /* Lebih kecil & bold dari versi jurnal */
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
         .subtitle {
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-size: 1.2rem;
-            color: var(--text-muted);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
         }
 
-        /* --- STICKY NAV --- */
+        /* --- STICKY NAV (Acrylic Style) --- */
         .sticky-nav {
             position: sticky;
-            top: 0;
-            background: rgba(253, 251, 247, 0.95);
-            backdrop-filter: blur(10px);
+            top: 16px; /* Floating effect */
             z-index: 100;
-            border-bottom: 1px solid var(--border);
-            border-top: 1px solid var(--border);
-            padding: 15px 0;
-            margin-bottom: 60px;
-        }
-
-        .nav-list {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            list-style: none;
-            flex-wrap: wrap;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: var(--acrylic-blur);
+            -webkit-backdrop-filter: var(--acrylic-blur);
+            padding: 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 4px;
         }
 
         .filter-btn {
-            background: none;
+            background: transparent;
             border: none;
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
+            font-family: var(--font-stack);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
             cursor: pointer;
-            padding-bottom: 2px;
+            padding: 8px 16px;
+            border-radius: 6px; /* Pill shape buttons */
+            transition: all 0.2s ease;
             position: relative;
-            transition: color 0.3s ease;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            color: var(--text-main);
+        .filter-btn:hover {
+            background-color: rgba(0,0,0,0.04);
+            color: var(--text-primary);
         }
 
+        /* Active State - Windows 11 style (White pill with shadow OR Accent pill) 
+           Here using the Accent style for clarity */
+        .filter-btn.active {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+        
+        /* Optional: Indicator dot for active */
         .filter-btn.active::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background-color: var(--accent);
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 3px;
+            background-color: var(--accent-default);
+            border-radius: 2px;
         }
 
-        /* --- POST LIST --- */
+        /* --- POST LIST (Card Grid) --- */
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             flex: 1;
+        }
+
+        #posts-container {
+            display: grid;
+            gap: 16px; /* Spacing between cards */
         }
 
         .article-card {
             display: block;
             text-decoration: none;
-            padding: 40px 0;
-            border-bottom: 1px solid var(--border);
-            transition: opacity 0.3s ease;
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 8px; /* Win 11 Geometry */
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
+            transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+            position: relative;
+            overflow: hidden;
         }
 
         .article-card:hover {
-            opacity: 0.75;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(0,0,0,0.1);
+            opacity: 1; /* Override old transparency */
+        }
+        
+        /* Left Accent Border on Hover */
+        .article-card:hover::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            bottom: 12px;
+            width: 4px;
+            background: var(--accent-default);
+            border-radius: 0 4px 4px 0;
         }
 
         .meta-group {
             display: flex;
-            justify-content: space-between;
-            font-size: 0.7rem;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-default);
+            margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent);
-            margin-bottom: 12px;
-            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .meta-date {
+            color: var(--text-secondary);
+            font-weight: 400;
+            text-transform: none;
         }
 
         .post-title {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            font-weight: 400;
-            color: var(--text-main);
-            line-height: 1.2;
-            margin-bottom: 15px;
+            font-family: var(--font-stack);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin-bottom: 8px;
         }
 
         .post-excerpt {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.7;
-            max-width: 90%;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 100%;
         }
 
         /* --- FOOTER & UTILS --- */
         .load-more-container {
             text-align: center;
-            padding: 60px 0;
+            padding: 40px 0 60px;
         }
 
         .btn-load {
-            background: transparent;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 12px 40px;
-            font-family: var(--font-sans);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.7rem;
+            background-color: var(--accent-default);
+            border: 1px solid transparent;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 4px;
+            font-family: var(--font-stack);
+            font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .btn-load:hover {
-            background: var(--text-main);
-            color: #fff;
+            background-color: var(--accent-hover);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: scale(1.02);
+        }
+        
+        .btn-load:active {
+            transform: scale(0.98);
+            opacity: 0.9;
         }
 
         footer {
             text-align: center;
-            padding: 40px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
+            padding: 30px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background-color: #F9F9F9; /* Footer slightly darker */
+            border-top: 1px solid var(--border-subtle);
             margin-top: auto;
-            font-family: var(--font-serif);
-            font-style: italic;
+        }
+
+        /* --- ANIMATION --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .article-card {
+            animation: fadeIn 0.4s ease-out;
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 3rem; }
-            .nav-list { gap: 20px; padding: 0 10px; }
-            .post-title { font-size: 1.8rem; }
+            h1 { font-size: 2rem; }
+            .nav-container { 
+                flex-wrap: wrap; 
+                justify-content: center;
+                width: 100%;
+            }
+            .filter-btn { flex-grow: 1; text-align: center; font-size: 13px; }
             .top-bar { padding: 20px; }
+            .container { padding: 0 16px; }
         }
     </style>
 </head>
@@ -225,7 +308,10 @@
 
     <div class="top-bar">
         <a href="https://nvze.github.io/dashboard/index.html" class="btn-back">
-            &larr; Kembali ke Dashboard
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.21967 12.0303L2.46967 8.28033C2.17678 7.98744 2.17678 7.51256 2.46967 7.21967L6.21967 3.46967C6.51256 3.17678 6.98744 3.17678 7.28033 3.46967C7.57322 3.76256 7.57322 4.23744 7.28033 4.53033L4.81066 7H13.5C13.9142 7 14.25 7.33579 14.25 7.75C14.25 8.16421 13.9142 8.5 13.5 8.5H4.81066L7.28033 10.9697C7.57322 11.2626 7.57322 11.7374 7.28033 12.0303C6.98744 12.3232 6.51256 12.3232 6.21967 12.0303Z"/>
+            </svg>
+            Kembali ke Dashboard
         </a>
     </div>
 
@@ -235,13 +321,13 @@
     </header>
 
     <nav class="sticky-nav">
-        <ul class="nav-list">
-            <li><button class="filter-btn active" onclick="setCategory('all', this)">Indeks</button></li>
-            <li><button class="filter-btn" onclick="setCategory('ekonomi', this)">Ekonomi</button></li>
-            <li><button class="filter-btn" onclick="setCategory('teknologi', this)">Teknologi</button></li>
-            <li><button class="filter-btn" onclick="setCategory('humaniora', this)">Humaniora</button></li>
-            <li><button class="filter-btn" onclick="setCategory('bebas', this)">Bebas</button></li>
-        </ul>
+        <div class="nav-container">
+            <button class="filter-btn active" onclick="setCategory('all', this)">Indeks</button>
+            <button class="filter-btn" onclick="setCategory('ekonomi', this)">Ekonomi</button>
+            <button class="filter-btn" onclick="setCategory('teknologi', this)">Teknologi</button>
+            <button class="filter-btn" onclick="setCategory('humaniora', this)">Humaniora</button>
+            <button class="filter-btn" onclick="setCategory('bebas', this)">Bebas</button>
+        </div>
     </nav>
 
     <div class="container">
@@ -254,13 +340,13 @@
     </div>
 
     <footer>
-        &copy;2025 nvze dashboard
+        &copy;2025 nvze dashboard system
     </footer>
 
     <script>
         /* DATABASE POST */
         const allPosts = [
-            { 
+             { 
                 title: "Negeri Di Ujung Tanduk ", 
                 cat: "humaniora", 
                 date: "29 Nov 2025", 
@@ -295,8 +381,6 @@
                 desc: "Manajemen Kualitas Total (TQM) dan Rekayasa Keandalan: Sebuah Tinjauan Komprehensif dalam Konteks Teknik Industri", 
                 link: "tqm.html" 
             },
-            
-      
             // --- KELOMPOK EKONOMI ---
             { 
                 title: "rekayasa finansial global", 
@@ -409,7 +493,7 @@
                 desc: "pastikan artikelnya sudah ada di repo", 
                 link: "post-3.html" 
             },
- { 
+            { 
                 title: "posting", 
                 cat: "bebas", 
                 date: "29 Nov 2025", 
@@ -441,6 +525,7 @@
                 filteredList = allPosts.filter(post => post.cat === cat);
             }
 
+            displayLimit = 15; // Reset limit saat ganti kategori
             renderList();
         }
 
@@ -449,7 +534,7 @@
             const listToShow = filteredList.slice(0, displayLimit);
 
             if(listToShow.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#999; padding:40px;">Belum ada artikel di kategori ini.</p>`;
+                container.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding:40px;">Belum ada artikel di kategori ini.</p>`;
                 loadBtn.style.display = 'none';
                 return;
             }
@@ -458,10 +543,11 @@
                 const article = document.createElement('a');
                 article.href = post.link;
                 article.className = 'article-card';
+                // Struktur HTML sedikit disesuaikan agar rapi di Card
                 article.innerHTML = `
                     <div class="meta-group">
                         <span>${post.cat}</span>
-                        <span>${post.date}</span>
+                        <span class="meta-date">&bull; ${post.date}</span>
                     </div>
                     <h2 class="post-title">${post.title}</h2>
                     <p class="post-excerpt">${post.desc}</p>

@@ -3,183 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NvZE Bookmark</title>
+    <title>NvZE Bookmark - Win11 Style</title>
     <style>
-        /* === 1. STYLE DASAR === */
+        /* === 1. WINDOWS 11 FLUENT DESIGN VARIABLES === */
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8;
-            --border: #334155;
-            --search-bg: #020617;
+            /* Background "Bloom" Colors */
+            --bg-dark: #000000;
+            --bloom-blue: #1c2340;
+            --bloom-accent: #373e66;
+            
+            /* Acrylic / Mica Material */
+            --mica-bg: rgba(32, 32, 32, 0.65);
+            --mica-border: rgba(255, 255, 255, 0.08);
+            --hover-bg: rgba(255, 255, 255, 0.06);
+            
+            /* Text & Accents */
+            --text-primary: #ffffff;
+            --text-secondary: #aeb2ba;
+            --win-blue: #60cdff; /* Windows 11 Accent Blue */
+            
+            /* Spacing & Radius */
+            --radius-card: 8px;
+            --radius-input: 6px;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
-            background-color: var(--bg-color); 
+            /* Imitasi Wallpaper Windows 11 "Bloom" Dark */
+            background: radial-gradient(circle at 50% 0%, var(--bloom-accent) 0%, var(--bloom-blue) 40%, var(--bg-dark) 90%);
+            background-attachment: fixed;
             color: var(--text-primary); 
-            padding: 20px; 
+            padding: 40px 20px; 
             min-height: 100vh; 
             display: flex;
             flex-direction: column;
+            font-family: "Segoe UI Variable", "Segoe UI", sans-serif; /* Font asli Win11 */
+            -webkit-font-smoothing: antialiased;
         }
 
         /* === 2. HEADER === */
         header { 
-            max-width: 1000px;
-            margin: 0 auto 30px auto;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
             text-align: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
             width: 100%;
         }
 
         h1 { 
-            font-size: 1.8rem; 
-            font-weight: 800; 
-            color: var(--accent); 
-            margin-bottom: 10px;
+            font-size: 2rem; 
+            font-weight: 600; 
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
         }
 
         #clock {
-            font-family: monospace;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-weight: bold;
+            margin-bottom: 25px;
+            font-weight: 400;
         }
 
+        /* Input Search ala Windows 11 Start Menu */
         #searchInput {
             width: 100%;
-            max-width: 500px;
-            padding: 12px 20px; 
-            border-radius: 50px;
-            border: 1px solid var(--border); 
-            background-color: var(--search-bg);
+            max-width: 600px;
+            padding: 12px 16px; 
+            border-radius: var(--radius-input);
+            border: 1px solid var(--mica-border);
+            border-bottom: 2px solid transparent; /* Untuk efek focus */
+            background-color: rgba(0, 0, 0, 0.25);
             color: white; 
             outline: none; 
-            font-size: 1rem; 
-            text-align: center;
-            transition: 0.3s;
+            font-size: 0.95rem; 
+            text-align: left;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
         }
-        #searchInput:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(56,189,248,0.2); }
+        
+        #searchInput::placeholder { color: rgba(255,255,255,0.4); }
 
-        /* === 3. GRID SYSTEM UNTUK ACCORDION === */
+        #searchInput:focus { 
+            background-color: rgba(0, 0, 0, 0.4);
+            border-color: var(--mica-border);
+            border-bottom-color: var(--win-blue); /* Aksen biru di bawah saat ngetik */
+        }
+
+        /* === 3. GRID SYSTEM === */
         .grid-container {
             display: grid;
-            /* Desktop: 2 Kolom, HP: 1 Kolom */
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-            gap: 15px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 12px;
+            max-width: 1000px;
             margin: 0 auto;
             width: 100%;
-            flex: 1; /* Agar footer terdorong ke bawah jika konten sedikit */
+            flex: 1; 
         }
 
-        /* === 4. ACCORDION CARD STYLE (DETAILS & SUMMARY) === */
+        /* === 4. ACCORDION CARD (MICA STYLE) === */
         details.card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            overflow: hidden; /* Supaya sudut tumpul tetap rapi */
-            transition: all 0.3s ease;
+            background-color: var(--mica-bg);
+            backdrop-filter: blur(30px); /* Efek blur kaca */
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--mica-border);
+            border-radius: var(--radius-card);
+            overflow: hidden; 
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         details.card:hover {
-            border-color: var(--accent);
+            background-color: rgba(45, 45, 45, 0.75);
         }
 
-        /* Judul (Tombol Klik) */
+        /* Judul Accordion */
         summary.card-header {
-            padding: 15px 20px;
-            font-weight: bold;
-            font-size: 1.05rem;
-            color: var(--accent);
+            padding: 14px 16px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
             cursor: pointer;
-            list-style: none; /* Hilangkan panah default */
+            list-style: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.02);
             user-select: none;
+            transition: 0.2s;
         }
 
-        /* Menghilangkan marker default di Chrome/Safari */
-        summary.card-header::-webkit-details-marker {
-            display: none;
-        }
+        summary.card-header::-webkit-details-marker { display: none; }
 
-        /* Icon Panah Custom (+) */
+        /* Icon Panah Chevron Win11 Style */
         summary.card-header::after {
-            content: '+';
-            font-size: 1.5rem;
-            font-weight: 300;
+            content: '\203A'; /* Chevron Right */
+            font-size: 1.4rem;
             color: var(--text-secondary);
-            transition: transform 0.3s;
+            transform: rotate(90deg);
+            transition: transform 0.2s ease;
+            line-height: 0;
+            margin-top: -4px;
         }
 
         /* Saat Terbuka */
         details[open] summary.card-header {
-            border-bottom: 1px solid var(--border);
-            background-color: rgba(56, 189, 248, 0.05);
+            border-bottom: 1px solid var(--mica-border);
+            color: var(--win-blue);
         }
 
         details[open] summary.card-header::after {
-            content: '-'; /* Berubah jadi minus */
-            color: var(--accent);
-            font-weight: bold;
+            transform: rotate(-90deg); /* Putar ke atas */
+            color: var(--win-blue);
         }
 
         /* === 5. ISI LINK === */
         .link-list {
-            padding: 10px;
+            padding: 6px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            max-height: 400px; /* Batas tinggi jika link terlalu banyak */
+            gap: 2px;
+            max-height: 400px;
             overflow-y: auto;
         }
         
-        /* Scrollbar Cantik */
-        .link-list::-webkit-scrollbar { width: 6px; }
+        /* Scrollbar Win11 Style (Tipis & Melayang) */
+        .link-list::-webkit-scrollbar { width: 4px; }
         .link-list::-webkit-scrollbar-track { background: transparent; }
-        .link-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        .link-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .link-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
 
         .bookmark-link {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: var(--text-secondary);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            transition: 0.2s;
+            color: var(--text-primary);
+            padding: 10px 12px;
+            border-radius: 4px; /* Sedikit rounded di item list */
+            font-size: 0.9rem;
+            transition: background 0.1s;
         }
 
         .bookmark-link:hover {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: white;
-            padding-left: 20px;
+            background-color: var(--hover-bg); /* Efek hover list menu Windows */
         }
 
         .favicon {
-            width: 18px; height: 18px; margin-right: 12px; border-radius: 4px; flex-shrink: 0;
+            width: 16px; height: 16px; margin-right: 12px; border-radius: 0; /* Icon tajam ala Windows */
+            flex-shrink: 0;
         }
 
-        /* Animasi saat dibuka */
+        /* Animasi Slide Halus */
         details[open] .link-list {
-            animation: slideDown 0.3s ease-out;
+            animation: fadeIn 0.25s ease-out;
         }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .hidden { display: none !important; }
 
-        /* === 6. TOMBOL NAVIGASI BAWAH === */
+        /* === 6. NAVIGATION BUTTONS === */
         .navigation-bottom {
             text-align: center;
             margin: 40px 0 20px 0;
@@ -187,37 +210,39 @@
 
         .btn-dashboard {
             display: inline-block;
-            padding: 12px 30px;
-            background-color: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            border-radius: 50px;
+            padding: 8px 24px;
+            background-color: var(--mica-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--mica-border);
+            border-radius: 4px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
         }
 
         .btn-dashboard:hover {
-            background-color: var(--accent);
-            color: var(--bg-color);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-            transform: translateY(-3px);
+            background-color: var(--hover-bg);
+            border-color: rgba(255,255,255,0.2);
         }
 
         /* Footer */
         footer {
-            text-align: center; color: var(--border); font-size: 0.8rem; margin-top: 20px;
+            text-align: center; 
+            color: var(--text-secondary); 
+            font-size: 0.75rem; 
+            margin-top: 20px;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>NVZE Bookmark</h1>
+        <h1>NvZE Bookmark</h1>
         <div id="clock">Loading time...</div>
-        <input type="text" id="searchInput" placeholder="🔍 Cari Link (Misal: Octa, Gmail, Film)..." onkeyup="filterLinks()">
+        <input type="text" id="searchInput" placeholder="Cari aplikasi, file, atau pengaturan..." onkeyup="filterLinks()">
     </header>
 
     <main class="grid-container">
@@ -353,7 +378,7 @@
                 <a href="https://snapdrop.net/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=snapdrop.net" class="favicon">Snapdrop</a>
                 <a href="https://pairdrop.net/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=pairdrop.net" class="favicon">PairDrop</a>
                 <a href="https://my.nextdns.io/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=nextdns.io" class="favicon">NextDNS Analytics</a>
-                <a href="https://vscode.dev/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=vscode.dev" class="favicon">VScode</a> 
+                <a href="https://https://vscode.dev//" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=vscode.dev" class="favicon">VScode</a> 
                 <a href="http://127.0.0.1:5000/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=localhost" class="favicon">Localhost:5000</a>
                 <a href="https://firmwarefile.com/lenovo-a7700" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=firmwarefile.com" class="favicon">Lenovo Firmware</a>
                 <a href="https://getintopc.com/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=getintopc.com" class="favicon">GetintoPC</a>
@@ -369,7 +394,8 @@
     </div>
 
     <footer>
-        &copy; 2025 NVZE Dashboard - Bandung
+        &copy; 2025 NVZE Dashboard - Bandung<br>
+        <span style="font-size: 0.7rem; opacity: 0.5;">Windows 11 Fluent Design Inspired</span>
     </footer>
 
     <script>
@@ -402,35 +428,29 @@
                 });
 
                 if (input.length > 0) {
-                    // Jika sedang mencari
                     if (hasVisible) {
                         detail.classList.remove('hidden');
-                        detail.open = true; // Otomatis buka folder
+                        detail.open = true;
                     } else {
                         detail.classList.add('hidden');
                         detail.open = false;
                     }
                 } else {
-                    // Jika kolom pencarian kosong, kembalikan ke normal
                     detail.classList.remove('hidden');
-                    detail.open = false; // Tutup semua folder biar rapi
+                    detail.open = false;
                     links.forEach(link => link.style.display = "flex");
                 }
             });
         }
 
-        // 3. LOGIKA ACCORDION (HANYA SATU YANG TERBUKA)
-        // Ini adalah bagian baru yang ditambahkan
+        // 3. LOGIKA ACCORDION (SATU TERBUKA)
         const allDetails = document.querySelectorAll('details');
-
         allDetails.forEach((targetDetail) => {
             targetDetail.addEventListener('toggle', (e) => {
-                // Hanya jalankan jika folder ini BARU SAJA dibuka
                 if (targetDetail.open) {
-                    // Loop semua folder lain untuk menutupnya
                     allDetails.forEach((detail) => {
                         if (detail !== targetDetail && detail.open) {
-                            detail.open = false; // Tutup paksa folder lain
+                            detail.open = false;
                         }
                     });
                 }
@@ -438,6 +458,4 @@
         });
     </script>
 </body>
-
-
 </html>

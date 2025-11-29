@@ -3,32 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NVZE Tayang Blog Manager</title>
+    <title>NVZE Tayang Blog Manager - Dark Theme</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 700px; margin: 20px auto; padding: 20px; background: #f4f4f4; color: #333; }
+        /* --- TEMA WARNA BARU (Dark/Fluent Inspired) --- */
+        :root {
+            --bg-app-dark: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0a0e14 100%);
+            --bg-container: rgba(22, 27, 34, 0.75); /* Semi-transparan gelap */
+            --bg-input: rgba(255, 255, 255, 0.07);
+            --border-subtle: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #b1b8c0;
+            --accent-blue: #58a6ff;
+            --btn-primary-bg: #21262d; /* Tombol gelap ala GitHub/Win11 */
+            --btn-primary-hover: #30363d;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            max-width: 700px; 
+            margin: 20px auto; 
+            padding: 20px; 
+            background: var(--bg-app-dark); /* Background Gelap Bergradasi */
+            color: var(--text-primary); 
+            min-height: 100vh;
+        }
         
-        /* Container Style */
-        .container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; color: #111; }
+        /* Container Style dengan efek Glassmorphism halus */
+        .container { 
+            background: var(--bg-container);
+            backdrop-filter: blur(12px); /* Efek kaca buram */
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5); /* Bayangan lebih dalam */
+            border: 1px solid var(--border-subtle);
+        }
+        h2 { 
+            border-bottom: 1px solid var(--border-subtle); 
+            padding-bottom: 10px; 
+            margin-top: 0; 
+            color: var(--text-primary);
+            font-weight: 500;
+        }
 
         /* Input Styles */
-        label { display: block; margin-top: 15px; font-weight: 600; font-size: 0.9rem; color: #444; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        label { 
+            display: block; 
+            margin-top: 15px; 
+            font-weight: 500; 
+            font-size: 0.9rem; 
+            color: var(--text-secondary); /* Label warna abu terang */
+        }
+        input, select, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            margin-top: 5px; 
+            background: var(--bg-input); /* Input background gelap transparan */
+            border: 1px solid var(--border-subtle); 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+            color: var(--text-primary); /* Teks input putih */
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        /* Styling khusus untuk input readonly */
+        #targetFile[readonly] {
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+        }
         
         /* Button Styles */
-        button { width: 100%; background: #1c1c1c; color: white; border: none; padding: 15px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 25px; transition: 0.2s; }
-        button:hover { background: #444; }
-        button:disabled { background: #aaa; cursor: not-allowed; }
+        button { 
+            width: 100%; 
+            background: var(--btn-primary-bg);
+            border: 1px solid var(--border-subtle);
+            color: white; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            margin-top: 25px; 
+            transition: 0.2s; 
+        }
+        button:hover { 
+            background: var(--btn-primary-hover); 
+            border-color: var(--text-secondary);
+        }
+        button:disabled { 
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+            border-color: transparent;
+            cursor: not-allowed; 
+        }
 
         /* Config Section */
-        .config-box { background: #eef; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #ccd; }
+        .config-box { 
+            background: rgba(0, 0, 0, 0.2); /* Box config lebih gelap */
+            padding: 15px; 
+            border-radius: 6px; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--border-subtle); 
+        }
         details { margin-bottom: 20px; }
-        summary { cursor: pointer; color: #0056b3; font-weight: 500; font-size: 0.9rem; }
+        summary { 
+            cursor: pointer; 
+            color: var(--accent-blue); /* Warna link biru terang */
+            font-weight: 500; 
+            font-size: 0.9rem; 
+        }
+        select {
+            /* Memastikan dropdown option juga gelap di beberapa browser */
+            background-color: #161b22; 
+        }
 
         /* Notifications */
         #status { margin-top: 20px; padding: 15px; border-radius: 6px; display: none; text-align: center; }
-        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .success { background: rgba(21, 87, 36, 0.8); color: #d4edda; border: 1px solid #1e7e34; }
+        .error { background: rgba(114, 28, 36, 0.8); color: #f8d7da; border: 1px solid #dc3545; }
+
+        /* Footer Nav (Tombol Kembali ala referensi) */
+        .footer-nav {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .btn-back {
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 12px 24px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            background: var(--bg-input);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -53,7 +171,7 @@
                     </div>
                 </div>
                 <label>Nama File Target:</label>
-                <input type="text" id="targetFile" value="blog.html" readonly style="background:#ddd;">
+                <input type="text" id="targetFile" value="blog.html" readonly>
             </div>
         </details>
 
@@ -91,6 +209,10 @@
         
         <div id="status"></div>
     </div>
+
+    <nav class="footer-nav">
+        <a href="https://nvze.github.io/dashboard/blog.html" class="btn-back">← Kembali ke Daftar Blog</a>
+    </nav>
 
     <script>
         // Set tanggal hari ini otomatis
@@ -219,10 +341,6 @@
             el.className = type;
         }
     </script>
-
-<nav class="footer-nav">
-            <a href="https://nvze.github.io/dashboard/blog.html" class="btn-back">Kembali ke Daftar Blog</a>
-        </nav>
 
 </body>
 </html>

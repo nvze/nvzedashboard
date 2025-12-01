@@ -88,17 +88,21 @@
             align-items: center;
         }
 
-        /* CSS KHUSUS LOGO BARU */
+        /* CSS KHUSUS LOGO BARU (UPDATED) */
         .site-logo {
-            max-width: 140px; /* Ukuran logo diubah menjadi 140px */
+            max-width: 140px; /* Ukuran FIX 140px */
             width: 100%;
             height: auto;
             margin-bottom: 15px;
             
-            /* MAGIC TRICK: */
-            /* 1. Balik warna: Background putih jadi hitam, teks gelap jadi putih */
-            filter: invert(1);
-            /* 2. Buat warna hitam (background baru) menjadi transparan */
+            /* LOGIC BARU: 
+               1. grayscale: pastikan tidak ada warna lain
+               2. contrast(200%): paksa putih jadi sangat putih, hitam jadi sangat hitam (membersihkan noise)
+               3. invert(1): balik warna
+            */
+            filter: grayscale(100%) contrast(200%) invert(1);
+            
+            /* Membuat warna hitam hasil invert menjadi transparan 100% */
             mix-blend-mode: screen; 
         }
 
@@ -348,8 +352,6 @@
             .container { padding: 0 16px; }
             .article-card { padding: 20px; }
             .search-wrapper { margin-bottom: 20px; padding: 0 24px; }
-            /* Ukuran logo di mobile bisa disesuaikan jika perlu, misal: */
-            /* .site-logo { max-width: 120px; } */
         }
     </style>
 </head>

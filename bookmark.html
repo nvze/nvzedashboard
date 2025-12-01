@@ -60,39 +60,45 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Pastikan tidak ada background di container */
             background: transparent; 
         }
 
-        /* LOGO STYLING (PERBAIKAN BACKGROUND) */
-        .header-logo {
-            max-width: 140px; 
-            height: auto;
+        /* === STYLE BARU UNTUK LOGO TEKS (OPSI 2) === */
+        .text-logo {
+            font-size: 2.5rem; /* Ukuran besar */
+            font-weight: 700;  /* Tebal */
+            letter-spacing: -1px; /* Rapat biar modern */
+            color: var(--text-primary);
+            line-height: 1.2;
+            cursor: default;
+            user-select: none;
             
-            /* RUMUS PERBAIKAN:
-               1. grayscale(1): Buang warna (hitam putih saja).
-               2. brightness(1.5): Terangkan abu-abu background supaya jadi putih mentok.
-               3. contrast(3): Pertajam perbedaan hitam (teks) dan putih (bg).
-               4. invert(1): Balik warna (Bg Putih -> Hitam Pekat, Teks Hitam -> Putih).
-            */
-            filter: grayscale(100%) brightness(150%) contrast(300%) invert(100%);
-            
-            /* Hapus warna Hitam Pekat (background hasil invert) */
-            mix-blend-mode: screen; 
-            
-            /* Sedikit transparansi agar menyatu dengan bloom background */
-            opacity: 0.95; 
+            /* Efek Glow Biru Halus ala Windows */
+            text-shadow: 0 0 40px rgba(96, 205, 255, 0.3);
         }
 
-        /* Fallback text (disembunyikan) */
-        h1 { display: none; }
+        .text-logo span {
+            color: var(--win-blue); /* Mewarnai teks "NvZE" jadi Biru */
+        }
+
+        .text-logo small {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-top: -5px;
+            opacity: 0.8;
+            text-shadow: none;
+        }
 
         #clock {
             font-size: 0.95rem;
             color: var(--text-secondary);
             margin-bottom: 25px;
             font-weight: 400;
-            margin-top: 5px;
+            margin-top: 10px;
         }
 
         /* Input Search ala Windows 11 Start Menu */
@@ -272,13 +278,12 @@
 
     <header>
         <div class="logo-container">
-            <!-- Pastikan nama file gambar tetap logo.jpg -->
-            <img src="logo.jpg" alt="NvZE Logo" class="header-logo" onerror="this.style.display='none'; document.querySelector('h1').style.display='block';">
+            <div class="text-logo">
+                <span>NvZE</span> System
+                <small>Bookmark Manager</small>
+            </div>
         </div>
         
-        <!-- Text Fallback (Jika gambar error) -->
-        <h1>NvZE Bookmark</h1>
-
         <div id="clock">Loading time...</div>
         <input type="text" id="searchInput" placeholder="Cari aplikasi, file, atau pengaturan..." onkeyup="filterLinks()">
     </header>
@@ -292,8 +297,7 @@
                 <a href="https://outlook.live.com/owa/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=outlook.live.com" class="favicon">Outlook</a>
                 <a href="https://login.yahoo.com/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=yahoo.com" class="favicon">Yahoo Mail</a>
                 <a href="https://protonmail.com/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=protonmail.com" class="favicon">ProtonMail</a>
- <a href="https://nvze.github.io/dashboard/pt-posting-tayang.html" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=nvze.github.io/dashboard" class="favicon">Postingan Tayangkan</a>
-
+                <a href="https://nvze.github.io/dashboard/pt-posting-tayang.html" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=nvze.github.io/dashboard" class="favicon">Postingan Tayangkan</a>
             </div>
         </details>
 
@@ -302,7 +306,7 @@
             <div class="link-list">
                 <a href="https://mt4.octabroker.com/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=octabroker.com" class="favicon">Octa MetaTrader 4</a>
                 <a href="https://www.bloomberg.com/quote/USDIDR:CUR?embedded-checkout=true" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=bloomberg.com" class="favicon">Kurs Rupiah-Dollar 4</a>
-                <a href="https://www.tradingview.com/chart/?symbol=TVC%3ADXY" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=tradingview.com" class="favicon">DXY-Index Dollar</a>     
+                <a href="https://www.tradingview.com/chart/?symbol=TVC%3ADXY" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=tradingview.com" class="favicon">DXY-Index Dollar</a>      
                 <a href="https://id.investing.com/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=investing.com" class="favicon">Investing.com</a>
                 <a href="https://tradingeconomics.com/" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=tradingeconomics.com" class="favicon">Trading Economics</a>
                 <a href="https://www.paypal.com/id/home" class="bookmark-link" target="_blank"><img src="https://www.google.com/s2/favicons?domain=paypal.com" class="favicon">PayPal</a>

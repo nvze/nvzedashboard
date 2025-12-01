@@ -48,20 +48,51 @@
             margin: 0 auto 40px auto;
             text-align: center;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        h1 { 
-            font-size: 2rem; 
-            font-weight: 600; 
+        /* Container untuk Logo */
+        .logo-container {
             margin-bottom: 5px;
-            letter-spacing: -0.5px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Pastikan tidak ada background di container */
+            background: transparent; 
         }
+
+        /* LOGO STYLING (PERBAIKAN BACKGROUND) */
+        .header-logo {
+            max-width: 220px; 
+            height: auto;
+            
+            /* RUMUS PERBAIKAN:
+               1. grayscale(1): Buang warna (hitam putih saja).
+               2. brightness(1.5): Terangkan abu-abu background supaya jadi putih mentok.
+               3. contrast(3): Pertajam perbedaan hitam (teks) dan putih (bg).
+               4. invert(1): Balik warna (Bg Putih -> Hitam Pekat, Teks Hitam -> Putih).
+            */
+            filter: grayscale(100%) brightness(150%) contrast(300%) invert(100%);
+            
+            /* Hapus warna Hitam Pekat (background hasil invert) */
+            mix-blend-mode: screen; 
+            
+            /* Sedikit transparansi agar menyatu dengan bloom background */
+            opacity: 0.95; 
+        }
+
+        /* Fallback text (disembunyikan) */
+        h1 { display: none; }
 
         #clock {
             font-size: 0.95rem;
             color: var(--text-secondary);
             margin-bottom: 25px;
             font-weight: 400;
+            margin-top: 5px;
         }
 
         /* Input Search ala Windows 11 Start Menu */
@@ -240,7 +271,14 @@
 <body>
 
     <header>
+        <div class="logo-container">
+            <!-- Pastikan nama file gambar tetap logo.jpg -->
+            <img src="logo.jpg" alt="NvZE Logo" class="header-logo" onerror="this.style.display='none'; document.querySelector('h1').style.display='block';">
+        </div>
+        
+        <!-- Text Fallback (Jika gambar error) -->
         <h1>NvZE Bookmark</h1>
+
         <div id="clock">Loading time...</div>
         <input type="text" id="searchInput" placeholder="Cari aplikasi, file, atau pengaturan..." onkeyup="filterLinks()">
     </header>

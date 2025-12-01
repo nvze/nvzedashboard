@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulus Cerdas: Dari Intuisi ke Penguasaan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- KaTeX for Professional Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #1F2937;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .tab-btn.active {
+            background-color: #EEF2FF;
+            color: #4F46E5;
+            border-left: 4px solid #4F46E5;
+        }
+        
+        .math-block {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        .interactive-card {
+            transition: all 0.3s ease;
+        }
+        .interactive-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        /* KaTeX Font Fix */
+        .katex { font-size: 1.1em; }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Mobile Header -->
+    <header class="md:hidden bg-white border-b border-gray-200 p-4 flex justify-between items-center z-20">
+        <h1 class="text-lg font-bold text-indigo-600">Kalkulus Cerdas</h1>
+        <button id="mobile-menu-btn" class="text-gray-600 focus:outline-none text-2xl">
+            &#9776;
+        </button>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden relative">
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-white w-64 border-r border-gray-200 flex-shrink-0 flex flex-col absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-10 shadow-lg md:shadow-none">
+            <div class="p-6 border-b border-gray-100 hidden md:block">
+                <h1 class="text-2xl font-bold text-indigo-600 tracking-tight">Kalkulus Cerdas</h1>
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Peta Pembelajaran</p>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto py-4 space-y-1">
+                <button onclick="switchTab('intro')" id="btn-intro" class="tab-btn w-full text-left px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-colors duration-200 flex items-center group active">
+                    <span class="w-6 text-center mr-3 text-lg group-hover:scale-110 transition-transform">💡</span>
+                    <span class="font-medium">Filosofi Inti</span>
+                </button>
+                <button onclick="switchTab('limit')" id="btn-limit" class="tab-btn w-full text-left px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-colors duration-200 flex items-center group">
+                    <span class="w-6 text-center mr-3 text-lg group-hover:scale-110 transition-transform">🚧</span>
+                    <span class="font-medium">Limit (Fondasi)</span>
+                </button>
+                <button onclick="switchTab('turunan')" id="btn-turunan" class="tab-btn w-full text-left px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-colors duration-200 flex items-center group">
+                    <span class="w-6 text-center mr-3 text-lg group-hover:scale-110 transition-transform">📉</span>
+                    <span class="font-medium">Turunan</span>
+                </button>
+                <button onclick="switchTab('integral')" id="btn-integral" class="tab-btn w-full text-left px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-colors duration-200 flex items-center group">
+                    <span class="w-6 text-center mr-3 text-lg group-hover:scale-110 transition-transform">∫</span>
+                    <span class="font-medium">Integral</span>
+                </button>
+                <button onclick="switchTab('theorem')" id="btn-theorem" class="tab-btn w-full text-left px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-colors duration-200 flex items-center group">
+                    <span class="w-6 text-center mr-3 text-lg group-hover:scale-110 transition-transform">👑</span>
+                    <span class="font-medium">Teorema Dasar</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 relative w-full" id="main-scroll">
+            
+            <!-- SECTION 1: INTRO / PHILOSOPHY -->
+            <section id="intro" class="p-6 md:p-10 max-w-5xl mx-auto space-y-8 animate-fade-in">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-500">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Apa Itu Kalkulus?</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        Banyak orang gagal belajar kalkulus karena kehilangan <strong>peta besar (big picture)</strong>. Ini adalah matematika tentang <strong>perubahan (dinamis)</strong>, bukan benda diam (statis).
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 interactive-card">
+                        <h3 class="text-xl font-bold text-gray-700 mb-4 flex items-center"><span class="mr-2">🟦</span> Pra-Kalkulus (Diam)</h3>
+                        <ul class="space-y-3 text-gray-600 text-sm">
+                            <li class="flex items-start"><span class="mr-2 text-indigo-500">▪</span> Gradien garis lurus ($y=mx+c$)</li>
+                            <li class="flex items-start"><span class="mr-2 text-indigo-500">▪</span> Luas persegi panjang ($A = P \times L$)</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-indigo-50 p-6 rounded-xl shadow-sm border border-indigo-100 interactive-card">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4 flex items-center"><span class="mr-2">🌀</span> Kalkulus (Berubah)</h3>
+                        <ul class="space-y-3 text-gray-700 text-sm">
+                            <li class="flex items-start"><span class="mr-2 text-indigo-500">▪</span> Gradien garis melengkung?</li>
+                            <li class="flex items-start"><span class="mr-2 text-indigo-500">▪</span> Luas area tak beraturan?</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: LIMIT -->
+            <section id="limit" class="hidden p-6 md:p-10 max-w-5xl mx-auto space-y-8 animate-fade-in">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-teal-500">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Limit ($\lim$)</h2>
+                    <p class="text-gray-600">Konsep "mendekati tapi tak pernah sampai".</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="font-bold text-lg mb-4">Simulasi: Berjalan Menuju Dinding</h3>
+                    <p class="text-sm text-gray-500 mb-6">Setiap langkah, Anda menempuh setengah ($\frac{1}{2}$) dari jarak tersisa.</p>
+                    
+                    <div class="relative w-full h-24 bg-gray-100 rounded-lg border border-gray-300 mb-6 flex items-center overflow-hidden">
+                        <div id="walker" class="absolute left-0 top-2 bottom-2 w-8 bg-indigo-500 rounded-full shadow-lg transition-all duration-700 ease-out flex items-center justify-center text-white text-xs">🚶</div>
+                        <div class="absolute right-0 top-0 bottom-0 w-4 bg-red-400 border-l-2 border-red-600 flex items-center justify-center">
+                            <span class="transform -rotate-90 text-xs font-bold text-white whitespace-nowrap">DINDING</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+                        <div>
+                            <p class="text-xs text-gray-400 font-mono uppercase">Jarak Tersisa ($d$)</p>
+                            <p id="limit-distance" class="text-2xl font-mono font-bold text-gray-800">1.000 m</p>
+                        </div>
+                        <button id="btn-step-limit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium shadow-md">Ambil Langkah ($\frac{1}{2}$)</button>
+                        <button id="btn-reset-limit" class="text-gray-500 hover:text-red-500 text-sm underline ml-4">Reset</button>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-gray-100">
+                         <div class="math-block text-lg">
+                            $$ \lim_{x \to \text{dinding}} \text{jarak}(x) = 0 $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: TURUNAN -->
+            <section id="turunan" class="hidden p-6 md:p-10 max-w-5xl mx-auto space-y-8 animate-fade-in">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-500">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Turunan (Diferensial)</h2>
+                    <p class="text-gray-600">Tentang <strong>sensitivitas</strong>: seberapa cepat output berubah jika input berubah sedikit.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Visualisasi Garis Singgung ($y=x^2$)</h3>
+                        <div class="chart-container">
+                            <canvas id="derivativeChart"></canvas>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nilai $x$: <span id="x-val-display" class="font-mono font-bold text-indigo-600">1.0</span></label>
+                            <input type="range" id="x-slider" min="-3" max="3" step="0.1" value="1" class="w-full h-2 bg-gray-200 rounded-lg cursor-pointer accent-indigo-600">
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg">
+                            <h4 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Analisis Sesaat</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><p class="text-xs text-gray-400">Posisi $f(x)$</p><p id="fx-display" class="text-xl font-mono text-green-400">1.00</p></div>
+                                <div><p class="text-xs text-gray-400">Kemiringan $f'(x)$</p><p id="fprime-display" class="text-xl font-mono text-yellow-400">2.00</p></div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-700 mb-2">Aturan "Power Rule"</h4>
+                            <div class="math-block text-sm">
+                                $$ \frac{d}{dx} x^n = n \cdot x^{n-1} $$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: INTEGRAL -->
+            <section id="integral" class="hidden p-6 md:p-10 max-w-5xl mx-auto space-y-8 animate-fade-in">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Integral (Akumulasi)</h2>
+                    <p class="text-gray-600">Menjumlahkan irisan-irisan tipis untuk mencari total (luas area).</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                     <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Visualisasi Luas Area (Riemann Sum)</h3>
+                        <div class="chart-container">
+                            <canvas id="integralChart"></canvas>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Potongan ($n$): <span id="n-val-display" class="font-mono font-bold text-purple-600">4</span></label>
+                            <input type="range" id="n-slider" min="2" max="50" step="1" value="4" class="w-full h-2 bg-gray-200 rounded-lg cursor-pointer accent-purple-600">
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                         <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
+                            <h4 class="font-bold text-purple-800 mb-2">Hasil Perhitungan</h4>
+                            <p class="text-xs text-gray-500 uppercase">Luas Aproksimasi ($\sum$)</p>
+                            <p id="area-approx" class="text-2xl font-mono font-bold text-purple-600">--</p>
+                         </div>
+                         <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-700 mb-2">Notasi Integral</h4>
+                            <div class="math-block text-sm">
+                                $$ \int_{a}^{b} f(x) \, dx $$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: THEOREM -->
+            <section id="theorem" class="hidden p-6 md:p-10 max-w-5xl mx-auto space-y-8 animate-fade-in">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-yellow-500">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Teorema Dasar Kalkulus</h2>
+                    <p class="text-gray-600">Turunan dan Integral adalah invers (kebalikan).</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm overflow-x-auto text-center">
+                    <h3 class="font-bold text-gray-700 mb-6">Hubungan Fundamental</h3>
+                    <div class="math-block text-lg">
+                        $$ \int_{a}^{b} f'(x) \, dx = f(b) - f(a) $$
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4 max-w-2xl mx-auto">
+                        "Jika Anda menjumlahkan (integral) riwayat kecepatan speedometer, Anda mendapatkan jarak total yang ditempuh."
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- State Management ---
+        const state = {
+            currentTab: 'intro',
+            limit: { totalDistance: 1000, currentDistance: 1000 },
+            derivative: { chart: null, xVal: 1.0 },
+            integral: { chart: null, nVal: 4 }
+        };
+
+        // --- Navigation ---
+        function switchTab(tabId) {
+            document.querySelectorAll('section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(`btn-${tabId}`).classList.add('active');
+
+            state.currentTab = tabId;
+
+            if (tabId === 'turunan') updateDerivativeChart();
+            if (tabId === 'integral') updateIntegralChart();
+            
+            // Mobile menu logic
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 768) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        });
+
+        // --- Limit Simulation ---
+        const walker = document.getElementById('walker');
+        const distDisplay = document.getElementById('limit-distance');
+        
+        document.getElementById('btn-step-limit').addEventListener('click', () => {
+            state.limit.currentDistance /= 2;
+            updateLimitVisuals();
+        });
+        document.getElementById('btn-reset-limit').addEventListener('click', () => {
+            state.limit.currentDistance = 1000;
+            updateLimitVisuals();
+        });
+
+        function updateLimitVisuals() {
+            let displayDist = state.limit.currentDistance;
+            displayDist = displayDist < 0.1 ? displayDist.toExponential(2) : displayDist.toFixed(3);
+            distDisplay.innerText = `${displayDist} m`;
+            const percentageMoved = ((1000 - state.limit.currentDistance) / 1000) * 90; 
+            walker.style.left = `${percentageMoved}%`;
+        }
+
+        // --- Derivative Chart ---
+        function initDerivativeChart() {
+            const ctx = document.getElementById('derivativeChart').getContext('2d');
+            state.derivative.chart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'f(x) = x²',
+                            data: [],
+                            showLine: true,
+                            borderColor: '#4F46E5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Garis Singgung',
+                            data: [],
+                            showLine: true,
+                            borderColor: '#F59E0B',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Titik',
+                            data: [],
+                            pointBackgroundColor: '#F59E0B',
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { min: -3, max: 3, grid: { color: '#e5e7eb'} },
+                        y: { min: -2, max: 10, grid: { color: '#e5e7eb'} }
+                    },
+                    plugins: { legend: { position: 'bottom' } },
+                    animation: { duration: 0 }
+                }
+            });
+            updateDerivativeChart();
+        }
+
+        document.getElementById('x-slider').addEventListener('input', (e) => {
+            state.derivative.xVal = parseFloat(e.target.value);
+            document.getElementById('x-val-display').innerText = state.derivative.xVal.toFixed(1);
+            updateDerivativeChart();
+        });
+
+        function updateDerivativeChart() {
+            if(!state.derivative.chart) { initDerivativeChart(); return; }
+            const x = state.derivative.xVal;
+            const y = x * x; 
+            const slope = 2 * x;
+
+            const curveData = [];
+            for(let i = -3; i <= 3; i+=0.1) curveData.push({x: i, y: i*i});
+
+            const startX = x - 1.5, endX = x + 1.5;
+            const tangentData = [
+                {x: startX, y: slope*(startX - x) + y},
+                {x: endX, y: slope*(endX - x) + y}
+            ];
+
+            state.derivative.chart.data.datasets[0].data = curveData;
+            state.derivative.chart.data.datasets[1].data = tangentData;
+            state.derivative.chart.data.datasets[2].data = [{x: x, y: y}];
+            state.derivative.chart.update();
+
+            document.getElementById('fx-display').innerText = y.toFixed(2);
+            document.getElementById('fprime-display').innerText = slope.toFixed(2);
+        }
+
+        // --- Integral Chart ---
+        function initIntegralChart() {
+            const ctx = document.getElementById('integralChart').getContext('2d');
+            state.integral.chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Riemann Sum',
+                        data: [],
+                        backgroundColor: 'rgba(147, 51, 234, 0.5)',
+                        borderColor: 'rgba(147, 51, 234, 1)',
+                        borderWidth: 1,
+                        barPercentage: 1.0, 
+                        categoryPercentage: 1.0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 4.5 },
+                        x: { display: false }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+            updateIntegralChart();
+        }
+
+        document.getElementById('n-slider').addEventListener('input', (e) => {
+            state.integral.nVal = parseInt(e.target.value);
+            document.getElementById('n-val-display').innerText = state.integral.nVal;
+            updateIntegralChart();
+        });
+
+        function updateIntegralChart() {
+            if(!state.integral.chart) { initIntegralChart(); return; }
+            const n = state.integral.nVal;
+            const a = 0, b = 2;
+            const dx = (b - a) / n;
+            const data = [], labels = [];
+            let totalArea = 0;
+
+            for(let i = 1; i <= n; i++) {
+                const x = a + i * dx;
+                const height = x * x; 
+                data.push(height);
+                labels.push(x.toFixed(2));
+                totalArea += height * dx;
+            }
+
+            state.integral.chart.data.labels = labels;
+            state.integral.chart.data.datasets[0].data = data;
+            state.integral.chart.update();
+            document.getElementById('area-approx').innerText = totalArea.toFixed(4);
+        }
+
+        // --- Initialization & Fix for KaTeX ---
+        // We wait for DOMContentLoaded to ensure elements exist before rendering math.
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Initialize Default Tab
+            switchTab('intro');
+
+            // 2. Safely Render Math using KaTeX Auto-Render
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            } else {
+                console.warn("KaTeX scripts failed to load properly.");
+            }
+        });
+
+    </script>
+</body>
+</html>

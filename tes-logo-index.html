@@ -10,7 +10,6 @@
     
     body {
       font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-      /* --- BACKGROUND WARNA --- */
       background-color: #050810; 
       background-image: radial-gradient(circle at 50% 0%, #1e2a45 0%, #050810 80%);
       color: #ffffff;
@@ -64,23 +63,18 @@
       font-weight: 400;
     }
     
-    /* --- LOGO IMPLEMENTATION (METODE BOOKMARK.HTML) --- */
+    /* --- LOGO IMPLEMENTATION --- */
+    /* Menggunakan STYLE PERSIS dari bookmark.html */
     .dashboard-logo {
         width: 180px; 
         height: auto;
         margin-bottom: 0.5rem;
         
-        /* RUMUS SAMA PERSIS DENGAN BOOKMARK.HTML */
-        /* 1. grayscale(100%): Ubah jadi hitam putih */
-        /* 2. brightness(150%): Terangkan abu-abu background supaya jadi putih mentok */
-        /* 3. contrast(300%): Pertajam hitam (teks) vs putih (bg) */
-        /* 4. invert(100%): Balik (Bg Putih -> Hitam Pekat, Teks Hitam -> Putih) */
+        /* COPY-PASTE DARI BOOKMARK.HTML */
         filter: grayscale(100%) brightness(150%) contrast(300%) invert(100%);
-        
-        /* Hilangkan warna hitam pekat agar transparan */
         mix-blend-mode: screen; 
-        
         opacity: 0.95; 
+        
         transition: transform 0.3s ease;
     }
 
@@ -188,7 +182,6 @@
     </div>
 
     <!-- LOGO IMPLEMENTATION -->
-    <!-- Pastikan file logo.jpg ada di folder yang sama -->
     <img src="logo.jpg" alt="NvZE Logo" class="dashboard-logo" 
          onerror="this.style.display='none'; document.querySelector('.profile-avatar-fallback').style.display='flex';">
 

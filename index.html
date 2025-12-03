@@ -3,17 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NvZE Dashboard</title>
+  <title>NvZE Dashboard Bright</title>
   <style>
     /* Reset & Base Style */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
       font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      
       /* --- BACKGROUND UTAMA --- */
-      background-color: #050810; 
-      background-image: radial-gradient(circle at 50% 0%, #1e2a45 0%, #050810 80%);
-      color: #ffffff;
+      /* Warna dasar biru yang diminta */
+      background-color: #2855c9; 
+      
+      /* Gradasi Linear: Kiri Atas (Pink) -> Dominan Biru -> Kanan Bawah (Pink) */
+      background-image: linear-gradient(
+        135deg, 
+        #ff7eb3 0%,    /* Pink Kiri Atas */
+        #2855c9 25%,   /* Mulai Biru Dominan (#2855c9) */
+        #2855c9 75%,   /* Akhir Biru Dominan */
+        #ff99cc 100%   /* Pink Kanan Bawah */
+      );
+      
+      /* Warna teks default body gelap */
+      color: #334155;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -21,21 +33,26 @@
       overflow: hidden;
     }
 
-    /* Container Utama */
+    /* Container Utama - TEMA TERANG (GLASSMORPHISM) */
     .dashboard-card {
-      /* PERBAIKAN: Menggunakan warna solid semi-transparan (tanpa blur) */
-      /* Ini menjamin kotak hitam pada logo akan hilang sempurna */
-      background: rgba(18, 24, 38, 0.95); 
+      background: rgba(255, 255, 255, 0.75); 
+      
+      /* Efek blur glass */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       
       padding: 3rem 2rem;
-      border-radius: 16px; 
+      border-radius: 20px; 
+      
+      /* Shadow lembut */
       box-shadow: 
-        0 30px 70px rgba(0, 0, 0, 0.6), 
-        0 1px 1px rgba(255, 255, 255, 0.05) inset; 
+        0 20px 40px rgba(40, 85, 201, 0.15), 
+        0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+        
       text-align: center;
       max-width: 420px;
       width: 85%;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -44,13 +61,14 @@
     /* --- WIDGET JAM --- */
     .clock-widget {
       margin-top: 1.5rem;
-      margin-bottom: 2rem;
+      /* Jarak ke menu list (Search bar sudah dihapus) */
+      margin-bottom: 2.5rem; 
     }
     
     .time-display {
       font-size: 3.5rem;
-      font-weight: 500; 
-      color: #ffffff; 
+      font-weight: 600; 
+      color: #1a2a4f; 
       line-height: 1;
       margin-bottom: 0.25rem;
       letter-spacing: -1px;
@@ -58,46 +76,41 @@
 
     .date-display {
       font-size: 1rem;
-      color: #94a3b8; 
-      font-weight: 400;
+      color: #546e7a; 
+      font-weight: 500;
     }
     
-    /* --- LOGO FIX (METODE SCREEN) --- */
+    /* --- LOGO FIX --- */
     .logo-container {
       margin-bottom: 0.5rem;
       padding: 5px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 12px;
     }
 
     .profile-logo {
       width: 140px; 
       height: auto;
-      
-      /* LANGKAH 1: Ubah gambar jadi Putih Text, Hitam Background */
-      /* Grayscale: Buang warna */
-      /* Contrast 150%: Pastikan hitam pekat dan putih terang */
-      /* Invert: Balik warna (Background putih jadi hitam) */
-      filter: grayscale(100%) contrast(150%) invert(100%);
-      
-      /* LANGKAH 2: Hilangkan warna Hitam (Background) */
-      /* Screen: Menjadikan warna hitam transparan */
-      mix-blend-mode: screen; 
-      
       display: block;
-      opacity: 0.95;
+      /* Multiply agar menyatu dengan background putih */
+      mix-blend-mode: multiply;
+      opacity: 0.9; 
+      filter: contrast(110%);
     }
 
     h1 {
       font-size: 1.4rem;
-      font-weight: 600;
-      color: #ffffff;
+      font-weight: 700;
+      color: #1a2a4f;
       margin-bottom: 0.2rem;
       letter-spacing: 0.5px;
     }
 
     p.subtitle {
-      color: #64748b; 
+      color: #546e7a; 
       margin-bottom: 2rem;
       font-size: 0.85rem;
+      font-weight: 500;
     }
 
     /* List Menu */
@@ -113,16 +126,18 @@
       align-items: center;
       justify-content: space-between;
       text-decoration: none;
-      background: rgba(30, 41, 59, 0.4); 
+      background: rgba(255, 255, 255, 0.5); 
       padding: 1rem 1.2rem;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.2s;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 2px 5px rgba(40, 85, 201, 0.05);
     }
 
     a.menu-item:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(40, 85, 201, 0.08);
+      border-color: rgba(40, 85, 201, 0.3);
+      transform: translateY(-2px);
     }
     
     .item-content {
@@ -132,34 +147,24 @@
     }
 
     .item-title {
-      font-weight: 500;
-      color: #e2e8f0; 
+      font-weight: 600;
+      color: #1a2a4f; 
       font-size: 0.95rem;
     }
     
     .item-desc {
       font-size: 0.75rem;
-      color: #64748b;
+      color: #546e7a;
       margin-top: 2px;
+      font-weight: 500;
     }
 
     .item-icon {
       font-size: 1.2rem;
-      opacity: 0.8;
+      color: #2855c9;
+      opacity: 0.9;
     }
     
-    .search-bar {
-      width: 100%;
-      background: rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      color: #64748b;
-      font-size: 0.85rem;
-      text-align: left;
-    }
-
   </style>
 </head>
 <body>
@@ -178,8 +183,6 @@
       <div class="date-display" id="clock-date">Memuat...</div>
     </div>
     
-    <div class="search-bar">Cari aplikasi, file, atau pengaturan...</div>
-
     <div class="menu-list">
       <a href="blog.html" class="menu-item">
         <div class="item-content">

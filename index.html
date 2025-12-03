@@ -11,7 +11,7 @@
     body {
       font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       
-      /* --- BACKGROUND GRADASI BIRU-PINK --- */
+      /* --- BACKGROUND GRADASI (Pink - Biru - Pink) --- */
       background-color: #2855c9; 
       background-image: linear-gradient(
         135deg, 
@@ -29,16 +29,18 @@
       overflow: hidden;
     }
 
-    /* Container Utama - GLASSMORPHISM */
+    /* Container Utama - TEMA KACA (GLASSMORPHISM) */
     .dashboard-card {
       background: rgba(255, 255, 255, 0.75); /* Kaca Putih */
       
+      /* Efek Blur */
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       
       padding: 3rem 2rem;
       border-radius: 20px; 
       
+      /* Shadow lembut kebiruan */
       box-shadow: 
         0 20px 40px rgba(40, 85, 201, 0.15), 
         0 0 0 1px rgba(255, 255, 255, 0.4) inset;
@@ -73,11 +75,11 @@
       font-weight: 500;
     }
     
-    /* --- LOGO FIX "ANTI TEMPELAN" --- */
+    /* --- LOGO FIX (HAPUS KOTAK "TEMPELAN") --- */
     .logo-container {
       margin-bottom: 0.5rem;
       padding: 0;
-      background: transparent; /* Pastikan transparan */
+      background: transparent;
       border: none;
     }
 
@@ -85,19 +87,17 @@
       width: 140px; 
       height: auto;
       display: block;
+      margin: 0 auto;
       
-      /* TEKNIK PEMBERSIHAN LATAR BELAKANG: */
-      
-      /* 1. grayscale(100%): Membuang warna aneh agar jadi hitam putih murni */
-      /* 2. brightness(115%): Mencerahkan gambar agar 'putih kusam' jadi 'putih murni' */
-      /* 3. contrast(120%): Memekatkan warna hitam logo agar tetap tajam */
-      filter: grayscale(100%) brightness(115%) contrast(120%);
-      
-      /* 4. multiply: Menghilangkan warna putih murni (transparan) */
-      /* Jika masih terlihat kotak, coba ganti 'multiply' dengan 'darken' */
+      /* LANGKAH 1: Hilangkan Warna Putih/Terang */
       mix-blend-mode: multiply;
       
-      opacity: 0.85; /* Sedikit transparan agar menyatu dengan tekstur kaca */
+      /* LANGKAH 2: MEMAKSA BACKGROUND JADI PUTIH MURNI */
+      /* Contrast 200% akan membuat abu-abu muda menjadi putih total */
+      /* Brightness 130% membantu mencerahkan sisa bayangan */
+      filter: grayscale(100%) contrast(200%) brightness(130%);
+      
+      opacity: 0.9; 
     }
 
     h1 {

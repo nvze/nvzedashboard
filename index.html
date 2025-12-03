@@ -3,25 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NvZE Dashboard Bright</title>
+  <title>NvZE Dashboard</title>
   <style>
     /* Reset & Base Style */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
       font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-      
-      /* --- BACKGROUND GRADASI (Pink - Biru - Pink) --- */
-      background-color: #2855c9; 
-      background-image: linear-gradient(
-        135deg, 
-        #ff7eb3 0%,    
-        #2855c9 25%,   
-        #2855c9 75%,   
-        #ff99cc 100%   
-      );
-      
-      color: #334155;
+      /* --- BACKGROUND UTAMA --- */
+      background-color: #050810; 
+      background-image: radial-gradient(circle at 50% 0%, #1e2a45 0%, #050810 80%);
+      color: #ffffff;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -29,26 +21,21 @@
       overflow: hidden;
     }
 
-    /* Container Utama - TEMA KACA (GLASSMORPHISM) */
+    /* Container Utama */
     .dashboard-card {
-      background: rgba(255, 255, 255, 0.75); /* Kaca Putih */
-      
-      /* Efek Blur */
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      /* PERBAIKAN: Menggunakan warna solid semi-transparan (tanpa blur) */
+      /* Ini menjamin kotak hitam pada logo akan hilang sempurna */
+      background: rgba(18, 24, 38, 0.95); 
       
       padding: 3rem 2rem;
-      border-radius: 20px; 
-      
-      /* Shadow lembut kebiruan */
+      border-radius: 16px; 
       box-shadow: 
-        0 20px 40px rgba(40, 85, 201, 0.15), 
-        0 0 0 1px rgba(255, 255, 255, 0.4) inset;
-        
+        0 30px 70px rgba(0, 0, 0, 0.6), 
+        0 1px 1px rgba(255, 255, 255, 0.05) inset; 
       text-align: center;
       max-width: 420px;
       width: 85%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -57,13 +44,13 @@
     /* --- WIDGET JAM --- */
     .clock-widget {
       margin-top: 1.5rem;
-      margin-bottom: 2.5rem; 
+      margin-bottom: 2rem;
     }
     
     .time-display {
       font-size: 3.5rem;
-      font-weight: 600; 
-      color: #1a2a4f; 
+      font-weight: 500; 
+      color: #ffffff; 
       line-height: 1;
       margin-bottom: 0.25rem;
       letter-spacing: -1px;
@@ -71,48 +58,46 @@
 
     .date-display {
       font-size: 1rem;
-      color: #546e7a; 
-      font-weight: 500;
+      color: #94a3b8; 
+      font-weight: 400;
     }
     
-    /* --- LOGO FIX (HAPUS KOTAK "TEMPELAN") --- */
+    /* --- LOGO FIX (METODE SCREEN) --- */
     .logo-container {
       margin-bottom: 0.5rem;
-      padding: 0;
-      background: transparent;
-      border: none;
+      padding: 5px;
     }
 
     .profile-logo {
       width: 140px; 
       height: auto;
+      
+      /* LANGKAH 1: Ubah gambar jadi Putih Text, Hitam Background */
+      /* Grayscale: Buang warna */
+      /* Contrast 150%: Pastikan hitam pekat dan putih terang */
+      /* Invert: Balik warna (Background putih jadi hitam) */
+      filter: grayscale(100%) contrast(150%) invert(100%);
+      
+      /* LANGKAH 2: Hilangkan warna Hitam (Background) */
+      /* Screen: Menjadikan warna hitam transparan */
+      mix-blend-mode: screen; 
+      
       display: block;
-      margin: 0 auto;
-      
-      /* LANGKAH 1: Hilangkan Warna Putih/Terang */
-      mix-blend-mode: multiply;
-      
-      /* LANGKAH 2: MEMAKSA BACKGROUND JADI PUTIH MURNI */
-      /* Contrast 200% akan membuat abu-abu muda menjadi putih total */
-      /* Brightness 130% membantu mencerahkan sisa bayangan */
-      filter: grayscale(100%) contrast(200%) brightness(130%);
-      
-      opacity: 0.9; 
+      opacity: 0.95;
     }
 
     h1 {
       font-size: 1.4rem;
-      font-weight: 700;
-      color: #1a2a4f;
+      font-weight: 600;
+      color: #ffffff;
       margin-bottom: 0.2rem;
       letter-spacing: 0.5px;
     }
 
     p.subtitle {
-      color: #546e7a; 
+      color: #64748b; 
       margin-bottom: 2rem;
       font-size: 0.85rem;
-      font-weight: 500;
     }
 
     /* List Menu */
@@ -128,18 +113,16 @@
       align-items: center;
       justify-content: space-between;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.5); 
+      background: rgba(30, 41, 59, 0.4); 
       padding: 1rem 1.2rem;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      transition: all 0.2s ease-in-out;
-      box-shadow: 0 2px 5px rgba(40, 85, 201, 0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.2s;
     }
 
     a.menu-item:hover {
-      background: rgba(40, 85, 201, 0.08);
-      border-color: rgba(40, 85, 201, 0.3);
-      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
     }
     
     .item-content {
@@ -149,24 +132,34 @@
     }
 
     .item-title {
-      font-weight: 600;
-      color: #1a2a4f; 
+      font-weight: 500;
+      color: #e2e8f0; 
       font-size: 0.95rem;
     }
     
     .item-desc {
       font-size: 0.75rem;
-      color: #546e7a;
+      color: #64748b;
       margin-top: 2px;
-      font-weight: 500;
     }
 
     .item-icon {
       font-size: 1.2rem;
-      color: #2855c9;
-      opacity: 0.9;
+      opacity: 0.8;
     }
     
+    .search-bar {
+      width: 100%;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      color: #64748b;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
   </style>
 </head>
 <body>
@@ -174,7 +167,7 @@
   <div class="dashboard-card">
     
     <div class="logo-container">
-      <img src="logo.jpg" alt="NVZE SYSTEM" class="profile-logo">
+      <img src="logo.png" alt="NVZE SYSTEM" class="profile-logo">
     </div>
 
     <h1>NvZE Dashboard</h1>
@@ -185,6 +178,8 @@
       <div class="date-display" id="clock-date">Memuat...</div>
     </div>
     
+    <div class="search-bar">Cari aplikasi, file, atau pengaturan...</div>
+
     <div class="menu-list">
       <a href="blog.html" class="menu-item">
         <div class="item-content">

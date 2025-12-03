@@ -23,10 +23,7 @@
 
     /* Container Utama */
     .dashboard-card {
-      /* PERBAIKAN: Menggunakan warna solid semi-transparan (tanpa blur) */
-      /* Ini menjamin kotak hitam pada logo akan hilang sempurna */
       background: rgba(18, 24, 38, 0.95); 
-      
       padding: 3rem 2rem;
       border-radius: 16px; 
       box-shadow: 
@@ -71,17 +68,8 @@
     .profile-logo {
       width: 140px; 
       height: auto;
-      
-      /* LANGKAH 1: Ubah gambar jadi Putih Text, Hitam Background */
-      /* Grayscale: Buang warna */
-      /* Contrast 150%: Pastikan hitam pekat dan putih terang */
-      /* Invert: Balik warna (Background putih jadi hitam) */
       filter: grayscale(100%) contrast(150%) invert(100%);
-      
-      /* LANGKAH 2: Hilangkan warna Hitam (Background) */
-      /* Screen: Menjadikan warna hitam transparan */
       mix-blend-mode: screen; 
-      
       display: block;
       opacity: 0.95;
     }
@@ -148,18 +136,6 @@
       opacity: 0.8;
     }
     
-    .search-bar {
-      width: 100%;
-      background: rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      color: #64748b;
-      font-size: 0.85rem;
-      text-align: left;
-    }
-
   </style>
 </head>
 <body>
@@ -178,8 +154,6 @@
       <div class="date-display" id="clock-date">Memuat...</div>
     </div>
     
-    <div class="search-bar">Cari aplikasi, file, atau pengaturan...</div>
-
     <div class="menu-list">
       <a href="blog.html" class="menu-item">
         <div class="item-content">

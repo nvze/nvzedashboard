@@ -11,10 +11,8 @@
     body {
       font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       
-      /* --- BACKGROUND UTAMA --- */
+      /* --- BACKGROUND GRADASI BIRU-PINK --- */
       background-color: #2855c9; 
-      
-      /* Gradasi Linear: Pink -> Biru -> Pink */
       background-image: linear-gradient(
         135deg, 
         #ff7eb3 0%,    
@@ -31,9 +29,9 @@
       overflow: hidden;
     }
 
-    /* Container Utama - TEMA KACA (GLASS) */
+    /* Container Utama - GLASSMORPHISM */
     .dashboard-card {
-      background: rgba(255, 255, 255, 0.75); 
+      background: rgba(255, 255, 255, 0.75); /* Kaca Putih */
       
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -75,11 +73,12 @@
       font-weight: 500;
     }
     
-    /* --- LOGO FIX (BLEND SEMPURNA) --- */
+    /* --- LOGO FIX "ANTI TEMPELAN" --- */
     .logo-container {
       margin-bottom: 0.5rem;
-      padding: 0; /* Hapus padding agar tidak ada jarak aneh */
-      background: transparent; /* Hapus background container agar nempel di kaca */
+      padding: 0;
+      background: transparent; /* Pastikan transparan */
+      border: none;
     }
 
     .profile-logo {
@@ -87,13 +86,18 @@
       height: auto;
       display: block;
       
-      /* KUNCI BLENDING: */
-      /* multiply: Membuat warna putih pada gambar logo menjadi transparan */
-      /* Logo akan terlihat seperti dicetak langsung di atas kaca */
+      /* TEKNIK PEMBERSIHAN LATAR BELAKANG: */
+      
+      /* 1. grayscale(100%): Membuang warna aneh agar jadi hitam putih murni */
+      /* 2. brightness(115%): Mencerahkan gambar agar 'putih kusam' jadi 'putih murni' */
+      /* 3. contrast(120%): Memekatkan warna hitam logo agar tetap tajam */
+      filter: grayscale(100%) brightness(115%) contrast(120%);
+      
+      /* 4. multiply: Menghilangkan warna putih murni (transparan) */
+      /* Jika masih terlihat kotak, coba ganti 'multiply' dengan 'darken' */
       mix-blend-mode: multiply;
       
-      opacity: 0.9; 
-      filter: contrast(110%);
+      opacity: 0.85; /* Sedikit transparan agar menyatu dengan tekstur kaca */
     }
 
     h1 {

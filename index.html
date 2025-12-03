@@ -12,19 +12,17 @@
       font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       
       /* --- BACKGROUND UTAMA --- */
-      /* Warna dasar biru yang diminta */
       background-color: #2855c9; 
       
-      /* Gradasi Linear: Kiri Atas (Pink) -> Dominan Biru -> Kanan Bawah (Pink) */
+      /* Gradasi Linear: Pink -> Biru -> Pink */
       background-image: linear-gradient(
         135deg, 
-        #ff7eb3 0%,    /* Pink Kiri Atas */
-        #2855c9 25%,   /* Mulai Biru Dominan (#2855c9) */
-        #2855c9 75%,   /* Akhir Biru Dominan */
-        #ff99cc 100%   /* Pink Kanan Bawah */
+        #ff7eb3 0%,    
+        #2855c9 25%,   
+        #2855c9 75%,   
+        #ff99cc 100%   
       );
       
-      /* Warna teks default body gelap */
       color: #334155;
       height: 100vh;
       display: flex;
@@ -33,18 +31,16 @@
       overflow: hidden;
     }
 
-    /* Container Utama - TEMA TERANG (GLASSMORPHISM) */
+    /* Container Utama - TEMA KACA (GLASS) */
     .dashboard-card {
       background: rgba(255, 255, 255, 0.75); 
       
-      /* Efek blur glass */
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       
       padding: 3rem 2rem;
       border-radius: 20px; 
       
-      /* Shadow lembut */
       box-shadow: 
         0 20px 40px rgba(40, 85, 201, 0.15), 
         0 0 0 1px rgba(255, 255, 255, 0.4) inset;
@@ -61,7 +57,6 @@
     /* --- WIDGET JAM --- */
     .clock-widget {
       margin-top: 1.5rem;
-      /* Jarak ke menu list (Search bar sudah dihapus) */
       margin-bottom: 2.5rem; 
     }
     
@@ -80,20 +75,23 @@
       font-weight: 500;
     }
     
-    /* --- LOGO FIX --- */
+    /* --- LOGO FIX (BLEND SEMPURNA) --- */
     .logo-container {
       margin-bottom: 0.5rem;
-      padding: 5px;
-      background: rgba(255,255,255,0.5);
-      border-radius: 12px;
+      padding: 0; /* Hapus padding agar tidak ada jarak aneh */
+      background: transparent; /* Hapus background container agar nempel di kaca */
     }
 
     .profile-logo {
       width: 140px; 
       height: auto;
       display: block;
-      /* Multiply agar menyatu dengan background putih */
+      
+      /* KUNCI BLENDING: */
+      /* multiply: Membuat warna putih pada gambar logo menjadi transparan */
+      /* Logo akan terlihat seperti dicetak langsung di atas kaca */
       mix-blend-mode: multiply;
+      
       opacity: 0.9; 
       filter: contrast(110%);
     }

@@ -10,10 +10,15 @@
     
     body {
       font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-      /* --- BACKGROUND UTAMA --- */
-      background-color: #050810; 
-      background-image: radial-gradient(circle at 50% 0%, #1e2a45 0%, #050810 80%);
-      color: #ffffff;
+      /* --- BACKGROUND UTAMA BARU --- */
+      /* Warna dasar biru yang diminta */
+      background-color: #2855c9; 
+      /* Gradasi Linear: Pink Kiri Atas (135deg start) -> Biru Dominan Tengah -> Pink Kanan Bawah */
+      /* Saya menggunakan pink terang (#ff9aeb) agar serasi dengan birunya dan tampak cerah */
+      background-image: linear-gradient(135deg, #ff9aeb 0%, #2855c9 35%, #2855c9 65%, #ff9aeb 100%);
+      
+      /* Warna teks dasar diubah menjadi gelap */
+      color: #1a243d; 
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -21,18 +26,28 @@
       overflow: hidden;
     }
 
-    /* Container Utama */
+    /* Container Utama - Ubah ke tema terang (Glassmorphism) */
     .dashboard-card {
-      background: rgba(18, 24, 38, 0.95); 
+      /* Background putih transparan */
+      background: rgba(255, 255, 255, 0.85); 
+      /* Efek blur di belakang kartu */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      
       padding: 3rem 2rem;
-      border-radius: 16px; 
+      border-radius: 24px; /* Radius sedikit diperbesar untuk tampilan lebih modern */
+      
+      /* Shadow diubah menjadi warna biru lembut */
       box-shadow: 
-        0 30px 70px rgba(0, 0, 0, 0.6), 
-        0 1px 1px rgba(255, 255, 255, 0.05) inset; 
+        0 30px 70px rgba(40, 85, 201, 0.3), 
+        0 5px 15px rgba(0,0,0,0.05),
+        inset 0 1px 1px rgba(255, 255, 255, 0.4); 
+      
       text-align: center;
       max-width: 420px;
       width: 85%;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      /* Border halus berwarna biru muda */
+      border: 1px solid rgba(40, 85, 201, 0.15);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -46,8 +61,9 @@
     
     .time-display {
       font-size: 3.5rem;
-      font-weight: 500; 
-      color: #ffffff; 
+      font-weight: 600; 
+      /* Warna jam menggunakan biru utama agar menonjol */
+      color: #2855c9; 
       line-height: 1;
       margin-bottom: 0.25rem;
       letter-spacing: -1px;
@@ -55,11 +71,12 @@
 
     .date-display {
       font-size: 1rem;
-      color: #94a3b8; 
-      font-weight: 400;
+      /* Warna tanggal abu-abu kebiruan gelap */
+      color: #546385; 
+      font-weight: 500;
     }
     
-    /* --- LOGO FIX (METODE SCREEN) --- */
+    /* --- LOGO FIX (Hapus filter mode gelap) --- */
     .logo-container {
       margin-bottom: 0.5rem;
       padding: 5px;
@@ -68,24 +85,28 @@
     .profile-logo {
       width: 140px; 
       height: auto;
-      filter: grayscale(100%) contrast(150%) invert(100%);
-      mix-blend-mode: screen; 
+      /* Filter sebelumnya dihapus agar logo asli terlihat di background terang */
+      /* filter: grayscale(100%) contrast(150%) invert(100%); */
+      /* mix-blend-mode: screen; */ 
       display: block;
-      opacity: 0.95;
+      opacity: 0.9; /* Sedikit transparan agar menyatu */
     }
 
     h1 {
       font-size: 1.4rem;
-      font-weight: 600;
-      color: #ffffff;
+      font-weight: 700;
+      /* Warna Judul Biru Tua */
+      color: #1a243d;
       margin-bottom: 0.2rem;
       letter-spacing: 0.5px;
     }
 
     p.subtitle {
-      color: #64748b; 
+      /* Warna Subtitle abu-abu kebiruan */
+      color: #546385; 
       margin-bottom: 2rem;
       font-size: 0.85rem;
+      font-weight: 500;
     }
 
     /* List Menu */
@@ -101,16 +122,21 @@
       align-items: center;
       justify-content: space-between;
       text-decoration: none;
-      background: rgba(30, 41, 59, 0.4); 
+      /* Background menu: tint biru sangat muda */
+      background: rgba(40, 85, 201, 0.06); 
       padding: 1rem 1.2rem;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.2s;
+      border-radius: 12px;
+      /* Border menu halus */
+      border: 1px solid rgba(40, 85, 201, 0.1);
+      transition: all 0.3s ease;
     }
 
     a.menu-item:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
+      /* Hover state: berubah menjadi tint pink muda menyesuaikan gradasi */
+      background: rgba(255, 154, 235, 0.15);
+      border-color: rgba(255, 154, 235, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(40, 85, 201, 0.1);
     }
     
     .item-content {
@@ -120,20 +146,25 @@
     }
 
     .item-title {
-      font-weight: 500;
-      color: #e2e8f0; 
+      font-weight: 600;
+      /* Judul item menu menggunakan biru utama */
+      color: #2855c9; 
       font-size: 0.95rem;
     }
     
     .item-desc {
       font-size: 0.75rem;
-      color: #64748b;
+      /* Deskripsi item menu abu-abu gelap */
+      color: #546385;
       margin-top: 2px;
+      font-weight: 500;
     }
 
     .item-icon {
       font-size: 1.2rem;
       opacity: 0.8;
+      /* Icon sedikit diberi warna biru */
+      color: #2855c9;
     }
     
   </style>
@@ -146,7 +177,7 @@
       <img src="logo.png" alt="NVZE SYSTEM" class="profile-logo">
     </div>
 
-    <h1>NvZE Dashboard</h1>
+    <h1>Dashboard</h1>
     <p class="subtitle">Refleksi visual Knowledge & Knowhow</p>
 
     <div class="clock-widget">

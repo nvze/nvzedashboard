@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi EUR/USD Des 2025 - Multi Indikator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Changed CDN to cdnjs for better reliability -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+    <style>
+        body {
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .chart-container {
+            width: 100%;
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        /* Custom scrollbar for sidebar if needed on small screens */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6 font-sans">
+
+    <!-- Header -->
+    <header class="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+            <h1 class="text-2xl md:text-3xl font-bold text-blue-400">EUR/USD - Desember 2025</h1>
+            <p class="text-sm text-slate-400">Simulasi Teknikal: EMA (9,20,50), MACD, RSI, ADX</p>
+        </div>
+        <div class="flex gap-2">
+            <button onclick="generateSimulation()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded shadow transition flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+                Generate Skenario Baru
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        
+        <!-- Sidebar Info -->
+        <div class="lg:col-span-1 space-y-4">
+
+            <!-- New: Simulation Settings Card -->
+            <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 shadow-lg">
+                <h3 class="text-blue-400 text-xs uppercase tracking-wider font-bold mb-3 border-b border-slate-700 pb-2">Input Parameter</h3>
+                
+                <div class="space-y-3">
+                    <!-- Start Price -->
+                    <div>
+                        <label class="block text-xs text-white font-medium mb-1">Harga Saat Ini</label>
+                        <input type="number" id="input-start-price" value="1.0850" step="0.0001" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500 transition font-mono">
+                    </div>
+
+                    <!-- Time Frame -->
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Time Frame</label>
+                        <select id="input-timeframe" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+                            <option value="D1" selected>Daily (D1)</option>
+                            <option value="H4">4-Hour (H4)</option>
+                            <option value="H1">1-Hour (H1)</option>
+                        </select>
+                    </div>
+
+                    <!-- Previous Period Data -->
+                    <div class="pt-2 border-t border-slate-700">
+                        <label class="block text-xs text-slate-400 mb-2 font-semibold">Data Periode Sebelumnya</label>
+                        
+                        <div class="grid grid-cols-1 gap-2">
+                             <div>
+                                <label class="block text-[10px] text-slate-500 mb-0.5">Harga Penutupan (Close)</label>
+                                <input type="number" id="input-prev-close" value="1.0840" step="0.0001" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-blue-500 transition font-mono">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] text-slate-500 mb-0.5">Tertinggi (High)</label>
+                                    <input type="number" id="input-prev-high" value="1.0880" step="0.0001" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-blue-500 transition font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-500 mb-0.5">Terendah (Low)</label>
+                                    <input type="number" id="input-prev-low" value="1.0820" step="0.0001" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-blue-500 transition font-mono">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="generateSimulation()" class="w-full mt-2 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded shadow-lg transition transform active:scale-95">
+                        Jalankan Simulasi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Price Card (Restored) -->
+            <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                <h3 class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">Harga Penutupan (Akhir)</h3>
+                <div id="last-price" class="text-3xl font-mono font-bold text-white">---</div>
+                <div id="price-change" class="text-sm font-medium mt-1">---</div>
+            </div>
+
+            <!-- Analysis Card (Restored) -->
+            <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                <h3 class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-3">Sinyal Indikator Terakhir</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                        <span class="text-sm text-slate-300">EMA Trend</span>
+                        <span id="ema-signal" class="px-2 py-0.5 rounded text-xs font-bold bg-slate-600">Neutral</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                        <span class="text-sm text-slate-300">RSI (14)</span>
+                        <span id="rsi-value" class="font-mono text-blue-300">--.--</span>
+                    </div>
+                     <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                        <span class="text-sm text-slate-300">MACD Histogram</span>
+                        <span id="macd-value" class="font-mono text-white">--.--</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-300">ADX (Kekuatan Tren)</span>
+                        <span id="adx-value" class="font-mono text-yellow-300">--.--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 text-xs space-y-2">
+                <h3 class="text-slate-400 font-semibold mb-2">Legenda Chart</h3>
+                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-green-500"></div> EMA 9 (Jangka Pendek)</div>
+                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-yellow-500"></div> EMA 20 (Jangka Menengah)</div>
+                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-500"></div> EMA 50 (Jangka Panjang)</div>
+            </div>
+        </div>
+
+        <!-- Charts Area -->
+        <div class="lg:col-span-3 space-y-2">
+            <!-- Price Chart -->
+            <div id="chart-price" class="chart-container" style="height: 450px;"></div>
+            <!-- MACD Chart -->
+            <div id="chart-macd" class="chart-container" style="height: 200px;"></div>
+            <!-- RSI & ADX Split -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div id="chart-rsi" class="chart-container" style="height: 200px;"></div>
+                <div id="chart-adx" class="chart-container" style="height: 200px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Logic & Helper Functions ---
+
+        // Generate Dates based on Timeframe
+        function generateDates(timeframe) {
+            const dates = [];
+            // Start earlier for warmup
+            let currentDate = new Date('2025-10-01T00:00:00'); 
+            const endDate = new Date('2025-12-31T23:59:59');
+            
+            // Define increment in milliseconds
+            let increment = 24 * 60 * 60 * 1000; // Default D1
+            if (timeframe === 'H4') increment = 4 * 60 * 60 * 1000;
+            if (timeframe === 'H1') increment = 1 * 60 * 60 * 1000;
+
+            while (currentDate <= endDate) {
+                const day = currentDate.getDay();
+                // Simple skip weekends logic (Sat/Sun)
+                if (day !== 0 && day !== 6) { 
+                    // Format date string
+                    const year = currentDate.getFullYear();
+                    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                    const d = String(currentDate.getDate()).padStart(2, '0');
+                    const h = String(currentDate.getHours()).padStart(2, '0');
+                    const m = String(currentDate.getMinutes()).padStart(2, '0');
+                    
+                    let dateStr = `${year}-${month}-${d}`;
+                    if (timeframe !== 'D1') dateStr += ` ${h}:${m}`;
+                    
+                    dates.push(dateStr);
+                }
+                currentDate = new Date(currentDate.getTime() + increment);
+            }
+            return dates;
+        }
+
+        // Random Walk Generator for Price with Start Price and Timeframe Volatility
+        function generateData(dates, startPrice, timeframe) {
+            let price = parseFloat(startPrice);
+            const open = [], high = [], low = [], close = [];
+            
+            // Adjust volatility based on timeframe (smaller tf = smaller noise per candle)
+            let volatility = 0.0060; // D1 base
+            if (timeframe === 'H4') volatility = 0.0030;
+            if (timeframe === 'H1') volatility = 0.0015;
+
+            dates.forEach(() => {
+                const change = (Math.random() - 0.5) * volatility;
+                
+                let o = price;
+                let c = price + change;
+                // Add some random wick movement
+                let h = Math.max(o, c) + Math.random() * (volatility / 2);
+                let l = Math.min(o, c) - Math.random() * (volatility / 2);
+
+                open.push(o);
+                high.push(h);
+                low.push(l);
+                close.push(c);
+
+                price = c; 
+            });
+
+            return { dates, open, high, low, close };
+        }
+
+        // Indicator Calculations
+        function calculateEMA(data, period) {
+            const k = 2 / (period + 1);
+            let emaArray = [data[0]];
+            for (let i = 1; i < data.length; i++) {
+                emaArray.push(data[i] * k + emaArray[i - 1] * (1 - k));
+            }
+            return emaArray;
+        }
+
+        function calculateRSI(closeData, period = 14) {
+            let gains = 0, losses = 0;
+            const rsi = [];
+
+            // Initial SMA
+            for (let i = 1; i <= period; i++) {
+                const change = closeData[i] - closeData[i - 1];
+                if (change > 0) gains += change;
+                else losses -= change;
+            }
+            
+            let avgGain = gains / period;
+            let avgLoss = losses / period;
+
+            // Fill initial nulls
+            for(let i=0; i<period; i++) rsi.push(null);
+
+            rsi.push(100 - (100 / (1 + (avgGain / avgLoss))));
+
+            // Smoothed
+            for (let i = period + 1; i < closeData.length; i++) {
+                const change = closeData[i] - closeData[i - 1];
+                const gain = change > 0 ? change : 0;
+                const loss = change < 0 ? -change : 0;
+
+                avgGain = ((avgGain * (period - 1)) + gain) / period;
+                avgLoss = ((avgLoss * (period - 1)) + loss) / period;
+
+                const rs = avgGain / avgLoss;
+                rsi.push(avgLoss === 0 ? 100 : 100 - (100 / (1 + rs)));
+            }
+            return rsi;
+        }
+
+        function calculateMACD(closeData, fastPeriod = 12, slowPeriod = 26, signalPeriod = 9) {
+            const fastEMA = calculateEMA(closeData, fastPeriod);
+            const slowEMA = calculateEMA(closeData, slowPeriod);
+            const macdLine = fastEMA.map((val, i) => val - slowEMA[i]);
+            
+            // Signal line is EMA of MACD line
+            // We need to handle the initial warm-up period where EMA might be skewed, but for simulation simple EMA is fine
+            const signalLine = calculateEMA(macdLine, signalPeriod);
+            const histogram = macdLine.map((val, i) => val - signalLine[i]);
+
+            return { macdLine, signalLine, histogram };
+        }
+
+        function calculateADX(high, low, close, period = 14) {
+            const tr = [], dmPlus = [], dmMinus = [];
+            const adx = [];
+            
+            // Calculate TR, +DM, -DM
+            for(let i=1; i<close.length; i++) {
+                const h = high[i];
+                const l = low[i];
+                const cp = close[i-1];
+                
+                const trVal = Math.max(h-l, Math.abs(h-cp), Math.abs(l-cp));
+                tr.push(trVal);
+
+                const upMove = high[i] - high[i-1];
+                const downMove = low[i-1] - low[i];
+
+                if(upMove > downMove && upMove > 0) dmPlus.push(upMove);
+                else dmPlus.push(0);
+
+                if(downMove > upMove && downMove > 0) dmMinus.push(downMove);
+                else dmMinus.push(0);
+            }
+
+            // Smoothing Function (Wilder's)
+            function smooth(arr, prev, period) {
+                return prev - (prev/period) + arr;
+            }
+
+            // Initial Average
+            let trSmooth = tr.slice(0, period).reduce((a,b)=>a+b,0);
+            let dmPlusSmooth = dmPlus.slice(0, period).reduce((a,b)=>a+b,0);
+            let dmMinusSmooth = dmMinus.slice(0, period).reduce((a,b)=>a+b,0);
+
+            // Fill nulls
+            for(let i=0; i<period; i++) adx.push(null); // Simple offset for alignment
+
+            // Calculate rest
+            let dxVals = [];
+            
+            // Loop through data
+            for(let i=period; i<tr.length; i++) {
+                trSmooth = trSmooth - (trSmooth/period) + tr[i];
+                dmPlusSmooth = dmPlusSmooth - (dmPlusSmooth/period) + dmPlus[i];
+                dmMinusSmooth = dmMinusSmooth - (dmMinusSmooth/period) + dmMinus[i];
+
+                const diPlus = (dmPlusSmooth / trSmooth) * 100;
+                const diMinus = (dmMinusSmooth / trSmooth) * 100;
+                
+                const dx = (Math.abs(diPlus - diMinus) / (diPlus + diMinus)) * 100;
+                dxVals.push(dx);
+            }
+
+            // Calculate ADX (EMA of DX)
+            let adxVal = dxVals.slice(0, period).reduce((a,b)=>a+b,0) / period;
+            
+            // Align ADX array to main data size approximately
+            // Padding nulls for initial period + ADX period
+            for(let i=0; i<period; i++) adx.push(null); 
+
+            for(let i=period; i<dxVals.length; i++) {
+                adxVal = ((adxVal * (period - 1)) + dxVals[i]) / period;
+                adx.push(adxVal);
+            }
+
+            // Pad the very beginning that we skipped due to i=1
+            adx.unshift(null); 
+            
+            return adx;
+        }
+
+        // --- Main Rendering Function ---
+
+        function generateSimulation() {
+            // Safety check for Plotly
+            if (typeof Plotly === 'undefined') {
+                console.error("Plotly is not loaded.");
+                return;
+            }
+
+            // 1. Get User Inputs
+            const startPriceInput = document.getElementById('input-start-price').value;
+            const timeframeInput = document.getElementById('input-timeframe').value;
+            
+            // New Inputs (For display context or future advanced logic)
+            const prevCloseInput = document.getElementById('input-prev-close').value;
+            const prevHighInput = document.getElementById('input-prev-high').value;
+            const prevLowInput = document.getElementById('input-prev-low').value;
+            
+            const startPrice = startPriceInput ? parseFloat(startPriceInput) : 1.0800;
+            const timeframe = timeframeInput || 'D1';
+
+            // 2. Generate Data
+            const allDates = generateDates(timeframe);
+            const data = generateData(allDates, startPrice, timeframe);
+            
+            // Filter only December data for Display
+            const decStartIndex = allDates.findIndex(d => d.startsWith('2025-12'));
+            
+            // Calculate Indicators
+            const ema9 = calculateEMA(data.close, 9);
+            const ema20 = calculateEMA(data.close, 20);
+            const ema50 = calculateEMA(data.close, 50);
+            const rsi = calculateRSI(data.close, 14);
+            const macd = calculateMACD(data.close, 12, 26, 9);
+            const adx = calculateADX(data.high, data.low, data.close, 14);
+
+            // Slice for Charting (Only show Dec 2025)
+            // If data generation failed or index not found, fallback to full array (safety)
+            const sliceIndex = decStartIndex !== -1 ? decStartIndex : 0;
+
+            const displayDates = data.dates.slice(sliceIndex);
+            const displayOpen = data.open.slice(sliceIndex);
+            const displayHigh = data.high.slice(sliceIndex);
+            const displayLow = data.low.slice(sliceIndex);
+            const displayClose = data.close.slice(sliceIndex);
+            
+            const dEma9 = ema9.slice(sliceIndex);
+            const dEma20 = ema20.slice(sliceIndex);
+            const dEma50 = ema50.slice(sliceIndex);
+            
+            const dRsi = rsi.slice(sliceIndex);
+            
+            const dMacdLine = macd.macdLine.slice(sliceIndex);
+            const dMacdSignal = macd.signalLine.slice(sliceIndex);
+            const dMacdHist = macd.histogram.slice(sliceIndex);
+            
+            const dAdx = adx.slice(sliceIndex);
+
+            // 1. Candlestick & EMAs
+            const traceCandle = {
+                x: displayDates,
+                close: displayClose,
+                decreasing: {line: {color: '#ef4444'}},
+                high: displayHigh,
+                increasing: {line: {color: '#22c55e'}},
+                line: {color: 'rgba(31,119,180,1)'},
+                low: displayLow,
+                open: displayOpen,
+                type: 'candlestick', 
+                name: 'Price'
+            };
+
+            const traceEma9 = { x: displayDates, y: dEma9, type: 'scatter', mode: 'lines', line: {color: '#22c55e', width: 1}, name: 'EMA 9' };
+            const traceEma20 = { x: displayDates, y: dEma20, type: 'scatter', mode: 'lines', line: {color: '#eab308', width: 1.5}, name: 'EMA 20' };
+            const traceEma50 = { x: displayDates, y: dEma50, type: 'scatter', mode: 'lines', line: {color: '#ef4444', width: 2}, name: 'EMA 50' };
+
+            const layoutPrice = {
+                plot_bgcolor: '#1e293b',
+                paper_bgcolor: '#1e293b',
+                font: {color: '#cbd5e1'},
+                xaxis: { rangeslider: { visible: false }, gridcolor: '#334155', type: 'category', nticks: 10 }, 
+                yaxis: { gridcolor: '#334155', title: 'Price' },
+                margin: { l: 40, r: 20, t: 30, b: 30 },
+                showlegend: false
+            };
+
+            Plotly.newPlot('chart-price', [traceCandle, traceEma9, traceEma20, traceEma50], layoutPrice, {displayModeBar: false, responsive: true});
+
+            // 2. MACD
+            const traceMacdLine = { x: displayDates, y: dMacdLine, type: 'scatter', mode: 'lines', line: {color: '#3b82f6'}, name: 'MACD' };
+            const traceMacdSignal = { x: displayDates, y: dMacdSignal, type: 'scatter', mode: 'lines', line: {color: '#f97316'}, name: 'Signal' };
+            const traceMacdHist = { x: displayDates, y: dMacdHist, type: 'bar', marker: {color: dMacdHist.map(v => v>=0 ? '#22c55e' : '#ef4444')}, name: 'Hist' };
+
+            const layoutMacd = {
+                plot_bgcolor: '#1e293b', paper_bgcolor: '#1e293b', font: {color: '#cbd5e1'},
+                xaxis: { visible: false }, yaxis: { gridcolor: '#334155' },
+                margin: { l: 40, r: 20, t: 30, b: 20 },
+                title: { text: `MACD (12, 26, 9) - ${timeframe}`, font: {size: 12} },
+                showlegend: false
+            };
+            Plotly.newPlot('chart-macd', [traceMacdHist, traceMacdLine, traceMacdSignal], layoutMacd, {displayModeBar: false, responsive: true});
+
+            // 3. RSI
+            const traceRsi = { x: displayDates, y: dRsi, type: 'scatter', mode: 'lines', line: {color: '#a855f7'}, name: 'RSI' };
+            
+            const layoutRsi = {
+                plot_bgcolor: '#1e293b', paper_bgcolor: '#1e293b', font: {color: '#cbd5e1'},
+                xaxis: { gridcolor: '#334155', type: 'category', showticklabels: false }, 
+                yaxis: { range: [0, 100], gridcolor: '#334155' },
+                shapes: [
+                    { type: 'line', x0: 0, x1: 1, xref: 'paper', y0: 70, y1: 70, line: {color: '#94a3b8', width: 1, dash: 'dot'} },
+                    { type: 'line', x0: 0, x1: 1, xref: 'paper', y0: 30, y1: 30, line: {color: '#94a3b8', width: 1, dash: 'dot'} }
+                ],
+                margin: { l: 30, r: 20, t: 30, b: 30 },
+                title: { text: 'RSI (14)', font: {size: 12} }
+            };
+            Plotly.newPlot('chart-rsi', [traceRsi], layoutRsi, {displayModeBar: false, responsive: true});
+
+            // 4. ADX
+            const traceAdx = { x: displayDates, y: dAdx, type: 'scatter', mode: 'lines', line: {color: '#facc15'}, name: 'ADX' };
+            const layoutAdx = {
+                plot_bgcolor: '#1e293b', paper_bgcolor: '#1e293b', font: {color: '#cbd5e1'},
+                xaxis: { gridcolor: '#334155', type: 'category', showticklabels: false }, 
+                yaxis: { range: [0, 60], gridcolor: '#334155' },
+                shapes: [
+                    { type: 'line', x0: 0, x1: 1, xref: 'paper', y0: 25, y1: 25, line: {color: '#94a3b8', width: 1, dash: 'dot'} }
+                ],
+                margin: { l: 30, r: 20, t: 30, b: 30 },
+                title: { text: 'ADX (14)', font: {size: 12} }
+            };
+            Plotly.newPlot('chart-adx', [traceAdx], layoutAdx, {displayModeBar: false, responsive: true});
+
+            // --- Update Sidebar Info ---
+            const lastClose = displayClose[displayClose.length - 1];
+            const prevClose = displayClose[displayClose.length - 2];
+            const change = lastClose - prevClose;
+            const changePercent = (change / prevClose) * 100;
+            const changeClass = change >= 0 ? 'text-green-400' : 'text-red-400';
+            const sign = change >= 0 ? '+' : '';
+
+            // Check if elements exist before updating (Safety check)
+            const elPrice = document.getElementById('last-price');
+            if (elPrice) {
+                elPrice.innerText = lastClose.toFixed(4);
+                elPrice.className = `text-3xl font-mono font-bold ${changeClass}`;
+            }
+
+            const elChange = document.getElementById('price-change');
+            if (elChange) {
+                elChange.innerHTML = `<span class="${changeClass}">${sign}${change.toFixed(4)} (${sign}${changePercent.toFixed(2)}%)</span>`;
+            }
+
+            // RSI
+            const lastRsi = dRsi[dRsi.length - 1];
+            const rsiEl = document.getElementById('rsi-value');
+            if (rsiEl) {
+                rsiEl.innerText = lastRsi ? lastRsi.toFixed(2) : '--';
+                rsiEl.className = `font-mono ${lastRsi > 70 ? 'text-red-400' : lastRsi < 30 ? 'text-green-400' : 'text-blue-300'}`;
+            }
+
+            // EMA Signal
+            const lastEma9 = dEma9[dEma9.length - 1];
+            const lastEma20 = dEma20[dEma20.length - 1];
+            const lastEma50 = dEma50[dEma50.length - 1];
+            const emaEl = document.getElementById('ema-signal');
+            
+            if (emaEl) {
+                if (lastEma9 > lastEma20 && lastEma20 > lastEma50) {
+                    emaEl.innerText = "STRONG BUY";
+                    emaEl.className = "px-2 py-0.5 rounded text-xs font-bold bg-green-600 text-white";
+                } else if (lastEma9 < lastEma20 && lastEma20 < lastEma50) {
+                    emaEl.innerText = "STRONG SELL";
+                    emaEl.className = "px-2 py-0.5 rounded text-xs font-bold bg-red-600 text-white";
+                } else {
+                    emaEl.innerText = "NEUTRAL/SIDEWAYS";
+                    emaEl.className = "px-2 py-0.5 rounded text-xs font-bold bg-gray-600 text-white";
+                }
+            }
+
+            // MACD
+            const lastMacdHist = dMacdHist[dMacdHist.length - 1];
+            const macdEl = document.getElementById('macd-value');
+            if (macdEl) {
+                macdEl.innerText = lastMacdHist.toFixed(5);
+                macdEl.className = `font-mono ${lastMacdHist >= 0 ? 'text-green-400' : 'text-red-400'}`;
+            }
+
+            // ADX
+            const lastAdx = dAdx[dAdx.length - 1];
+            const adxEl = document.getElementById('adx-value');
+            if (adxEl) {
+                adxEl.innerText = lastAdx ? lastAdx.toFixed(2) : '--';
+                if (lastAdx > 25) {
+                    adxEl.innerHTML += " <span class='text-xs text-white'>(Trending)</span>";
+                } else {
+                    adxEl.innerHTML += " <span class='text-xs text-slate-400'>(Weak)</span>";
+                }
+            }
+        }
+
+        // Init
+        window.onload = generateSimulation;
+    </script>
+</body>
+</html>

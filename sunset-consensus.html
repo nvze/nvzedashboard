@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sunset Consensus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+            --accent-blue: #0984e3;
+            --accent-red: #d63031;
+            --accent-purple: #6c5ce7;
+            --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+       .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #0984e3, #d63031);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+       .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            font-weight: 300;
+        }
+
+        /* Narrative Text */
+       .narrative {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-left: 4px solid var(--accent-purple);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* Characters */
+       .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+       .char-card {
+            background: var(--glass-bg);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease;
+        }
+
+       .char-card:hover {
+            transform: translateY(-5px);
+        }
+
+       .char-name {
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+       .char-role {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-family: 'Space Grotesk', monospace;
+        }
+
+       .team-opt { border-top: 4px solid var(--accent-blue); }
+       .team-real { border-top: 4px solid var(--accent-red); background: #fff0f0; }
+
+        /* Dialogue Bubbles */
+       .dialogue-box {
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+       .speaker-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+       .bubble {
+            padding: 25px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-size: 1.1rem;
+        }
+
+       .opt-bubble {
+            background: white;
+            border-bottom-left-radius: 2px;
+            align-self: flex-start;
+            border-left: 3px solid var(--accent-blue);
+            margin-right: 40px;
+        }
+
+       .real-bubble {
+            background: #2d3436;
+            color: white;
+            border-bottom-right-radius: 2px;
+            align-self: flex-end;
+            border-right: 3px solid var(--accent-red);
+            margin-left: 40px;
+        }
+
+        /* Chapter Titles */
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin: 80px 0 40px 0;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--text-primary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        /* Data Visualization */
+       .data-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+       .data-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--accent-red);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+       .data-title::before {
+            content: '⚡';
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            background: #f8f9fa;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-weight: 500;
+        }
+
+        /* Button */
+       .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 100px;
+            padding: 40px;
+        }
+
+       .btn-journal {
+            background: #2d3436;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+       .btn-journal:hover {
+            background: var(--accent-red);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(214, 48, 49, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+           .opt-bubble,.real-bubble { margin-left: 0; margin-right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>The Sunset Consensus</h1>
+        <div class="subtitle">Debat Brutal di Ujung Dago Pakar Tentang Nasib Ekonomi 2025-2026</div>
+    </header>
+
+    <div class="narrative">
+        Udara dingin Dago Pakar malam itu terasa menggigit, kontras dengan interior hangat <em>The 18th Restaurant and Lounge</em> yang mewah. Di balik dinding kaca, hamparan lampu kota Bandung berkelap-kelip, menyembunyikan jutaan kecemasan di bawahnya. Di sebuah <em>private room</em> dengan pemandangan 360 derajat, empat anak muda duduk mengelilingi meja marmer. Botol anggur vintage yang sudah setengah kosong berdiri di tengah, saksi bisu dari perdebatan yang akan segera meledak.
+    </div>
+
+    <div class="char-grid">
+        <div class="char-card team-opt">
+            <span class="char-name" style="color: var(--accent-blue)">Arjuna (28)</span>
+            <span class="char-role">Stafsus Kementerian. Lulusan LSE. Optimis karena posisi aman.</span>
+        </div>
+        <div class="char-card team-opt">
+            <span class="char-name" style="color: var(--accent-blue)">Citra (27)</span>
+            <span class="char-role">Konsultan Big Four. Lulusan Columbia. Percaya pada hilirisasi.</span>
+        </div>
+        <div class="char-card team-opt">
+            <span class="char-name" style="color: var(--accent-blue)">Bagas (29)</span>
+            <span class="char-role">Founder Tech B2G. Lulusan INSEAD. Pemburu APBN.</span>
+        </div>
+        <div class="char-card team-real">
+            <span class="char-name" style="color: var(--accent-red)">Elian (28)</span>
+            <span class="char-role">Hedge Fund Strategist. Lulusan Wharton. Realistis & Brutal.</span>
+        </div>
+    </div>
+
+    <h2>Babak 1: Halusinasi "Red October"</h2>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Arjuna</span>
+        <div class="bubble opt-bubble">
+            "Bro, <em>come on</em>. Lo terlalu <em>bearish</em>. Liat data terakhir dari Kemenkeu, file 'Red October' yang gue kirim. Fundamental kita itu solid banget. Di tengah gempuran global, kita masih bisa tumbuh 5.2% di 2025. The Fed udah <em>cut rate</em>, arus modal mulai balik. Kita ini <em>oasis</em> di tengah gurun resesi global. Konsumsi rumah tangga masih tumbuh 5%, inflasi terkendali di bawah 2.5%. <em>We are basically bulletproof</em>."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Citra</span>
+        <div class="bubble opt-bubble">
+            "<em>Exactly</em>, Juna. Dan jangan lupa soal program Makan Bergizi Gratis (MBG). Itu bukan cuma soal ngasih makan, itu <em>fiscal stimulus</em> yang langsung nyentuh <em>grassroots</em>. Multiplier effect-nya gila. Petani lokal, UMKM, logistik, semua jalan. Ini Keynesian economics <em>at its finest</em>. Pemerintah bener-bener hadir buat rakyat."
+        </div>
+    </div>
+
+    <div class="narrative">
+        Elian memutar gelas anggurnya, menatap cairan merah itu seolah darah ekonomi yang sedang tumpah. Dia tertawa kecil, suara yang kering dan tanpa humor.
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "<em>Bulletproof</em>? Lo berdua ini lagi <em>high</em> atau emang buta huruf? Lo baca data Kemenkeu itu kayak baca kitab suci, tanpa nanya konteks. Lo bilang tumbuh 5%? <em>Let’s dissect that bullshit</em>. Lo tau gak kalau pertumbuhan itu semu? Itu didorong sama utang dan belanja pemerintah yang nggak <em>sustainable</em>."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Bagas</span>
+        <div class="bubble opt-bubble">
+            "El, <em>please</em> deh. Jangan mulai dengan teori konspirasi Jaksel lo itu. Data BPS jelas, pengangguran turun ke 4.85%. Ekonomi bergerak."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Pengangguran turun? Lo baca <em>headline</em> doang, Gas. Coba lo bedah datanya. Tingkat Pengangguran Terbuka (TPT) muda alias Gen Z—generasi kita—itu hampir 14%. Itu dua kali lipat dari Vietnam dan Thailand. Lo bayangin, 14% anak muda produktif nggak punya kerjaan, sementara lo sibuk <em>flexing</em> proyek B2G lo. 56% tenaga kerja kita kejebak di sektor informal. Itu bukan ekonomi yang tumbuh, itu ekonomi yang bertahan hidup jualan cilok. Dan lo bilang konsumsi kuat? Itu karena orang-orang pake PayLater buat makan! Jawa Barat itu juara satu utang PayLater. <em>That’s not resilience, that’s desperation leveraged by fintech.</em>"
+        </div>
+    </div>
+
+    <div class="data-card">
+        <div class="data-title">DATA DEEP DIVE: Krisis Ketenagakerjaan Gen Z</div>
+        <p>Elian membuka tabletnya dan melempar data ke layar di dinding. Grafik itu merah menyala.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Indikator</th>
+                    <th>Data Realita 2025</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pengangguran Pemuda (15-24 thn)</td>
+                    <td>~13.14% - 16%</td>
+                    <td style="color: red; font-weight: bold;">CRITICAL (Tertinggi ASEAN)</td>
+                </tr>
+                <tr>
+                    <td>Pekerja Sektor Informal</td>
+                    <td>56% dari total angkatan kerja</td>
+                    <td style="color: orange; font-weight: bold;">HIGH RISK</td>
+                </tr>
+                <tr>
+                    <td>Kualitas Pekerjaan</td>
+                    <td>Tanpa jaminan sosial</td>
+                    <td>VULNERABLE</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">"Lo liat ini? Bonus demografi yang lo agung-agungkan itu udah berubah jadi bencana demografi. Generasi <em>Sandwich</em> makin kegencet, Gen Z makin <em>hopeless</em>."</p>
+    </div>
+
+    <h2>Babak 2: Bom Waktu Danantara & Utang Terselubung</h2>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Bagas</span>
+        <div class="bubble opt-bubble">
+            "Oke, oke, <em>labour market</em> emang <em>tough</em>. Tapi makanya kita butuh investasi gede. Dan disitulah peran <strong>Danantara</strong>. Lo nggak bisa ngebantah visi strategis ini. <em>Superholding</em> BUMN dengan aset $900 Miliar. Ini bakal jadi Temasek-nya Indonesia. Kita bakal leverage aset BUMN buat narik FDI tanpa ngebebanin APBN. <em>It’s brilliant</em>."
+        </div>
+    </div>
+
+    <div class="narrative">
+        Elian membanting serbetnya ke meja. Matanya menyala dengan kemarahan dingin.
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Brilian? Itu bukan Temasek, Bagas. Itu '1MDB Starter Pack'. Lo mau nyamain Danantara sama Temasek? Temasek dibangun puluhan tahun dengan meritokrasi dan transparansi brutal. Danantara? Dibikin semalam suntuk dengan menggabungkan aset BUMN yang udah sekarat kayak PLN dan Pertamina, terus dikasih label 'Sovereign Wealth Fund'. Tujuannya cuma satu: <em>Financial Engineering</em> buat nyari utang baru tanpa lewat DPR."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Arjuna</span>
+        <div class="bubble opt-bubble">
+            "Jaga mulut lo, El. CEO-nya profesional, ada pengawasan BPK dan KPK. Mereka komitmen sama Santiago Principles. Ini soal kedaulatan aset negara."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Santiago Principles <em>my ass</em>. Liat struktur dewannya. Isinya orang-orang politik semua, tim sukses Presiden. Mana profesional independennya? Konflik kepentingannya telanjang banget. Lo tau apa risikonya? <em>Contingent Liability</em>. Kalau Danantara gagal bayar utang karena asetnya bodong atau dikorupsi, yang nanggung siapa? APBN juga ujungnya. AMRO udah peringatin, rasio utang kita bisa tembus 42% di 2029 kalau ginian diterusin. Dan lo tau Debt Service Ratio (DSR) kita sekarang? Hampir 40% pendapatan negara habis cuma buat bayar bunga utang. Kita gali lubang, tutup lubang, pake sekop emas bernama Danantara."
+        </div>
+    </div>
+
+    <h2>Babak 3: Ilusi Makan Siang & Pendidikan Militeristik</h2>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Citra</span>
+        <div class="bubble opt-bubble">
+            "Lo terlalu sinis sama institusi, El. Tapi lo gak bisa denial soal dampak sosialnya. Program Makan Bergizi Gratis (MBG) dan Sekolah Rakyat itu bukti negara hadir. Kita ngasih makan 82 juta anak. Kita bangun sekolah asrama buat orang miskin. Ini revolusi SDM!"
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Hadir? Negara hadir buat ngeracunin anak orang? Lo baca berita gak sih, Cit? Ribuan kasus keracunan makanan di berbagai daerah gara-gara MBG. Kenapa? Karena pengadaannya ugal-ugalan, dikejar tayang, dan—<em>surprise, surprise</em>—melibatkan Militer (TNI) di dapur umum. Sejak kapan tentara jadi koki katering? Itu <em>red flag</em> korupsi pengadaan yang nyata. ICW udah teriak soal potensi <em>fraud</em> di mark-up harga kotak makan."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Arjuna</span>
+        <div class="bubble opt-bubble">
+            "Itu masalah teknis lapangan, biasa di awal program. Nanti juga <em>smooth</em>. Anggarannya naik jadi Rp 335 Triliun di 2026, itu komitmen serius."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Rp 335 Triliun? Lo sadar duit itu diambil dari mana? Dari motong anggaran kesehatan, dari motong dana pendidikan reguler. Lo bikin Sekolah Rakyat yang konsepnya asrama militeristik, anak-anak dibangunin jam 3 pagi, dilatih baris-berbaris sama tentara. Itu bukan pendidikan karakter, itu indoktrinasi kelas bawah. Lo menciptakan segregasi: anak kaya sekolah di internasional kayak kita dulu, anak miskin masuk barak militer. Dan lo sebut itu 'memuliakan rakyat miskin'? Itu <em>dystopian</em>."
+        </div>
+    </div>
+
+    <div class="data-card">
+        <div class="data-title">FAKTA LAPANGAN: Sisi Gelap Program Populist</div>
+        <ul>
+            <li><strong>Inefisiensi Anggaran:</strong> Lonjakan anggaran MBG dari Rp 71 T (2025) ke Rp 335 T (2026) menciptakan tekanan fiskal luar biasa, berisiko menggeser belanja prioritas lain seperti kesehatan.</li>
+            <li><strong>Militerisasi Sipil:</strong> Pelibatan TNI dalam program sipil seperti MBG, Sekolah Rakyat, dan Koperasi Desa memicu kritik tentang kembalinya dwifungsi ABRI dan inefisiensi keahlian.</li>
+            <li><strong>Kesehatan & Sanitasi:</strong> Ribuan kasus keracunan makanan dilaporkan, menunjukkan kegagalan standar higienitas dalam rantai pasok yang terburu-buru.</li>
+        </ul>
+    </div>
+
+    <h2>Babak 4: Guillotine Tarif Trump & Kebangkrutan Industri</h2>
+
+    <div class="narrative">
+        Suasana di ruangan itu makin panas. Bagas, yang merasa tersudut, mencoba mengeluarkan kartu as-nya.
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-blue)">Bagas</span>
+        <div class="bubble opt-bubble">
+            "Oke, domestik mungkin <em>messy</em>. Tapi lihat diplomasi kita! Prabowo berhasil nego sama Trump. Tarif impor turun dari 32% jadi 19%. Itu kemenangan diplomasi! Kita juga beli 50 pesawat Boeing buat ngunci kesepakatan itu. <em>We are playing 4D chess with the superpowers</em>."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Kemenangan? Lo sebut 19% itu kemenangan? Itu vonis mati yang ditunda, Bagas. Lo tau margin industri tekstil kita berapa? <em>Single digit</em>. Kalau kena tarif 19%, mereka mati. Liat Sritex! Raksasa tekstil Asia Tenggara itu bangkrut, pailit! Ribuan buruh di-PHK massal. Sementara Vietnam dapet <em>deal</em> yang lebih baik atau punya FTA. Kita? Kita dikasih tarif 19% dan disuruh makasih."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Dan soal Boeing... Lo pikir Garuda punya duit buat beli 50 pesawat <em>wide-body</em>? Garuda itu secara teknis masih berdarah-darah, baru lolos restrukturisasi utang. Duitnya dari mana? Paling disuntik lagi lewat Danantara. Jadi, kita pake uang rakyat buat nyelamatin perusahaan Amerika (Boeing), supaya Trump gak naikin tarif yang tetep ngebunuh pabrik tekstil kita di Solo dan Bandung. <em>That’s not 4D chess. That’s capitulation.</em> Kita digoblokin secara global."
+        </div>
+    </div>
+
+    <h2>Babak 5: Badai Sempurna 2026 (The Perfect Storm)</h2>
+
+    <div class="narrative">
+        Ketiga teman Elian terdiam. Argumen mereka satu per satu dipatahkan dengan data yang brutal. Tapi Elian belum selesai.
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Dan yang paling parah, kalian semua rabun jauh. Kalian sibuk ngerayain angka 2025, padahal badai sebenernya ada di depan mata. <strong>2026. The Perfect Storm.</strong> Ray Dalio, World Bank, UNCTAD, semua udah teriak. Amerika bakal resesi. China melambat ke 4.2%. Lo tau artinya apa buat kita? Ekspor komoditas kita bakal hancur."
+        </div>
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Nikel? Kita udah <em>oversupply</em> pasar sampe harganya jatuh, bikin smelter-smelter itu rugi. Batubara? <em>Sunset industry</em>. CPO? Volatil. Ketika super-cycle komoditas berakhir tahun depan, dan AS resesi, siapa yang mau beli barang kita? Siapa yang mau beli surat utang kita? Rupiah bakal dihajar, dan defisit kembar (Twin Deficit) bakal meledak. Saat itu terjadi, optimisme kalian yang dibangun di atas PowerPoint kementerian itu bakal runtuh."
+        </div>
+    </div>
+
+    <div class="narrative">
+        Elian mengambil jaket kulitnya, bersiap pergi. Dia menatap Arjuna, Citra, dan Bagas dengan tatapan kasihan.
+    </div>
+
+    <div class="dialogue-box">
+        <span class="speaker-label" style="color: var(--accent-red); text-align: right;">Elian</span>
+        <div class="bubble real-bubble">
+            "Kalian bertaruh pada <em>soft landing</em> yang dikemudikan oleh sopir mabuk. Pemerintah yang memiliterisasi sekolah, menyembunyikan utang di SWF palsu, dan bergantung pada harga nikel yang lagi terjun bebas. Gue? Gue lagi <em>short</em> IHSG dan Rupiah. <em>Good luck</em> dengan optimisme kalian. Tagihannya bakal dateng, dan kali ini, gak bisa dibayar pake janji kampanye."
+        </div>
+    </div>
+
+    <div class="narrative">
+        Elian berjalan keluar ruangan, meninggalkan keheningan yang mencekam. Di luar, kabut mulai turun menyelimuti Bandung, menelan satu per satu lampu kota, seolah memberi pertanda gelapnya masa depan yang baru saja diprediksi.
+    </div>
+
+    <div class="btn-container">
+        <a href="https://nvze.github.io/dashboard/blog.html" class="btn-journal">Kembali ke daftar Jurnal</a>
+    </div>
+
+</div>
+
+</body>
+</html>

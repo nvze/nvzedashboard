@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Outlook: Senopati Sunset Session</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --bg-dark: #0f0518;
+            --text-main: #e2e8f0;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: linear-gradient(180deg, rgba(15, 5, 24, 0) 0%, #0f0518 100%), url('https://images.unsplash.com/photo-1565039265146-591be2475e6d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        /* Dialogue System */
+        .chat-row {
+            display: flex;
+            margin-bottom: 2.5rem;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            position: relative;
+        }
+
+        .avatar::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            background: #10b981;
+            border: 2px solid var(--bg-dark);
+            border-radius: 50%;
+        }
+
+        /* Character Specifics */
+        .char-adrian .avatar { background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=200&h=200'); border: 2px solid var(--accent-cyan); }
+        .char-ben .avatar { background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=200&h=200'); border: 2px solid var(--accent-purple); }
+        .char-cia .avatar { background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?fit=crop&w=200&h=200'); border: 2px solid var(--accent-pink); }
+
+        .bubble {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 0 20px 20px 20px;
+            backdrop-filter: blur(12px);
+            border: var(--glass-border);
+            position: relative;
+            flex: 1;
+        }
+
+        .name-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .char-adrian .name-tag { color: var(--accent-cyan); }
+        .char-ben .name-tag { color: var(--accent-purple); }
+        .char-cia .name-tag { color: var(--accent-pink); }
+
+        /* Narrative Text */
+        .narrative {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: #cbd5e1;
+            margin: 3rem 0;
+            padding: 2rem;
+            border-left: 1px solid var(--accent-purple);
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.05) 0%, transparent 100%);
+        }
+
+        /* Data Visualization Cards */
+        .data-card {
+            background: #131c31;
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-box {
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Table Styling */
+        .modern-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .modern-table th {
+            text-align: left;
+            padding: 1rem;
+            color: #94a3b8;
+            font-weight: 600;
+            border-bottom: 1px solid #334155;
+        }
+
+        .modern-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .highlight-row {
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: 8px;
+        }
+
+        .trend-up { color: #10b981; }
+        .trend-down { color: #ef4444; }
+
+        /* Button */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px -5px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .chat-row { flex-direction: column; gap: 0.5rem; }
+            .avatar { width: 40px; height: 40px; }
+            .bubble { border-radius: 20px; width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MACRO & CHILL</h1>
+    <div class="subtitle">Senopati, Jakarta Selatan | Oktober 2025</div>
+    <div style="margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.5);">based on Recent Economic Development Report</div>
+</header>
+
+<div class="container">
+
+    <div class="narrative">
+        <p>Senja di Jakarta Selatan selalu punya cara untuk terlihat estetik, apalagi jika dilihat dari <em>rooftop</em> sebuah cafe artisan di kawasan Senopati. Langit berwarna ungu lembayung bercampur polusi tipis yang entah kenapa malah menambah kesan dramatis.</p>
+        <p>Di salah satu meja marmer, tiga sekawan sedang <em>hangout</em> sepulang kerja. <strong>Adrian</strong>, seorang analis kebijakan fiskal lulusan Ivy League yang kini bekerja di lingkaran strategi Kemenkeu. <strong>Ben</strong>, founder startup <em>export-aggregator</em> yang sedang pusing dengan volatilitas pasar. Dan <strong>Cia</strong>, pemilik cafe tempat mereka nongkrong ini, sekaligus investor saham yang portofolionya sedang merah-hijau tak menentu.</p>
+    </div>
+
+    <div class="chat-row char-ben">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Ben (The Founder)</span>
+            "Dri, <em>seriously</em>, gue butuh <em>insight</em> lo. Ini market global lagi <em>chaos</em> banget. Gue denger The Fed motong suku bunga, tapi kok <em>trade war</em> makin gila? <em>Impact</em>-nya ke bisnis ekspor gue bakal seberapa <em>bad</em>?"
+        </div>
+    </div>
+
+    <div class="chat-row char-adrian">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Adrian (The Analyst)</span>
+            "<em>Chill</em>, Ben. Tarik napas dulu. <em>Let's look at the data</em>, oke? Ini gue baru dapet update Oktober 2025. Memang <em>global uncertainty</em> itu nyata. The Fed emang baru aja cut rate sebesar 0,25% jadi ke level 4,00-4,25%. Probabilitas mereka bakal cut lagi 25 bps di sisa tahun ini tuh tinggi banget, 97,8% di Oktober dan 87,5% di Desember. Ini sinyal pelonggaran moneter yang bagus buat <em>emerging market</em> kayak kita."
+            <br><br>
+            "Dan <em>despite</em> semua drama itu, ekonomi Indonesia tuh <em>resilient</em> banget. IMF proyeksiin kita tumbuh 4,9% tahun ini dan 4,9%-5,1% di 2026. Jauh di atas rata-rata global yang cuma 3,2%."
+        </div>
+    </div>
+
+    <div class="data-card">
+        <div class="card-header">
+            <span class="card-title">Global vs Domestic Growth Outlook (2025f)</span>
+            <span style="font-size: 0.8rem; opacity: 0.7;">IMF WEO Oct 2025</span>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-box">
+                <div class="stat-value" style="color: #a78bfa;">3,2%</div>
+                <div class="stat-label">Global Growth</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" style="color: #06b6d4;">4,9%</div>
+                <div class="stat-label">Indonesia (Resilient)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">2,0%</div>
+                <div class="stat-label">Amerika Serikat</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">4,8%</div>
+                <div class="stat-label">China</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-row char-cia">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Cia (The Investor)</span>
+            "Tapi Dri, isu Trump mau naikin tarif gila-gilaan itu gimana? Gue baca berita dia mau hajar China pake tarif 100% per 1 November 2025 nanti gara-gara isu ekspor kontrol. Indonesia kena imbas <em>Reciprocal Tariff</em> kan?"
+        </div>
+    </div>
+
+    <div class="chat-row char-adrian">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Adrian (The Analyst)</span>
+            "<em>Valid point</em>, Cia. Trump emang agresif. China kena tarif 30% plus ekstra 100%. Vietnam kena 20%, Malaysia 19%. Nah, Indonesia emang kena tarif balasan 19% dari AS. <em>It sounds scary</em>, tapi pemerintah kita udah gerak cepet lewat 'US-Indonesia Trade Deal' pertengahan Juli 2025 kemarin."
+            <br><br>
+            "<em>Look</em>, kita emang kena tarif 19% buat ekspor ke sana. Tapi <em>in return</em>, produk AS masuk sini 0% tarif. Terus kita komitmen beli produk energi mereka senilai USD 15 miliar, produk pertanian USD 4,5 miliar, sama beli 50 pesawat Boeing. Ini strategi diplomasi biar kita nggak digencet habis-habisan."
+        </div>
+    </div>
+
+    <div class="data-card">
+        <div class="card-header">
+            <span class="card-title">Reciprocal Tariff Impact & Trade Balance 2024</span>
+        </div>
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>US Tariff Applied</th>
+                    <th>Trade Balance vs US</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>China</td>
+                    <td class="trend-down">30% (+100% extra)</td>
+                    <td>-319,1 USD bn</td>
+                </tr>
+                <tr>
+                    <td>Vietnam</td>
+                    <td class="trend-down">20%</td>
+                    <td>-129,4 USD bn</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td><strong>Indonesia</strong></td>
+                    <td class="trend-down"><strong>19%</strong></td>
+                    <td><strong>-19,3 USD bn</strong></td>
+                </tr>
+                <tr>
+                    <td>Malaysia</td>
+                    <td class="trend-down">19%</td>
+                    <td>-26,1 USD bn</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chat-row char-ben">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Ben (The Founder)</span>
+            "Oke, geopolitik emang <em>messy</em>. Tapi <em>domestically</em> gimana? <em>Cost of goods</em> gue naik turun nih. Komoditas apa kabar?"
+        </div>
+    </div>
+
+    <div class="chat-row char-adrian">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Adrian (The Analyst)</span>
+            "Komoditas emang <em>mixed</em>, Ben. CPO turun ke USD 1.006,45/ton karena <em>demand</em> musim dingin melemah. Nikel juga <em>struggling</em> di USD 15.226/ton karena <em>oversupply</em>. Tapi Batubara lagi <em>party</em>, tembus USD 109/ton karena permintaan kuat. Minyak Brent stabil di USD 65/barel."
+            <br><br>
+            "Tapi secara makro, Q2-2025 kemarin PDB kita tumbuh 5,0%. Jawa masih jadi <em>backbone</em> dengan kontribusi 56,9% dan tumbuh 5,2%. Inflasi kita juga <em>manageable</em> banget di 2,5% - 2,8% per September. Bandingin sama Turki yang inflasinya 33,3% atau Argentina 31,8%. Kita tuh surga stabilitas, <em>bro</em>."
+        </div>
+    </div>
+
+    <div class="chat-row char-cia">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Cia (The Investor)</span>
+            "Terus APBN aman? Gue denger banyak program jumbo taun depan. <em>Budget</em>-nya dari mana? Jangan bilang pajak gue dinaikin lagi."
+        </div>
+    </div>
+
+    <div class="chat-row char-adrian">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Adrian (The Analyst)</span>
+            "APBN kita sehat kok, Cia. Per 30 September 2025, Pendapatan Negara udah Rp1.863,3 T (65% target). Pajak nyumbang Rp1.516,6 T. Belanja Negara udah Rp2.234,8 T. Defisit masih 1,56% PDB, padahal target akhir tahun 2,78%. <em>So we have fiscal space</em>."
+            <br><br>
+            "Nah, buat 2026 ke depan, kita nggak bisa cuma andalin APBN buat ngejar pertumbuhan 8%. Kebutuhan investasi 5 tahun ke depan itu Rp 41.540 Triliun. Pemerintah cuma sanggup 7%. Sisanya? 84% harus dari Swasta, dan 9% dari BUMN plus <strong>Danantara</strong>."
+        </div>
+    </div>
+
+    <div class="narrative">
+        <p>Cia dan Ben saling berpandangan. Kata "Danantara" terdengar seksi di telinga para pelaku pasar. Adrian menyeruput <em>iced americano</em>-nya sebelum melanjutkan penjelasannya tentang 'mesin pertumbuhan' baru Indonesia ini.</p>
+    </div>
+
+    <div class="chat-row char-adrian">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Adrian (The Analyst)</span>
+            "Danantara itu <em>Sovereign Wealth Fund</em> kita. Dia bakal jadi <em>engine of growth</em> buat investasi strategis kayak hilirisasi, ketahanan pangan, dan energi. Jadi beban pembangunan nggak semua di pundak APBN."
+        </div>
+    </div>
+
+    <div class="chat-row char-cia">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Cia (The Investor)</span>
+            "Satu lagi, Dri. Program Makan Bergizi Gratis (MBG) itu gimana kabarnya? Itu <em>game changer</em> buat sektor F&B kayak gue kalau bisa masuk rantai pasoknya."
+        </div>
+    </div>
+
+    <div class="chat-row char-adrian">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Adrian (The Analyst)</span>
+            "Itu prioritas utama di 2026. Anggarannya Rp 335 Triliun buat 71,9 juta siswa, plus balita dan ibu hamil. Total penerima manfaat 82,9 juta orang. Gede banget."
+            <br><br>
+            "Selain itu, Pendidikan dapet Rp 769,1 T, Ketahanan Energi Rp 402,4 T, Kesehatan Rp 244 T. Oh ya Ben, buat bisnis lo, pemerintah naruh duit Rp 200 Triliun di bank Himbara (BRI, Mandiri, BNI, BTN) buat nambah likuiditas biar bunga kredit kompetitif. <em>Opportunity</em> tuh buat ekspansi."
+        </div>
+    </div>
+
+    <div class="data-card">
+        <div class="card-header">
+            <span class="card-title">2026 Priority Spending Allocation</span>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-box">
+                <div class="stat-label">Pendidikan</div>
+                <div class="stat-value" style="color: #60a5fa;">Rp 769,1 T</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Ketahanan Energi</div>
+                <div class="stat-value" style="color: #fbbf24;">Rp 402,4 T</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Makan Bergizi Gratis</div>
+                <div class="stat-value" style="color: #ec4899;">Rp 335,0 T</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Kesehatan</div>
+                <div class="stat-value" style="color: #34d399;">Rp 244,0 T</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-row char-ben">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Ben (The Founder)</span>
+            "<em>Nice insight</em>, Dri. Ternyata walau global lagi badai, fundamental kita solid. Ada inflow masuk ke SBN Rp 8,58 T juga kan tahun ini? <em>Make sense</em> sih kalau Rupiah apresiasi 3,1%."
+        </div>
+    </div>
+
+    <div class="chat-row char-adrian">
+        <div class="avatar"></div>
+        <div class="bubble">
+            <span class="name-tag">Adrian (The Analyst)</span>
+            "<em>Exactly</em>. Kita harus tetep optimis tapi waspada. Kapal Indonesia mesinnya lagi panas, fiskal 2026 didesain defisit 2,68% PDB yang <em>prudent</em> tapi cukup ekspansif buat ngejar target pertumbuhan 5,4%. <em>We are on the right track</em>."
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <a href="https://nvze.github.io/dashboard/blog.html" class="btn-back">Kembali ke daftar Jurnal</a>
+    </div>
+
+</div>
+
+</body>
+</html>

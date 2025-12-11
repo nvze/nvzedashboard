@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksplorasi Aritmatika Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (max-width: 640px) {
+            .chart-container { height: 280px; }
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutral Academy (Cream/Slate/Sage/Terracotta) -->
+    <!-- Application Structure Plan:
+        1. Sticky Nav: Quick access to 4 main domains (Basics, Sequences, Social, Exponents).
+        2. Hero: Brief context setting.
+        3. Module 1 (Basics): Static interactive cards for properties + Dynamic Fraction Calculator to solve Section 2.
+        4. Module 2 (Sequences): The core visual interactive element. Uses Chart.js to visualize the growth of sequences (Linear vs Exponential) based on user inputs for a, b, and r. Solves Section 3 & 4.
+        5. Module 3 (Social): Financial Dashboard. Inputs for Buy/Sell to show Profit/Loss visually. Input for Savings to show Interest. Solves Section 5.
+        6. Module 4 (Exponents): Simple interaction to reinforce Section 6.
+        WHY: This structure moves from abstract rules to concrete visualizations, allowing users to "play" with the variables ($n$, $b$, prices) to see immediate effects, deepening understanding beyond static formulas.
+    -->
+    <!-- Visualization & Content Choices:
+        1. Sequence Growth (Line Chart): Goal: Inform/Compare. Method: Chart.js Line. Interaction: User changes $a$ (start), $b$ (diff), $r$ (ratio). Visualizes how Arithmetic is linear while Geometric is exponential.
+        2. Profit/Loss Analysis (Bar Chart): Goal: Compare. Method: Chart.js Bar. Interaction: Input Buy/Sell prices. Visualizes the gap (Margin).
+        3. Fraction Calc (DOM Manipulation): Goal: Inform. Method: Dynamic Text. Interaction: Input numerators/denominators. Shows steps.
+        4. Interest Calc (DOM Manipulation): Goal: Inform. Method: Dynamic Text/Progress Bar representation.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl text-slate-700">∑</span>
+                    <span class="font-bold text-xl tracking-tight text-slate-800">Aritmatika<span class="text-indigo-600">Pedia</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('dasar')" class="text-slate-600 hover:text-indigo-600 font-medium transition">Dasar & Pecahan</button>
+                    <button onclick="scrollToSection('deret')" class="text-slate-600 hover:text-indigo-600 font-medium transition">Barisan & Deret</button>
+                    <button onclick="scrollToSection('sosial')" class="text-slate-600 hover:text-indigo-600 font-medium transition">Aritmatika Sosial</button>
+                    <button onclick="scrollToSection('eksponen')" class="text-slate-600 hover:text-indigo-600 font-medium transition">Eksponen</button>
+                </div>
+                <!-- Mobile Menu Button (simplified functionality for demo) -->
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 text-slate-600">
+                    Menu
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 p-4 space-y-2">
+            <button onclick="scrollToSection('dasar')" class="block w-full text-left py-2 text-slate-600">Dasar & Pecahan</button>
+            <button onclick="scrollToSection('deret')" class="block w-full text-left py-2 text-slate-600">Barisan & Deret</button>
+            <button onclick="scrollToSection('sosial')" class="block w-full text-left py-2 text-slate-600">Aritmatika Sosial</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-br from-indigo-50 to-white py-16">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Eksplorasi Dunia Aritmatika</h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                Platform interaktif untuk memahami rumus matematika. Dari operasi dasar pecahan, pola bilangan dalam barisan, hingga perhitungan keuangan sehari-hari. 
+                Cobalah kalkulator interaktif di bawah ini untuk melihat bagaimana rumus bekerja secara nyata.
+            </p>
+            <div class="flex justify-center gap-4">
+                <button onclick="scrollToSection('deret')" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-0.5">
+                    Coba Visualisasi Deret
+                </button>
+                <button onclick="scrollToSection('sosial')" class="px-6 py-3 bg-white text-indigo-600 border border-indigo-200 font-semibold rounded-lg shadow-sm hover:bg-indigo-50 transition">
+                    Hitung Keuangan
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <!-- SECTION 1: DASAR & PECAHAN -->
+        <section id="dasar" class="scroll-mt-24">
+            <div class="mb-8">
+                <span class="text-indigo-600 font-bold uppercase tracking-wider text-sm">Modul 1</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-1">Dasar Operasi & Pecahan</h2>
+                <p class="text-slate-600 mt-4 max-w-3xl">
+                    Bagian ini mencakup sifat dasar matematika (Komutatif, Asosiatif, Distributif) dan alat bantu untuk operasi pecahan. 
+                    Gunakan kalkulator di sebelah kanan untuk menjumlahkan, mengurangkan, mengali, atau membagi dua pecahan dan melihat langkah penyelesaiannya.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Left: Sifat Dasar Cards -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-semibold text-slate-800 border-l-4 border-indigo-500 pl-3">Sifat Dasar</h3>
+                    <div class="grid gap-4">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:border-indigo-200 transition">
+                            <h4 class="font-bold text-slate-700">Komutatif (Pertukaran)</h4>
+                            <div class="mt-2 font-mono text-sm bg-slate-50 p-3 rounded text-slate-600">
+                                a + b = b + a<br>
+                                a × b = b × a
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:border-indigo-200 transition">
+                            <h4 class="font-bold text-slate-700">Asosiatif (Pengelompokan)</h4>
+                            <div class="mt-2 font-mono text-sm bg-slate-50 p-3 rounded text-slate-600">
+                                (a + b) + c = a + (b + c)
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:border-indigo-200 transition">
+                            <h4 class="font-bold text-slate-700">Distributif (Penyebaran)</h4>
+                            <div class="mt-2 font-mono text-sm bg-slate-50 p-3 rounded text-slate-600">
+                                a × (b + c) = (a × b) + (a × c)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Fraction Calculator -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-8">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2">
+                        <span>🧮</span> Kalkulator Pecahan
+                    </h3>
+                    
+                    <div class="flex items-center justify-center gap-4 mb-6">
+                        <div class="flex flex-col gap-2 w-20">
+                            <input type="number" id="frac-a" value="1" class="text-center p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <div class="h-0.5 bg-slate-800 w-full"></div>
+                            <input type="number" id="frac-b" value="2" class="text-center p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        
+                        <select id="frac-op" class="p-2 bg-slate-100 rounded text-xl font-bold text-indigo-600 cursor-pointer hover:bg-slate-200 transition">
+                            <option value="+">+</option>
+                            <option value="-">-</option>
+                            <option value="*">×</option>
+                            <option value="/">÷</option>
+                        </select>
+
+                        <div class="flex flex-col gap-2 w-20">
+                            <input type="number" id="frac-c" value="3" class="text-center p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <div class="h-0.5 bg-slate-800 w-full"></div>
+                            <input type="number" id="frac-d" value="4" class="text-center p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                        </div>
+                        
+                        <span class="text-2xl font-bold text-slate-400">=</span>
+
+                        <div class="flex flex-col gap-2 w-24">
+                            <div id="res-num" class="text-center p-2 font-bold text-indigo-700 text-lg">10</div>
+                            <div class="h-0.5 bg-indigo-700 w-full"></div>
+                            <div id="res-den" class="text-center p-2 font-bold text-indigo-700 text-lg">8</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <h4 class="text-xs font-bold text-indigo-500 uppercase mb-2">Langkah Pengerjaan</h4>
+                        <p id="frac-steps" class="text-sm text-indigo-900 font-medium">
+                            Menyamakan penyebut: (1 × 4) + (3 × 2) / (2 × 4) = 4 + 6 / 8 = 10 / 8
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: BARISAN & DERET -->
+        <section id="deret" class="scroll-mt-24 bg-slate-50 relative">
+            <div class="absolute inset-0 bg-white shadow-sm transform -skew-y-1 rounded-3xl -z-10 mx-auto w-full max-w-7xl h-full border border-slate-100"></div>
+            
+            <div class="mb-8 pt-8 px-4">
+                <span class="text-emerald-600 font-bold uppercase tracking-wider text-sm">Modul 2</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-1">Barisan & Deret</h2>
+                <p class="text-slate-600 mt-4 max-w-3xl">
+                    Visualisasikan perbedaan antara pertumbuhan Aritmatika (linier) dan Geometri (eksponensial).
+                    Ubah nilai <strong>Suku Awal (a)</strong>, <strong>Beda (b)</strong>, atau <strong>Rasio (r)</strong> untuk melihat grafik berubah secara real-time.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 px-4 pb-8">
+                <!-- Controls -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 h-fit">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6">Parameter Deret</h3>
+                    
+                    <!-- Type Selector -->
+                    <div class="flex bg-slate-100 p-1 rounded-lg mb-6">
+                        <button id="btn-arith" onclick="setSeriesType('arithmetic')" class="flex-1 py-2 text-sm font-semibold rounded-md bg-white text-indigo-600 shadow-sm transition">Aritmatika</button>
+                        <button id="btn-geo" onclick="setSeriesType('geometric')" class="flex-1 py-2 text-sm font-semibold rounded-md text-slate-500 hover:text-indigo-600 transition">Geometri</button>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Suku Awal (a)</label>
+                            <input type="range" id="input-a" min="1" max="50" value="2" class="w-full accent-indigo-600 cursor-pointer">
+                            <div class="flex justify-between text-sm text-slate-700 font-mono mt-1">
+                                <span>1</span>
+                                <span id="val-a" class="font-bold text-indigo-600">2</span>
+                                <span>50</span>
+                            </div>
+                        </div>
+
+                        <div id="control-b">
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Beda (b)</label>
+                            <input type="range" id="input-b" min="1" max="20" value="3" class="w-full accent-emerald-500 cursor-pointer">
+                            <div class="flex justify-between text-sm text-slate-700 font-mono mt-1">
+                                <span>1</span>
+                                <span id="val-b" class="font-bold text-emerald-600">3</span>
+                                <span>20</span>
+                            </div>
+                        </div>
+
+                        <div id="control-r" class="hidden">
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Rasio (r)</label>
+                            <input type="number" id="input-r" min="0.1" max="3" step="0.1" value="2" class="w-full border border-slate-300 rounded p-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                            <p class="text-xs text-slate-400 mt-1">Gunakan desimal untuk deret konvergen (misal 0.5)</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Jumlah Suku (n)</label>
+                            <input type="range" id="input-n" min="3" max="20" value="10" class="w-full accent-slate-600 cursor-pointer">
+                            <div class="flex justify-between text-sm text-slate-700 font-mono mt-1">
+                                <span>3</span>
+                                <span id="val-n" class="font-bold text-slate-800">10</span>
+                                <span>20</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-slate-500">Suku ke-n (Un):</span>
+                            <span id="res-un" class="font-mono font-bold text-slate-800 text-lg">29</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-500">Jumlah (Sn):</span>
+                            <span id="res-sn" class="font-mono font-bold text-indigo-600 text-xl">155</span>
+                        </div>
+                        <div id="res-inf-wrapper" class="flex justify-between items-center mt-2 hidden">
+                            <span class="text-sm text-slate-500">Tak Hingga (S∞):</span>
+                            <span id="res-inf" class="font-mono font-bold text-emerald-600 text-lg">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualization -->
+                <div class="xl:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-slate-100 flex flex-col justify-center">
+                    <div class="flex justify-between items-end mb-4">
+                        <h3 class="text-lg font-bold text-slate-800">Grafik Pertumbuhan Suku</h3>
+                        <span id="formula-display" class="font-mono text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">Un = a + (n-1)b</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="seriesChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-slate-500" id="chart-desc">Grafik menunjukkan kenaikan linear karena penambahan tetap.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ARITMATIKA SOSIAL -->
+        <section id="sosial" class="scroll-mt-24">
+            <div class="mb-8">
+                <span class="text-amber-600 font-bold uppercase tracking-wider text-sm">Modul 3</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-1">Aritmatika Sosial</h2>
+                <p class="text-slate-600 mt-4 max-w-3xl">
+                    Simulasi perhitungan keuangan nyata. Bandingkan harga beli dan jual untuk melihat visualisasi untung/rugi, atau hitung bunga tabungan bank.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Card 1: Profit/Loss Simulator -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800">Simulasi Untung & Rugi</h3>
+                        <span class="text-xl">💰</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Harga Beli (Rp)</label>
+                                <input type="number" id="price-buy" value="100000" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-amber-500 outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Harga Jual (Rp)</label>
+                                <input type="number" id="price-sell" value="125000" class="w-full border border-slate-300 rounded p-2 focus:ring-2 focus:ring-amber-500 outline-none transition">
+                            </div>
+                        </div>
+
+                        <!-- Visual Bar for Profit/Loss -->
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="profitChart"></canvas>
+                        </div>
+
+                        <div class="mt-6 bg-amber-50 rounded-lg p-4 text-center">
+                            <span id="profit-status" class="block font-bold text-amber-700 text-lg">Untung</span>
+                            <span id="profit-value" class="block text-2xl font-extrabold text-slate-800 my-1">Rp 25.000</span>
+                            <span id="profit-percent" class="block text-sm font-medium text-amber-600">(25%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Simple Interest & Discount -->
+                <div class="space-y-8">
+                    <!-- Interest -->
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+                        <h3 class="font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Kalkulator Bunga Tunggal</h3>
+                        <div class="grid grid-cols-3 gap-3 mb-4">
+                            <div>
+                                <label class="text-xs text-slate-500 block">Modal (M)</label>
+                                <input type="number" id="interest-m" value="1000000" class="w-full border rounded p-1.5 text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-500 block">Bunga % (p)</label>
+                                <input type="number" id="interest-p" value="5" class="w-full border rounded p-1.5 text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-500 block">Waktu (thn)</label>
+                                <input type="number" id="interest-t" value="2" class="w-full border rounded p-1.5 text-sm">
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded border border-emerald-100">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-emerald-800">Bunga Diterima:</span>
+                                <span id="res-interest" class="font-bold text-emerald-700">Rp 100.000</span>
+                            </div>
+                            <div class="flex justify-between text-lg">
+                                <span class="font-bold text-slate-700">Total Akhir:</span>
+                                <span id="res-total-savings" class="font-bold text-emerald-600">Rp 1.100.000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Discount -->
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+                        <h3 class="font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Hitung Diskon</h3>
+                        <div class="flex gap-4 mb-4">
+                            <div class="flex-1">
+                                <label class="text-xs text-slate-500 block">Harga Label</label>
+                                <input type="number" id="disc-price" value="500000" class="w-full border rounded p-2">
+                            </div>
+                            <div class="w-24">
+                                <label class="text-xs text-slate-500 block">Diskon %</label>
+                                <input type="number" id="disc-pct" value="20" class="w-full border rounded p-2">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-right w-full">
+                                <div class="text-xs text-slate-400 line-through" id="disc-orig">Rp 500.000</div>
+                                <div class="text-2xl font-bold text-indigo-600" id="disc-final">Rp 400.000</div>
+                                <div class="text-xs text-indigo-400">Hemat: <span id="disc-save">Rp 100.000</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: EKSPONEN -->
+        <section id="eksponen" class="scroll-mt-24 pb-20">
+            <div class="mb-6">
+                <span class="text-purple-600 font-bold uppercase tracking-wider text-sm">Modul 4</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-1">Eksponen & Pangkat</h2>
+            </div>
+            
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-xl p-8 text-white flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-6 md:mb-0 md:mr-8">
+                    <h3 class="text-2xl font-bold mb-2">Coba Sendiri</h3>
+                    <p class="text-purple-100 text-sm opacity-90">Masukkan angka basis dan pangkat untuk melihat hasilnya secara instan.</p>
+                </div>
+                
+                <div class="flex items-center gap-4 bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
+                    <div class="flex flex-col items-center">
+                        <input type="number" id="exp-base" value="2" class="w-16 bg-white/20 border border-white/30 text-white text-center p-2 rounded text-xl font-bold focus:outline-none focus:bg-white/30 placeholder-white/50">
+                        <span class="text-xs text-purple-200 mt-1">Basis (a)</span>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <input type="number" id="exp-pow" value="5" class="w-12 bg-white/20 border border-white/30 text-white text-center p-1 rounded text-sm font-bold focus:outline-none focus:bg-white/30">
+                    </div>
+                    
+                    <span class="text-3xl font-bold">=</span>
+                    
+                    <div class="flex flex-col items-center min-w-[80px]">
+                        <span id="exp-res" class="text-4xl font-extrabold text-white tracking-wide">32</span>
+                        <span class="text-xs text-purple-200 mt-1">Hasil</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties Ref -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="bg-white p-4 rounded-lg border text-center">
+                    <div class="text-slate-400 text-xs mb-1">Perkalian</div>
+                    <div class="font-mono font-bold text-indigo-600">aᵐ × aⁿ = aᵐ⁺ⁿ</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg border text-center">
+                    <div class="text-slate-400 text-xs mb-1">Pembagian</div>
+                    <div class="font-mono font-bold text-indigo-600">aᵐ ÷ aⁿ = aᵐ⁻ⁿ</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg border text-center">
+                    <div class="text-slate-400 text-xs mb-1">Pangkat Dipangkatkan</div>
+                    <div class="font-mono font-bold text-indigo-600">(aᵐ)ⁿ = aᵐⁿ</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg border text-center">
+                    <div class="text-slate-400 text-xs mb-1">Pangkat Negatif</div>
+                    <div class="font-mono font-bold text-indigo-600">a⁻ⁿ = 1/aⁿ</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-4 text-slate-500">Dibuat berdasarkan "Kumpulan Rumus Aritmatika"</p>
+            <div class="text-2xl mb-2">∑</div>
+            <p class="text-sm">Membantu visualisasi matematika untuk pemahaman yang lebih baik.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- NAVIGATION ---
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- SECTION 1: FRACTION CALCULATOR ---
+        const fracInputs = ['frac-a', 'frac-b', 'frac-c', 'frac-d', 'frac-op'];
+        fracInputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateFraction);
+        });
+
+        function updateFraction() {
+            const a = parseFloat(document.getElementById('frac-a').value) || 0;
+            const b = parseFloat(document.getElementById('frac-b').value) || 1;
+            const c = parseFloat(document.getElementById('frac-c').value) || 0;
+            const d = parseFloat(document.getElementById('frac-d').value) || 1;
+            const op = document.getElementById('frac-op').value;
+
+            // Avoid division by zero display issues
+            if(b === 0 || d === 0) {
+                document.getElementById('frac-steps').innerText = "Penyebut tidak boleh 0";
+                return;
+            }
+
+            let num, den, steps = "";
+
+            if (op === '+') {
+                num = (a * d) + (c * b);
+                den = b * d;
+                steps = `Samakan penyebut: (${a}×${d}) + (${c}×${b}) / (${b}×${d}) = ${a*d} + ${c*b} / ${den}`;
+            } else if (op === '-') {
+                num = (a * d) - (c * b);
+                den = b * d;
+                steps = `Samakan penyebut: (${a}×${d}) - (${c}×${b}) / (${b}×${d}) = ${a*d} - ${c*b} / ${den}`;
+            } else if (op === '*') {
+                num = a * c;
+                den = b * d;
+                steps = `Pembilang × Pembilang, Penyebut × Penyebut: ${a}×${c} / ${b}×${d}`;
+            } else if (op === '/') {
+                num = a * d;
+                den = b * c;
+                steps = `Balik pecahan kedua lalu kali: ${a}/${b} × ${d}/${c} = ${a}×${d} / ${b}×${c}`;
+            }
+
+            // Simplify if possible (basic implementation)
+            const gcd = (a, b) => b ? gcd(b, a % b) : a;
+            const common = Math.abs(gcd(num, den));
+            const simpleNum = num / common;
+            const simpleDen = den / common;
+
+            document.getElementById('res-num').innerText = simpleNum;
+            document.getElementById('res-den').innerText = simpleDen;
+            document.getElementById('frac-steps').innerText = `${steps} = ${num}/${den} ${common > 1 ? `(Disederhanakan: ${simpleNum}/${simpleDen})` : ''}`;
+        }
+
+        // --- SECTION 2: SEQUENCES & SERIES (CHART.JS) ---
+        let seriesChart;
+        let currentSeriesType = 'arithmetic'; // 'arithmetic' or 'geometric'
+
+        function initSeriesChart() {
+            const ctx = document.getElementById('seriesChart').getContext('2d');
+            seriesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Nilai Suku (Un)',
+                        data: [],
+                        borderColor: '#4f46e5', // Indigo 600
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#4f46e5',
+                        pointRadius: 4,
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { borderDash: [2, 4], color: '#e2e8f0' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `U${context.label}: ${context.raw}`;
+                                }
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
+            updateSeries();
+        }
+
+        function setSeriesType(type) {
+            currentSeriesType = type;
+            const btnArith = document.getElementById('btn-arith');
+            const btnGeo = document.getElementById('btn-geo');
+            const controlB = document.getElementById('control-b');
+            const controlR = document.getElementById('control-r');
+            const formulaDisp = document.getElementById('formula-display');
+            const desc = document.getElementById('chart-desc');
+            const infWrapper = document.getElementById('res-inf-wrapper');
+
+            if (type === 'arithmetic') {
+                btnArith.className = "flex-1 py-2 text-sm font-semibold rounded-md bg-white text-indigo-600 shadow-sm transition";
+                btnGeo.className = "flex-1 py-2 text-sm font-semibold rounded-md text-slate-500 hover:text-indigo-600 transition";
+                controlB.classList.remove('hidden');
+                controlR.classList.add('hidden');
+                formulaDisp.innerText = "Un = a + (n-1)b";
+                desc.innerText = "Grafik menunjukkan kenaikan/penurunan linear karena penambahan tetap.";
+                infWrapper.classList.add('hidden');
+            } else {
+                btnGeo.className = "flex-1 py-2 text-sm font-semibold rounded-md bg-white text-indigo-600 shadow-sm transition";
+                btnArith.className = "flex-1 py-2 text-sm font-semibold rounded-md text-slate-500 hover:text-indigo-600 transition";
+                controlB.classList.add('hidden');
+                controlR.classList.remove('hidden');
+                formulaDisp.innerText = "Un = a × r^(n-1)";
+                desc.innerText = "Grafik menunjukkan pertumbuhan/peluruhan eksponensial karena perkalian rasio.";
+                infWrapper.classList.remove('hidden');
+            }
+            updateSeries();
+        }
+
+        function updateSeries() {
+            const a = parseInt(document.getElementById('input-a').value);
+            const n = parseInt(document.getElementById('input-n').value);
+            
+            // Update UI Labels
+            document.getElementById('val-a').innerText = a;
+            document.getElementById('val-n').innerText = n;
+
+            let dataPoints = [];
+            let labels = [];
+            let sum = 0;
+            let un = 0;
+
+            if (currentSeriesType === 'arithmetic') {
+                const b = parseInt(document.getElementById('input-b').value);
+                document.getElementById('val-b').innerText = b;
+
+                for (let i = 1; i <= n; i++) {
+                    let val = a + (i - 1) * b;
+                    dataPoints.push(val);
+                    labels.push(i);
+                    sum += val;
+                    if(i === n) un = val;
+                }
+            } else {
+                const r = parseFloat(document.getElementById('input-r').value);
+                // Geometric
+                for (let i = 1; i <= n; i++) {
+                    let val = a * Math.pow(r, i - 1);
+                    // Prevent crazy numbers for display
+                    if(Math.abs(val) > 1000000) val = val > 0 ? 1000000 : -1000000; 
+                    dataPoints.push(val);
+                    labels.push(i);
+                    sum += val; // Approx for display
+                    if(i === n) un = val;
+                }
+                
+                // Infinite sum check
+                const infRes = document.getElementById('res-inf');
+                if (r > -1 && r < 1 && r !== 0) {
+                    let sInf = a / (1 - r);
+                    infRes.innerText = sInf.toFixed(2);
+                } else {
+                    infRes.innerText = "Divergen";
+                }
+            }
+
+            // Update Chart
+            seriesChart.data.labels = labels;
+            seriesChart.data.datasets[0].data = dataPoints;
+            seriesChart.update();
+
+            // Update Text Results
+            document.getElementById('res-un').innerText = un.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+            document.getElementById('res-sn').innerText = sum.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+        }
+
+        ['input-a', 'input-b', 'input-r', 'input-n'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateSeries);
+        });
+
+        // --- SECTION 3: SOCIAL ARITHMETIC ---
+        
+        // Profit Chart
+        let profitChart;
+        function initProfitChart() {
+            const ctx = document.getElementById('profitChart').getContext('2d');
+            profitChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Beli', 'Jual'],
+                    datasets: [{
+                        label: 'Harga',
+                        data: [100000, 125000],
+                        backgroundColor: ['#94a3b8', '#f59e0b'], // Slate, Amber
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+            updateProfit();
+        }
+
+        function updateProfit() {
+            const buy = parseFloat(document.getElementById('price-buy').value) || 0;
+            const sell = parseFloat(document.getElementById('price-sell').value) || 0;
+
+            const diff = sell - buy;
+            const isProfit = diff >= 0;
+            const pct = buy > 0 ? ((Math.abs(diff) / buy) * 100).toFixed(1) : 0;
+
+            // UI Text
+            const statusEl = document.getElementById('profit-status');
+            const valEl = document.getElementById('profit-value');
+            const pctEl = document.getElementById('profit-percent');
+
+            if (isProfit) {
+                statusEl.innerText = "Untung";
+                statusEl.className = "block font-bold text-emerald-600 text-lg";
+                valEl.className = "block text-2xl font-extrabold text-slate-800 my-1";
+                pctEl.className = "block text-sm font-medium text-emerald-600";
+                profitChart.data.datasets[0].backgroundColor = ['#94a3b8', '#10b981']; // Gray vs Green
+            } else {
+                statusEl.innerText = "Rugi";
+                statusEl.className = "block font-bold text-rose-600 text-lg";
+                valEl.className = "block text-2xl font-extrabold text-slate-800 my-1";
+                pctEl.className = "block text-sm font-medium text-rose-600";
+                profitChart.data.datasets[0].backgroundColor = ['#94a3b8', '#f43f5e']; // Gray vs Red
+            }
+
+            valEl.innerText = "Rp " + Math.abs(diff).toLocaleString('id-ID');
+            pctEl.innerText = `(${pct}%)`;
+
+            // Chart Update
+            profitChart.data.datasets[0].data = [buy, sell];
+            profitChart.update();
+        }
+
+        ['price-buy', 'price-sell'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateProfit);
+        });
+
+        // Interest & Discount Logic
+        function updateFinance() {
+            // Interest
+            const M = parseFloat(document.getElementById('interest-m').value) || 0;
+            const p = parseFloat(document.getElementById('interest-p').value) || 0;
+            const t = parseFloat(document.getElementById('interest-t').value) || 0;
+            const B = M * (p/100) * t;
+            document.getElementById('res-interest').innerText = "Rp " + B.toLocaleString('id-ID');
+            document.getElementById('res-total-savings').innerText = "Rp " + (M + B).toLocaleString('id-ID');
+
+            // Discount
+            const price = parseFloat(document.getElementById('disc-price').value) || 0;
+            const discPct = parseFloat(document.getElementById('disc-pct').value) || 0;
+            const discVal = price * (discPct/100);
+            const finalPrice = price - discVal;
+            
+            document.getElementById('disc-orig').innerText = "Rp " + price.toLocaleString('id-ID');
+            document.getElementById('disc-final').innerText = "Rp " + finalPrice.toLocaleString('id-ID');
+            document.getElementById('disc-save').innerText = "Rp " + discVal.toLocaleString('id-ID');
+        }
+
+        ['interest-m', 'interest-p', 'interest-t', 'disc-price', 'disc-pct'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateFinance);
+        });
+
+
+        // --- SECTION 4: EXPONENTS ---
+        function updateExponents() {
+            const base = parseFloat(document.getElementById('exp-base').value) || 0;
+            const pow = parseFloat(document.getElementById('exp-pow').value) || 0;
+            const res = Math.pow(base, pow);
+            
+            // Format check for massive numbers
+            let display = res;
+            if (res > 1000000000 || (res < 0.000001 && res > 0)) {
+                display = res.toExponential(4);
+            } else {
+                display = res.toLocaleString('id-ID', {maximumFractionDigits: 6});
+            }
+            
+            document.getElementById('exp-res').innerText = display;
+        }
+
+        ['exp-base', 'exp-pow'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateExponents);
+        });
+
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            updateFraction();
+            initSeriesChart();
+            initProfitChart();
+            updateFinance();
+            updateExponents();
+        };
+
+    </script>
+</body>
+</html>
